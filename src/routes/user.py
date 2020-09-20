@@ -1,13 +1,13 @@
-from flask import request
-
-from .api import api_v1
+from flask import request, Blueprint
 from .response import response, not_found, bad_request
 
 from models.user import User
 
-from schemas import user_schema
-from schemas import users_schema
-from schemas import params_user_schema
+from schemas.user import user_schema
+from schemas.user import users_schema
+from schemas.user import params_user_schema
+
+USERS_BLUEPRINT = Blueprint('users', __name__, url_prefix='/api/v1')
 
 def set_user(function):
     def wrap(*args, **kwargs):
@@ -21,7 +21,7 @@ def set_user(function):
     wrap.__name__ = function.__name__
     return wrap
 
-@api_v1.route('/users', methods=['GET'])
+@USERS_BLUEPRINT.route('/users', methods=['GET'])
 def get_users():
     page = int(request.args.get('page', 1))
     order = request.args.get('order', 'desc')
@@ -31,12 +31,12 @@ def get_users():
     return response(users_schema.dump(users))
 
 
-@api_v1.route('/users/<id>', methods=['GET'])
+@USERS_BLUEPRINT.route('/users/<id>', methods=['GET'])
 @set_user
 def get_user(user):
     return response(user_schema.dump(user))
 
-@api_v1.route('/users', methods=['POST'])
+@USERS_BLUEPRINT.route('/users', methods=['POST'])
 def create_user():
     json = request.get_json(force=True)
     error = params_user_schema.validate(json)
@@ -44,13 +44,13 @@ def create_user():
     if error:
         return bad_request()
 
-    user = User.new(json['email'], json['password'])
+    user = User.new(email=json['email'], password=json['password'], username='admin')
     if user.save():
         return response(user_schema.dump(user))
     
     return bad_request()
 
-@api_v1.route('/users/<id>', methods=['PUT'])
+@USERS_BLUEPRINT.route('/users/<id>', methods=['PUT'])
 @set_user
 def update_user(user):
     json = request.get_json(force=True)
@@ -63,7 +63,7 @@ def update_user(user):
 
     return bad_request()
 
-@api_v1.route('/users/<id>', methods=['DELETE'])
+@USERS_BLUEPRINT.route('/users/<id>', methods=['DELETE'])
 @set_user
 def delete_user(user):
     if user.delete():

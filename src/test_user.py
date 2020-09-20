@@ -17,16 +17,13 @@ class TestAPI(unittest.TestCase):
         self.path_first_user = self.path + '/1'
         self.path_fake_user = self.path + '/100'
         self.data = {
-            'email': 'admin2@sales.com', 'password': 'password'
+            'username': 'admin','email': 'admin2@sales.com', 'password': 'password'
         }
         self.data_to_update = { 'email': 'admin2@sales.com' }
 
     def tearDown(self):
         with self.app.app_context():
             db.drop_all()
-
-    def test_one_equals_one(self):
-        self.assertEqual(1, 1)
     
     def test_get_all_users(self):
         response = self.client.get(path=self.path)
