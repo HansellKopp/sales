@@ -22,8 +22,12 @@ class TestAPI(unittest.TestCase):
             "description": "ABC AROMA BEBE 30X400g",
             "tax": 12.0,
             "price": 232.79,
-            "departament": "PRODUCTOS",
+            "price_2": 332.79,
+            "price_3": 432.79,
+            "price_4": 532.79,
             "stock": 0,
+            "minimum": 0,
+            "departament": "PRODUCTOS",
             "unit": "BT"
         }
         self.data_to_update = {'description': 'ABC SUAVITEL 18X810G'}

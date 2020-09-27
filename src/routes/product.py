@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, Blueprint
 
 from flask import Blueprint
 
@@ -6,11 +6,13 @@ from .response import response, not_found, bad_request
 
 from models.product import Product
 
+
 from schemas.product import product_schema
 from schemas.product import products_schema
 from schemas.product import params_product_schema
 
 PRODUCTS_BLUEPRINT = Blueprint('products', __name__, url_prefix='/api/v1')
+
 
 def set_product(function):
     def wrap(*args, **kwargs):
@@ -20,15 +22,16 @@ def set_product(function):
             return not_found()
 
         return function(product)
-    
+
     wrap.__name__ = function.__name__
     return wrap
+
 
 @PRODUCTS_BLUEPRINT.route('/products', methods=['GET'])
 def get_products():
     page = int(request.args.get('page', 1))
     order = request.args.get('order', 'desc')
-    
+
     products = Product.get_by_page(order, page)
 
     return response(products_schema.dump(products))
@@ -39,6 +42,7 @@ def get_products():
 def get_product(product):
     return response(product_schema.dump(product))
 
+
 @PRODUCTS_BLUEPRINT.route('/products', methods=['POST'])
 def create_product():
     json = request.get_json(force=True)
@@ -48,29 +52,38 @@ def create_product():
         return bad_request()
 
     product = Product.new(
-        sku=json['sku'], 
+        sku=json['sku'],
         description=json['description'],
-        tax=json['tax'], 
-        price=json['price'], 
-        departament=json['departament'], 
+        tax=json['tax'],
+        price=json['price'],
+        price_2=json['price_2'],
+        price_3=json['price_3'],
+        price_4=json['price_4'],
         stock=json['stock'],
+        minimum=json['minimum'],
+        departament=json['departament'],
         unit=json['unit']
     )
 
     if product.save():
         return response(product_schema.dump(product))
-    
+
     return bad_request()
+
 
 @PRODUCTS_BLUEPRINT.route('/products/<id>', methods=['PUT'])
 @set_product
 def update_product(product):
     json = request.get_json(force=True)
-
     product.sku = json.get('sku', product.sku)
     product.description = json.get('description', product.description)
     product.tax = json.get('tax', product.tax)
     product.price = json.get('price', product.price)
+    product.price_2 = json.get('price_2', product.price_2)
+    product.price_3 = json.get('price_3', product.price_3)
+    product.price_4 = json.get('price_4', product.price_4)
+    product.stock = json.get('stock', product.stock)
+    product.minimum = json.get('minimum', product.minimum)
     product.departament = json.get('departament', product.departament)
     product.stock = json.get('stock', product.stock)
     product.unit = json.get('unit', product.unit)
@@ -80,10 +93,11 @@ def update_product(product):
 
     return bad_request()
 
+
 @PRODUCTS_BLUEPRINT.route('/products/<id>', methods=['DELETE'])
 @set_product
 def delete_product(product):
     if product.delete():
         return response(product_schema.dump(product))
-    
+
     return bad_request()
