@@ -6,7 +6,7 @@ from marshmallow.validate import Length, Range
 
 class ProductSchema(Schema):
     class Meta:
-        fields = ('id', 'sku', 'description', 'tax',
+        fields = ('id', 'sku', 'description', 'tax', 'cost',
                   'price', 'price_2', 'price_3', 'price_4',
                   'stock', 'minimum',
                   'departament', 'stock', 'unit')
@@ -17,6 +17,7 @@ class ParamsProductSchema(Schema):
     description = fields.Str(required=True, validate=Length(max=150))
     tax = fields.Float(required=True, validate=Range(
         min_inclusive=0, max_inclusive=100))
+    cost = fields.Float(required=True, validate=Range(min_inclusive=0))
     price = fields.Float(required=True, validate=Range(min_inclusive=0))
     price_2 = fields.Float(required=True, validate=Range(min_inclusive=0))
     price_3 = fields.Float(required=True, validate=Range(min_inclusive=0))

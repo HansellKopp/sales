@@ -55,6 +55,7 @@ def create_product():
         sku=json['sku'],
         description=json['description'],
         tax=json['tax'],
+        cost=json['cost'],
         price=json['price'],
         price_2=json['price_2'],
         price_3=json['price_3'],
@@ -78,6 +79,7 @@ def update_product(product):
     product.sku = json.get('sku', product.sku)
     product.description = json.get('description', product.description)
     product.tax = json.get('tax', product.tax)
+    product.cost = json.get('cost', product.cost)
     product.price = json.get('price', product.price)
     product.price_2 = json.get('price_2', product.price_2)
     product.price_3 = json.get('price_3', product.price_3)

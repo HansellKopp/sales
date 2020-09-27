@@ -11,6 +11,7 @@ class Product(db.Model):
     sku = db.Column(db.String, nullable=False)
     description = db.Column(db.String, nullable=False)
     tax = db.Column(db.Float, nullable=False, default=0)
+    cost = db.Column(db.Float, nullable=False, default=0)
     price = db.Column(db.Float, nullable=False, default=0)
     price_2 = db.Column(db.Float, nullable=False, default=0)
     price_3 = db.Column(db.Float, nullable=False, default=0)
@@ -21,12 +22,13 @@ class Product(db.Model):
     unit = db.Column(db.String, nullable=False, default="")
 
     @classmethod
-    def new(cls, sku, description, tax, price, price_2, price_3, price_4, stock, minimum,
+    def new(cls, sku, description, tax, cost, price, price_2, price_3, price_4, stock, minimum,
             departament, unit):
         return Product(
             sku=sku,
             description=description,
             tax=tax,
+            cost=cost,
             price=price,
             price_2=price_2,
             price_3=price_3,

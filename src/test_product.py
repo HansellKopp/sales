@@ -21,6 +21,7 @@ class TestAPI(unittest.TestCase):
             "sku": "FVE01321",
             "description": "ABC AROMA BEBE 30X400g",
             "tax": 12.0,
+            "cost": 100,
             "price": 232.79,
             "price_2": 332.79,
             "price_3": 432.79,
