@@ -1,6 +1,6 @@
 from . import db
 from .document import Document
-from sqlalchemy import desc, asc
+from sqlalchemy import desc, asc, or_
 from sqlalchemy.event import listen
 from sqlalchemy.orm import relationship
 
@@ -27,9 +27,14 @@ class Person(db.Model):
                       city=city, state=state, phone=phone, email=email, price=1)
 
     @classmethod
-    def get_by_page(cls, order, page, per_page=10):
+    def get_by_page(cls, order, page, per_page=10, q=""):
         sort = desc(Person.id) if order == 'desc' else asc(Person.id)
-        return Person.query.order_by(sort).paginate(page, per_page).items
+        person_query = Person.query
+        if(q):
+            person_query = person_query.filter(or_(Person.firstname.like(
+                '%'+q+'%'), Person.lastname.like('%'+q+'%'), Person.tax_id.like('%'+q+'%')))
+        person_query = person_query.order_by(sort).paginate(page, per_page)
+        return person_query.items
 
     def save(self):
         try:

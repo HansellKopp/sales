@@ -27,8 +27,10 @@ def set_person(function):
 def get_persons():
     page = int(request.args.get('page', 1))
     order = request.args.get('order', 'desc')
+    print(request.args)
+    q = request.args.get('q', '')
 
-    persons = Person.get_by_page(order, page)
+    persons = Person.get_by_page(order, page, 10, q)
 
     return response(persons_schema.dump(persons))
 
@@ -58,7 +60,6 @@ def create_person():
                         price=json['price']
                         )
 
-    print(person)
     if person.save():
         return response(person_schema.dump(person))
 

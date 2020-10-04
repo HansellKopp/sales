@@ -16,7 +16,7 @@ class Product(db.Model):
     price_2 = db.Column(db.Float, nullable=False, default=0)
     price_3 = db.Column(db.Float, nullable=False, default=0)
     price_4 = db.Column(db.Float, nullable=False, default=0)
-    stock = db.Column(db.Float, nullable=False, default=0)
+    stock = db.Column(db.Float, nullable=False, default=0)  # calc
     minimum = db.Column(db.Float, nullable=False, default=0)
     departament = db.Column(db.String, nullable=False, default=True)
     unit = db.Column(db.String, nullable=False, default="")
