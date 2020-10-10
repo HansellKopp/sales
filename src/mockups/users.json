@@ -1,0 +1,15 @@
+[
+    {
+      "email": "admin@sales.com",
+      "username": "admin",
+      "password": "password",
+      "active": true
+    },
+    {
+        "email": "user@sales.com",
+        "username": "user",
+        "password": "password",
+        "active": true
+      }
+  
+]

@@ -1,0 +1,389 @@
+[
+  {
+    "departament": "Grupo A",
+    "sku": "001",
+    "description":"Downy Mod.",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "002",
+    "description":"Citrus Lemon",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "003",
+    "description":"Frutos Rojos ",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "004",
+    "description":"Citronella",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "005",
+    "description":"Cherry Royal",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "006",
+    "description":"Aires Marinos",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "007",
+    "description":"Chicle Canela",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "008",
+    "description":"Tutti Tropical",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "009",
+    "description":"Fresh Laundry",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "010",
+    "description":"Canela",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo A",
+    "sku": "011",
+    "description":"Cherrylicius plus",
+    "stock":0,
+    "price" : 18, 
+    "price_2": 10,
+    "price_3": 5
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "012",
+    "description":"Baby Clean",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "013",
+    "description":"Lavanda Jardín",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "014",
+    "description":"Ariel",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "015",
+    "description":"Suavitel King",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "016",
+    "description":"Nubes de Algodón",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "017",
+    "description":"Suspiro de Bebe",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "018",
+    "description":"Berry Natural(uva)",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "019",
+    "description":"Pino",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo B",
+    "sku": "020",
+    "description":"Hawai(Coco)",
+    "stock":0,
+    "price" : 20, 
+    "price_2": 11,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "021",
+    "description":"Pantene Hair",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "022",
+    "description":"Elvive Hair",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "023",
+    "description":"Lavanda Magic",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "024",
+    "description":"Vel Rosa",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "025",
+    "description":"Manzana verde",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "026",
+    "description":"Bamboo Moon",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "026",
+    "description":"Ariel Conc.",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "027",
+    "description":"Floral sofisticado",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "028",
+    "description":"Naranja",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "029",
+    "description":"Mandarina Cool",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "030",
+    "description":"Ariel Green Apple",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo C",
+    "sku": "031",
+    "description":"Maracuya(Parchita)",
+    "stock":0,
+    "price" : 22, 
+    "price_2": 12,
+    "price_3": 6
+  },
+  {
+    "departament": "Grupo D",
+    "sku": "032",
+    "description":"Piña Colada",
+    "stock":0,
+    "price" : 24, 
+    "price_2": 13,
+    "price_3": 7
+  },
+  {
+    "departament": "Grupo D",
+    "sku": "033",
+    "description":"Rocío Azul",
+    "stock":0,
+    "price" : 24, 
+    "price_2": 13,
+    "price_3": 7
+  },
+  {
+    "departament": "Grupo D",
+    "sku": "034",
+    "description":"Rocío Marino",
+    "stock":0,
+    "price" : 24, 
+    "price_2": 13,
+    "price_3": 7
+  },
+  {
+    "departament": "Grupo D",
+    "sku": "035",
+    "description":"Manzana Canela",
+    "stock":0,
+    "price" : 24, 
+    "price_2": 13,
+    "price_3": 7
+  },
+  {
+    "departament": "Grupo D",
+    "sku": "036",
+    "description":"Bebé Ternura",
+    "stock":0,
+    "price" : 24, 
+    "price_2": 13,
+    "price_3": 7
+  },
+  {
+    "departament": "Grupo D",
+    "sku": "037",
+    "description":"Floral Soft",
+    "stock":0,
+    "price" : 24, 
+    "price_2": 13,
+    "price_3": 7
+  },
+  {
+    "departament": "Grupo D",
+    "sku": "038",
+    "description":"Menta Fresh",
+    "stock":0,
+    "price" : 24, 
+    "price_2": 13,
+    "price_3": 7
+  },
+  {
+    "departament": "Grupo E",
+    "sku": "039",
+    "description":"Romance",
+    "stock":0,
+    "price" : 28, 
+    "price_2": 15,
+    "price_3": 8
+  },
+  {
+    "departament": "Grupo E",
+    "sku": "040",
+    "description":"Manly power",
+    "stock":0,
+    "price" : 28, 
+    "price_2": 15,
+    "price_3": 8
+  },
+  {
+    "departament": "Grupo E",
+    "sku": "041",
+    "description":"Seducción",
+    "stock":0,
+    "price" : 28, 
+    "price_2": 15,
+    "price_3": 8
+  },
+  {
+    "departament": "Grupo E",
+    "sku": "042",
+    "description":"Fresa champagne",
+    "stock":0,
+    "price" : 28, 
+    "price_2": 15,
+    "price_3": 8
+  }
+]

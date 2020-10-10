@@ -102,6 +102,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
+pyvenv.cfg
 .env
 .venv
 env/
@@ -109,6 +110,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+tutorial-env/
 
 # Spyder project settings
 .spyderproject
@@ -129,3 +131,5 @@ dmypy.json
 .pyre/
 
 /src/app/data/data.db
+
+settings.json

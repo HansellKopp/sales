@@ -9,7 +9,7 @@ class ProductSchema(Schema):
         fields = ('id', 'sku', 'description', 'tax', 'cost',
                   'price', 'price_2', 'price_3', 'price_4',
                   'stock', 'minimum',
-                  'departament', 'stock', 'unit')
+                  'departament', 'stock')
 
 
 class ParamsProductSchema(Schema):
@@ -25,7 +25,6 @@ class ParamsProductSchema(Schema):
     stock = fields.Float(required=True, default=0)
     minimum = fields.Float(required=True, validate=Range(min_inclusive=0))
     departament = fields.Str(required=True, validate=Length(max=50))
-    unit = fields.Str(required=True, validate=Length(max=50))
 
 
 product_schema = ProductSchema()

@@ -28,8 +28,7 @@ class TestAPI(unittest.TestCase):
             "price_4": 532.79,
             "stock": 0,
             "minimum": 0,
-            "departament": "PRODUCTOS",
-            "unit": "BT"
+            "departament": "PRODUCTOS"
         }
         self.data_to_update = {'description': 'ABC SUAVITEL 18X810G'}
 
@@ -71,10 +70,6 @@ class TestAPI(unittest.TestCase):
                                     content_type=self.content_type)
 
         self.assertEqual(response.status_code, 200)
-
-        product_id = self.get_product_id(response)
-
-        self.assertEqual(product_id, 1)
 
     def test_update_product(self):
         response = self.client.post(path=self.path, data=json.dumps(self.data),

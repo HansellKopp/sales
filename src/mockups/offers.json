@@ -1,0 +1,9 @@
+[
+  {
+    "departament": "Grupo A",
+    "sku": "005",
+    "price" : 50,
+    "price_unit": "4 Kg",
+    "description":"Cherry Royal",
+  }
+]

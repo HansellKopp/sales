@@ -63,7 +63,6 @@ def create_product():
         stock=json['stock'],
         minimum=json['minimum'],
         departament=json['departament'],
-        unit=json['unit']
     )
 
     if product.save():
@@ -88,7 +87,6 @@ def update_product(product):
     product.minimum = json.get('minimum', product.minimum)
     product.departament = json.get('departament', product.departament)
     product.stock = json.get('stock', product.stock)
-    product.unit = json.get('unit', product.unit)
 
     if product.save():
         return response(product_schema.dump(product))

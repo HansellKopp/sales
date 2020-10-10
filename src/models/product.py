@@ -1,3 +1,6 @@
+import os
+import json
+from pathlib import Path
 from . import db
 from sqlalchemy import desc, asc
 from sqlalchemy.event import listen
@@ -19,11 +22,10 @@ class Product(db.Model):
     stock = db.Column(db.Float, nullable=False, default=0)  # calc
     minimum = db.Column(db.Float, nullable=False, default=0)
     departament = db.Column(db.String, nullable=False, default=True)
-    unit = db.Column(db.String, nullable=False, default="")
-
+    
     @classmethod
     def new(cls, sku, description, tax, cost, price, price_2, price_3, price_4, stock, minimum,
-            departament, unit):
+            departament):
         return Product(
             sku=sku,
             description=description,
@@ -36,7 +38,6 @@ class Product(db.Model):
             stock=stock,
             minimum=minimum,
             departament=departament,
-            unit=unit
         )
 
     @classmethod
@@ -66,11 +67,31 @@ class Product(db.Model):
 
 
 def insert_Products(*args, **kwargs):
-    pass
-    # db.session.add(
-    #    Product(email='admin@sales.com', password='password', active=True)
-    # )
-    # db.session.commit()
+    script_dir = os.path.dirname(__file__)
+    path = Path(script_dir)
+    rel_path = "mockups/products.json"
+    abs_file_path = os.path.join(path.parent, rel_path)
+    with open(abs_file_path, 'r') as data_file:
+        data=data_file.read()
+        records = json.loads(data)
+        for record in records:
+            db.session.add(Product(
+                departament=record['departament'],
+                sku=record['sku'],
+                description=record['description'],
+                tax=0.16,
+                cost=0,
+                stock=0,
+                minimum=0,
+                price=record['price'],
+                price_2=record['price_2'],
+                price_3=record['price_3'],
+                price_4=0
+            ))
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
 
 
 listen(Product.__table__, 'after_create', insert_Products)
