@@ -1,9 +1,11 @@
 [
   {
-    "departament": "Grupo A",
-    "sku": "005",
+    "product_id": 5,
+    "cost" : 0,
     "price" : 50,
-    "price_unit": "4 Kg",
-    "description":"Cherry Royal",
+    "quantity": 4,
+    "starts_at": "2020-01-01",
+    "ends_at": "2021-01-01",
+    "description":"Cherry Royal"
   }
 ]
