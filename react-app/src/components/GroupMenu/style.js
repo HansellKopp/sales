@@ -1,0 +1,13 @@
+import { makeStyles } from '@material-ui/core/styles';
+
+export const useStyles = makeStyles((theme) => ({
+    root: {
+      backgroundColor: theme.palette.background.paper,
+      '& nav': {
+        padding: 0,
+        '& div': {
+          padding: 0,
+        }
+      }
+    },
+  }));

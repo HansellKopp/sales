@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities; 
+
+.text-counter {
+  margin-top: -20px;
+}
+
+.modal {
+  @apply fixed w-full h-full top-0 left-0 flex items-center justify-center;
+}
+
+.modal-overlay {
+  @apply absolute w-full h-full bg-gray-900 opacity-50;
+}
+
+.configurator-container button {
+  color: white;
+  background-color: #96c11f !important;
+  @apply font-bold pb-2 pl-6 pr-6 pt-2 text-xl text-center;
+}
+
+.configurator-container input[type="checkbox"] {
+  position: absolute;
+  box-sizing: border-box; 
+  padding-top: 20px;  
+  padding-left: 20px; 
+}
+
+.modal-container { 
+  @apply bg-white mx-auto shadow-lg z-50;
+}
+
+.configurator-container {
+  *zoom: 1;
+  background-color: white;
+  position: relative;
+  font-family: Dosis, Helvetica, Arial, sans-serif;
+  font-size: 90%;
+  line-height: 1.5;
+  margin: auto;
+  max-width: 1200px;
+ }
+
+.configurator-container input[type="text"],
+.configurator-container input[type="password"],
+.configurator-container input[type="email"],
+.configurator-container input[type="url"],
+.configurator-container input[type="date"],
+.configurator-container input[type="month"],
+.configurator-container input[type="time"],
+.configurator-container input[type="datetime"],
+.configurator-container input[type="datetime-local"],
+.configurator-container input[type="week"],
+.configurator-container input[type="number"],
+.configurator-container input[type="search"],
+.configurator-container input[type="tel"],
+.configurator-container input[type="color"],
+.configurator-container textarea {
+	-webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  background: inherit;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0.1rem;
+  box-shadow: none;
+  display: block;
+  font-size: 1.5rem;
+  margin-top: 5px;
+  max-width: 100%;
+  padding: 1em;
+}
+
+.bg-secondary-300 {
+  --bg-opacity: 1;
+  background-color: #C3C2BC !important;
+  background-color: rgba(195, 194, 188, var(--bg-opacity)) !important;
+}
+
+
+
