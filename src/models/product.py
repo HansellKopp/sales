@@ -18,13 +18,12 @@ class Product(db.Model):
     price = db.Column(db.Float, nullable=False, default=0)
     price_2 = db.Column(db.Float, nullable=False, default=0)
     price_3 = db.Column(db.Float, nullable=False, default=0)
-    price_4 = db.Column(db.Float, nullable=False, default=0)
     stock = db.Column(db.Float, nullable=False, default=0)  # calc
     minimum = db.Column(db.Float, nullable=False, default=0)
     departament = db.Column(db.String, nullable=False, default=True)
     
     @classmethod
-    def new(cls, sku, description, tax, cost, price, price_2, price_3, price_4, stock, minimum,
+    def new(cls, sku, description, tax, cost, price, price_2, price_3, stock, minimum,
             departament):
         return Product(
             sku=sku,
@@ -34,7 +33,6 @@ class Product(db.Model):
             price=price,
             price_2=price_2,
             price_3=price_3,
-            price_4=price_4,
             stock=stock,
             minimum=minimum,
             departament=departament,
@@ -86,7 +84,6 @@ def insert_Products(*args, **kwargs):
                 price=record['price'],
                 price_2=record['price_2'],
                 price_3=record['price_3'],
-                price_4=0
             ))
             try:
                 db.session.commit()

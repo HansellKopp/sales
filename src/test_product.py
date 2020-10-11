@@ -25,7 +25,6 @@ class TestAPI(unittest.TestCase):
             "price": 232.79,
             "price_2": 332.79,
             "price_3": 432.79,
-            "price_4": 532.79,
             "stock": 0,
             "minimum": 0,
             "departament": "PRODUCTOS"
@@ -68,7 +67,6 @@ class TestAPI(unittest.TestCase):
     def test_create_product(self):
         response = self.client.post(path=self.path, data=json.dumps(self.data),
                                     content_type=self.content_type)
-
         self.assertEqual(response.status_code, 200)
 
     def test_update_product(self):

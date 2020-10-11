@@ -59,7 +59,6 @@ def create_product():
         price=json['price'],
         price_2=json['price_2'],
         price_3=json['price_3'],
-        price_4=json['price_4'],
         stock=json['stock'],
         minimum=json['minimum'],
         departament=json['departament'],
@@ -82,7 +81,6 @@ def update_product(product):
     product.price = json.get('price', product.price)
     product.price_2 = json.get('price_2', product.price_2)
     product.price_3 = json.get('price_3', product.price_3)
-    product.price_4 = json.get('price_4', product.price_4)
     product.stock = json.get('stock', product.stock)
     product.minimum = json.get('minimum', product.minimum)
     product.departament = json.get('departament', product.departament)
