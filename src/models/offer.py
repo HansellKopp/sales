@@ -1,10 +1,14 @@
-from . import db
-from .document import Document
+import os
+import json
+from pathlib import Path
+from dateutil.parser import parse
 from sqlalchemy import desc, asc, or_
 from sqlalchemy.event import listen
 from sqlalchemy.orm import relationship
 from sqlalchemy import ForeignKey
+from sqlalchemy.event import listen
 
+from . import db
 
 class Offer(db.Model):
     __tablename__ = 'offers'
@@ -55,3 +59,30 @@ class Offer(db.Model):
 
     def __str__(self):
         return "<Offer(description=%s price=%s)>" % (self.description, self.price)
+
+def insert_offers(*args, **kwargs):
+    script_dir = os.path.dirname(__file__)
+    path = Path(script_dir)
+    rel_path = "mockups/offers.json"
+    abs_file_path = os.path.join(path.parent, rel_path)
+    with open(abs_file_path, 'r') as data_file:
+        data=data_file.read()
+        records = json.loads(data)
+        for record in records:
+            db.session.add(Offer(
+                product_id=record['product_id'],
+                cost=record['cost'],
+                price=record['price'],
+                quantity=record['quantity'],
+                starts_at=parse(record['starts_at']),
+                ends_at=parse(record['ends_at']),
+                description=record['description'],
+            ))
+            try:
+                db.session.commit()
+            except Exception as e:
+                print(e)
+                db.session.rollback()
+
+
+listen(Offer.__table__, 'after_create', insert_offers)

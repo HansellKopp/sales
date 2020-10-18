@@ -29,10 +29,10 @@ def set_product(function):
 
 @PRODUCTS_BLUEPRINT.route('/products', methods=['GET'])
 def get_products():
-    page = int(request.args.get('page', 1))
+    # page = int(request.args.get('page', 1))
     order = request.args.get('order', 'desc')
 
-    products = Product.get_by_page(order, page)
+    products = Product.get_all(order)
 
     return response(products_schema.dump(products))
 

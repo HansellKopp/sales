@@ -44,6 +44,12 @@ class Product(db.Model):
             Product.description)
         return Product.query.order_by(sort).paginate(page, per_page).items
 
+    @classmethod
+    def get_all(cls, order):
+        sort = desc(Product.description) if order == 'desc' else asc(
+            Product.description)
+        return Product.query.order_by(sort).all()
+
     def save(self):
         try:
             db.session.add(self)
