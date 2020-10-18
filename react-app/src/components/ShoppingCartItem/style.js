@@ -5,10 +5,10 @@ export const useStyles = makeStyles((theme) => ({
     padding:0,
     ' & .holder' :{
       display: 'flex',
-      minWidth: 80,
+      minWidth: 40,
+      alignItems: 'center',
       '& .quantity': {
-        paddingLeft: 3,
-        paddingRight: 3
+        paddingRight: 5
       }
     },
   },

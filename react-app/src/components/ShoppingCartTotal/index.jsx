@@ -8,9 +8,16 @@ import { useStyles} from './style'
 
 export default ( ) => {
     const classes = useStyles();
-    const products = useSelector(state => state.cart.products)
-
-    const total = products.reduce((acc, item) => item.price * item.quantity, 0)
+    const items = useSelector(state => state.cart.products)    
+    let total = 0
+    items.map(item => {
+        if(item.isOffer) {
+            total += item.price
+        } else {
+            total += item.price * item.quantity
+        }
+        return null
+    })
 
     return (
         <ListItem className={classes.root}>

@@ -9,7 +9,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import MainListItems from './listItems';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -19,6 +18,7 @@ import Divider from '@material-ui/core/Divider';
 
 import Copyright from 'components/Copyright'
 import ExpandGroup from 'components/ExpandGroup'
+import MainListItems from 'components/ListItems';
 
 import { cartItems } from 'utils/cart'
 

@@ -15,6 +15,7 @@ export default () => {
   const options = useSelector(state => state.state.departaments)
   const selectedGroup = useSelector(state => state.state.selectedGroup) 
 
+  console.log(options)
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -38,7 +39,7 @@ export default () => {
           aria-label="Filtrar por "
           onClick={handleClickListItem}
         >
-          <ListItemText primary="Grupo" secondary={selectedGroup || options[0].departament} />
+          <ListItemText primary="Grupo" secondary={selectedGroup || options[0]} />
         </ListItem>
       </List>
       <Menu
@@ -51,10 +52,10 @@ export default () => {
         {options.map((option, key) => (
           <MenuItem
             key={key}
-            selected={option.departament === selectedGroup.departament}
-            onClick={(event) => handleMenuItemClick(event, option.departament)}
+            selected={option === selectedGroup.departament}
+            onClick={(event) => handleMenuItemClick(event, option)}
           >
-            {option.departament}
+            {option}
           </MenuItem>
         ))}
       </Menu>
