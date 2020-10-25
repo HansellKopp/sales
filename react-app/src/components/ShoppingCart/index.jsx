@@ -1,4 +1,3 @@
-import React from 'react'
 import { useSelector } from 'react-redux'
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -7,7 +6,7 @@ import ShoppingCartItem from 'components/ShoppingCartItem'
 import { useStyles } from './style'
 import ShoppingCartTotal from 'components/ShoppingCartTotal';
 
-export default () => {
+const ShoppingCart = () => {
     const classes = useStyles();
     const products = useSelector(state => state.cart.products)
 
@@ -22,3 +21,5 @@ export default () => {
             </List>
       </div>)
 }
+
+export default ShoppingCart

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Accordion } from '@material-ui/core'
 import { AccordionSummary } from '@material-ui/core'
@@ -8,9 +7,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Offers from 'components/Offers'
 import Products from 'components/Products'
+import ShoppingCart from 'components/ShoppingCart';
+import InvoiceForm from 'components/InvoiceForm';
 
 import { useStyles } from './style'
-import ShoppingCart from 'components/ShoppingCart';
 
 export default function SimpleExpansionPanel() {
   const classes = useStyles();
@@ -18,11 +18,13 @@ export default function SimpleExpansionPanel() {
   const {
     showCart,
     showOffers,
-    showProducts
+    showProducts,
+    showInvoiceForm
   } = useSelector(state => state.state)
   const toogleShowCart  = () => dispatch({ type: 'state/toogleShowCart' })
   const toogleShowOffers  = () => dispatch({ type: 'state/toogleShowOffers' })
   const toogleShowProducts  = () => dispatch({ type: 'state/toogleShowProducts' })
+  const toogleShowInvoiceForm  = () => dispatch({ type: 'state/toogleShowInvoiceForm' })
 
   return (
     <div className={classes.root}>
@@ -60,6 +62,18 @@ export default function SimpleExpansionPanel() {
         </AccordionSummary>
         <AccordionDetails>
             <ShoppingCart />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={showInvoiceForm} onChange={toogleShowInvoiceForm}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="order-content"
+          id="order-header"
+        >
+          <Typography className={classes.heading}>Datos del Cliente</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+            <InvoiceForm />
         </AccordionDetails>
       </Accordion>
     </div>

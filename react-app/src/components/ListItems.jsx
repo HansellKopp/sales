@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux'
 
 import ListItem from '@material-ui/core/ListItem';
@@ -8,7 +7,7 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import SyncIcon from '@material-ui/icons/Sync';
 import SendIcon from '@material-ui/icons/Send';
 
-export default () => {
+const ListItems = () => {
   const dispatch = useDispatch()
   const open = () => {
     dispatch({ type: 'state/toogleShowCart' })
@@ -44,3 +43,5 @@ export default () => {
   </div>
   )
 }
+
+export default ListItems

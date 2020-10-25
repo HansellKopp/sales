@@ -5,6 +5,7 @@ export const initialState = {
     showCart: false,
     openDrawer: false,
     showSnackbar: false,
+    showInvoiceForm: false,
     alert: {
         message: '',
         severity: 'success'
@@ -12,10 +13,19 @@ export const initialState = {
   }
   
 export const reducers = {
-
     toogleShowCart: (state) => {
     const cart = {...state}
     cart.showCart = !cart.showCart
+    if(cart.showCart) {
+      cart.showOffers = false
+      cart.showProducts = false
+    }
+    return cart
+  },
+
+  toogleShowInvoiceForm: (state) => {
+    const cart = {...state}
+    cart.showInvoiceForm = !cart.showInvoiceForm
     if(cart.showCart) {
       cart.showOffers = false
       cart.showProducts = false

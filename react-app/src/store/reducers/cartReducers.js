@@ -8,24 +8,10 @@ export const initialState = {
 export const reducers = {
     
     addProduct: ( state, action ) => {
-        let updated = false
-        let newProducts = state.products.map(item => {
-            if(item.id === action.payload.id) {
-                updated = true
-                return {
-                    ...item,
-                    quantity: item.quantity + 1
-                }
-            }
-            return item;
-        })
-        if(!updated) {
-            newProducts=[...state.products, {
-                ...action.payload, 
-                quantity: 1,
-                cart_id: uuidv1()
-            }]
-        }
+        const newProducts=[...state.products, {
+            ...action.payload, 
+            cart_id: uuidv1()
+        }]
         return {...state, products: newProducts}
     },
 

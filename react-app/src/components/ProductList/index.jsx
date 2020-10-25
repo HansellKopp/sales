@@ -1,4 +1,3 @@
-import React from 'react';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 
@@ -6,7 +5,7 @@ import ProductItem from 'components/ProductItem'
 
 import { useStyles } from './style'
 
-export default ({ products }) => {
+const ProductList = ({ products }) => {
     const classes = useStyles();
     
     return (
@@ -19,3 +18,5 @@ export default ({ products }) => {
             </List>
       </div>)
 }
+
+export default ProductList

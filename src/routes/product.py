@@ -33,7 +33,7 @@ def get_products():
     order = request.args.get('order', 'desc')
 
     products = Product.get_all(order)
-
+ 
     return response(products_schema.dump(products))
 
 

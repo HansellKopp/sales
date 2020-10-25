@@ -1,9 +1,5 @@
 {
-    "python.pythonPath": "venv/bin/python",
-    "python.linting.pylintArgs": [
-        "--load-plugins",
-        "pylint-flask"
-    ],
+    "python.pythonPath": "/mnt/c/Users/hanse/work/sales/tutorial-env/bin/python3",
     "python.testing.unittestArgs": [
         "-v",
         "-s",

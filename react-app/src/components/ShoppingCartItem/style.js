@@ -2,14 +2,17 @@ import { makeStyles } from '@material-ui/core/styles'
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    padding:0,
-    ' & .holder' :{
+    padding: 0,
+    '& .price': {
       display: 'flex',
-      minWidth: 40,
-      alignItems: 'center',
-      '& .quantity': {
-        paddingRight: 5
-      }
-    },
+      width: 120,
+      '& div': {
+        textAlign: 'center',
+        padding: 5
+      },
+      '& .MuiListItemIcon-root': {
+        minWidth: 0
+      },
+    }
   },
 }))

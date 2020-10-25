@@ -1,11 +1,10 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MuiAlert from "@material-ui/lab/Alert"
 import Snackbar from '@material-ui/core/Snackbar'
 
 import { useStyles } from './style'
 
-export default () => {
+const SnackBarItem = () => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const { showSnackbar, alert} = useSelector(state => state.state)
@@ -29,3 +28,5 @@ export default () => {
         </Snackbar>
     )
 }
+
+export default SnackBarItem

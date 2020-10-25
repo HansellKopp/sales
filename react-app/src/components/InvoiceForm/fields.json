@@ -1,0 +1,54 @@
+{
+    "tax_id": {
+        "label": "Cedula Rif.",
+        "type" : "search",
+        "source": "/persons",
+        "validation": {
+            "required": true
+        }
+    },
+    "firstname": {
+        "label": "Nombre",
+        "type" : "text",
+        "validation": {
+            "required": true
+        }
+    },
+    "lastname": {
+        "label": "Apellidos",
+        "type" : "text",
+        "validation": {
+            "required": true
+        }
+    },
+    "address": {
+        "label": "Dirección",
+        "type" : "text",
+        "fullWidth": true,
+        "validation": {
+            "required": true
+        }
+    },
+    "city": {
+        "label": "Ciudad",
+        "type" : "text",
+        "defaultValue": "Barcelona",
+        "validation": {
+            "required": true
+        }
+    },
+    "phone": {
+        "label": "Telefono",
+        "type" : "text",
+        "validation": {
+            "required": false
+        }
+    },
+    "email": {
+        "label": "Email",
+        "type" : "email",
+        "validation": {
+            "required": false
+        }
+    }
+}

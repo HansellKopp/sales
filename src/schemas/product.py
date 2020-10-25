@@ -7,7 +7,7 @@ from marshmallow.validate import Length, Range
 class ProductSchema(Schema):
     class Meta:
         fields = ('id', 'sku', 'description', 'tax', 'cost',
-                  'price', 'price_2', 'price_3'
+                  'price', 'price_2', 'price_3',
                   'stock', 'minimum',
                   'departament', 'stock')
 

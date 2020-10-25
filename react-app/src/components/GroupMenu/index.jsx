@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -8,14 +8,13 @@ import Menu from '@material-ui/core/Menu'
 import { useSelector, useDispatch } from 'react-redux'
 import { useStyles } from './style'
 
-export default () => {
+const GroupMenu = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
-  const [anchorEl, setAnchorEl] = React.useState(null)  
+  const [anchorEl, setAnchorEl] = useState(null)  
   const options = useSelector(state => state.state.departaments)
   const selectedGroup = useSelector(state => state.state.selectedGroup) 
 
-  console.log(options)
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -62,3 +61,6 @@ export default () => {
     </div>
   )
 }
+
+
+export default GroupMenu

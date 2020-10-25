@@ -21,13 +21,12 @@ import ExpandGroup from 'components/ExpandGroup'
 import MainListItems from 'components/ListItems';
 
 import { cartItems } from 'utils/cart'
-
 import useStyles from './styles'
-import SnackBar from 'components/SnackBar';
+import SnackBarItem from 'components/SnackBarItem';
 
 export default function Dashboard() {
   const classes = useStyles();
-  const cart = useSelector(state => state.cart)
+  const cart = useSelector(state => state.cart.products)
   const { parameters, loading, openDrawer } = useSelector(state => state.state)
   
   //const fixedHeightPaper = classNames(classes.paper, classes.fixedHeight);
@@ -39,7 +38,7 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <SnackBar />
+      <SnackBarItem />
       <AppBar position="absolute" className={classNames(classes.appBar, openDrawer && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton

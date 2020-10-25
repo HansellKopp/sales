@@ -36,6 +36,17 @@ class Person(db.Model):
         person_query = person_query.order_by(sort).paginate(page, per_page)
         return person_query.items
 
+    @classmethod
+    def search(cls, q=""):
+        person_query = Person.query
+        if(q):
+            person_query = person_query.filter(or_(Person.firstname.like(
+                '%'+q+'%'), Person.lastname.like('%'+q+'%'), Person.tax_id.like('%'+q+'%')))
+        sort = asc(Person.id)
+        person_query = person_query.order_by(sort)
+        person_query = person_query.limit(5)
+        return person_query.items
+
     def save(self):
         try:
             db.session.add(self)
