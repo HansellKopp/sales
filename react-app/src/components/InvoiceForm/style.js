@@ -8,10 +8,13 @@ export const useStyles = makeStyles((theme) => ({
     textField: {
       marginLeft: theme.spacing(1),
       marginRight: theme.spacing(1),
-      width: '20ch',
+    //  width: '20ch',
     },
     table: {
       minWidth: 650,
+    },
+    button: {
+      margin: theme.spacing(1),
     },
   }));
   
