@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useDispatch } from 'react-redux'
 
 import { formatNumber } from 'utils'
-import { useStyles} from './style'
+import { useStyles} from '../style'
 
 const OfferItem = ({ offer }) => {
     const classes = useStyles();
@@ -14,18 +14,24 @@ const OfferItem = ({ offer }) => {
         dispatch({ type: 'cart/addProduct', payload: offer })
     }
     return (
-        <>
         <ListItem button className={classes.root}>
             <ListItemText 
-                primary={<span className="descripcion">{offer.description}</span>} 
+                primary={<span>{offer.description}</span>} 
             >
             </ListItemText>
-            <div className="price" onClick={(e) => handleClick(offer)}>
-                <div>{formatNumber(offer.price)}<br />x {offer.quantity} Kg</div>
-                <ListItemIcon ><AddIcon /></ListItemIcon>
+            <>
+            <div className="column" >
+                <div>{offer.quantity} Kg</div>
             </div>
+            <div className="column">
+                <div>{formatNumber(offer.price)} $</div>
+            </div>
+            <div className="icon-column" onClick={(e) => handleClick(offer)}>
+                <ListItemIcon onClick={(e) => handleClick(offer)}><AddIcon /></ListItemIcon>
+            </div>
+
+            </>
         </ListItem>
-        </>
     )
 }
 

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import GroupMenu from 'components/GroupMenu'
-import ProductList from 'components/ProductList'
+import ProductList from 'components/Products/ProductList'
 
 const Products = () => {
     const products = useSelector(state => state.state.products)

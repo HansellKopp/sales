@@ -20,7 +20,7 @@ import Copyright from 'components/Copyright'
 import ExpandGroup from 'components/ExpandGroup'
 import MainListItems from 'components/ListItems';
 
-import { cartItems } from 'utils/cart'
+import { cartItems } from 'utils/utils'
 import useStyles from './styles'
 import SnackBarItem from 'components/SnackBarItem';
 

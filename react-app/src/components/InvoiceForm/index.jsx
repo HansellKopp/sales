@@ -1,59 +1,35 @@
-import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import RemoveIcon from '@material-ui/icons/RemoveCircle';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import PaymentIcon from '@material-ui/icons/Payment';
-import AddPayment from 'components/AddPayment'
+import Payments from 'components/InvoiceForm/Payments'
+import AddPayment from 'components/InvoiceForm/AddPayment'
 
-import fields from './fields.json'
 import { useStyles } from './style'
-
-const initialState = [
-    {'type': 'Efectivo $', 'amount': 10, 'details':''},
-    {'type': 'Zelle', 'amount': 12, 'details':''},
-    {'type': 'Panama', 'amount': 8, 'details':''},
-    {'type': 'Pago Mobil','localAmount': 1200, 'amount': 18, 'details':'437,850.00'},
-    {'type': 'Transferencia','localAmount': 1800, 'amount': 14, 'details':'437,850.00'},
-]
+import { invoiceFormFields } from 'store/mockups/settings.json'
 
 const InvoiceForm = () => {
-    const [payments, setPayments] = useState(initialState)
-    const [open, setOpen] = useState(false);
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-    };
-  
     const classes = useStyles();
-    const handleRemovePayment = () => { setPayments([])}
+    const dispatch = useDispatch()
+    const toggleOpen = () => dispatch({ type: 'payment/toogleOpen' })
+
     return (
         <div>
             <form className={classes.root} noValidate autoComplete="off">
-                {Object.keys(fields).map((key, id) => <TextField
-                            key={id}
-                            id="standard-full-width"
-                            label={fields[key].label}
-                            style={{ margin: 8 }}
-                            placeholder={fields[key].placeholder || ''}
-                            helperText={fields[key].helperText || ''}
-                            fullWidth={fields[key].fullWidth || false}
-                            margin="normal"
-                            size='normal'
-                            InputLabelProps={{
-                                shrink: true,
-                            }}
-                        />
+                {Object.keys(invoiceFormFields).map((key, id) => 
+                    <TextField
+                        key={id}
+                        size='normal'
+                        margin="normal"
+                        id="standard-full-width"
+                        style={{ margin: 8 }}
+                        InputLabelProps={{ shrink: true }}
+                        label={invoiceFormFields[key].label}
+                        placeholder={invoiceFormFields[key].placeholder || ''}
+                        helperText={invoiceFormFields[key].helperText || ''}
+                        fullWidth={invoiceFormFields[key].fullWidth || false}
+                    />
                 )}
             </form>
             <Button
@@ -61,33 +37,10 @@ const InvoiceForm = () => {
                 color="primary"
                 className={classes.button}
                 endIcon={<PaymentIcon />}
-                onClick={handleClickOpen}
+                onClick={toggleOpen}
             >Agregar pago</Button>
-        <TableContainer component={Paper}>
-            <Table className={classes.table} size="small" aria-label="a dense table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell align="left">Tipo</TableCell>
-                        <TableCell align="right">Monto $</TableCell>
-                        <TableCell align="right">Monto Bs.</TableCell>
-                        <TableCell align="right">Detalles</TableCell>
-                        <TableCell></TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {payments.map((payment,key ) => (
-                        <TableRow key={key}>
-                        <TableCell align="left">{payment.type}</TableCell>
-                        <TableCell align="right">{payment.amount}</TableCell>
-                        <TableCell align="right">{payment.localAmount}</TableCell>
-                        <TableCell align="right">{payment.details}</TableCell>
-                        <TableCell align="right"><RemoveIcon onClick={handleRemovePayment} /></TableCell>
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
-        <AddPayment open={open} handleClose={handleClose} />
+        <AddPayment />
+        <Payments />
         </div>
     )
 }
