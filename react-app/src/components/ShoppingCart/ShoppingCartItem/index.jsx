@@ -13,19 +13,19 @@ const ShopppingCartItem = ({ product }) => {
     const remove  = () => dispatch({ type: 'cart/removeProduct', payload: product })
 
     return (
-        <ListItem className={classes.root}>
+        <ListItem button className={classes.root}>
             <ListItemText 
                 primary={<span>{product.description}</span>} 
             />
             <>
-            <div className="column" onClick={remove}>
+            <div className="column">
                 <div>{formatNumber(product.quantity)}</div>
             </div>
-            <div className="column" onClick={remove}>
+            <div className="column">
                 <div>{formatNumber(product.price)}</div>
                 
             </div>
-            <div className="icon-column">
+            <div className="icon-column" onClick={remove} >
                 <ListItemIcon><RemoveIcon /></ListItemIcon>
             </div>
             </>

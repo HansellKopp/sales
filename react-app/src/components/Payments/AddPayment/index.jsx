@@ -29,18 +29,6 @@ const AddPayment = () => {
         dispatch({ type: 'payment/toogleOpen' })
 
     const addPayment = (data) => {
-
-    }
-
-    useEffect(()=>{
-        setValues(defaultPayment)
-    }, [open])
-
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
-    };
-
-    const handleAdd = () => {
         let amount = 0
         let amountBs = 0
         if(paymentTypes[values.paymentType].currency === '$') {
@@ -53,6 +41,14 @@ const AddPayment = () => {
         dispatch({ type: 'payment/addPayment', payload:  {...values, amount, amountBs}})
         toggleOpen()
     }
+
+    useEffect(()=>{
+        setValues(defaultPayment)
+    }, [open])
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
 
     return (
     <Dialog open={open} onClose={toggleOpen} aria-labelledby="form-dialog-title">
@@ -95,7 +91,7 @@ const AddPayment = () => {
         </DialogContent>
         <DialogActions>
             <Button onClick={toggleOpen} color="secondary">Cancelar</Button>
-            <Button onClick={handleAdd} color="primary">Agregar</Button>
+            <Button onClick={addPayment} color="primary">Agregar</Button>
         </DialogActions>
     </Dialog>
     )

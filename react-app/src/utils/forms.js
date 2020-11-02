@@ -35,7 +35,6 @@ const validators = {
   'date': {
     message: 'common:validation_errors:date',
     test: (val) => {
-      console.log('date validator:' + val)
       return true
     }
   },

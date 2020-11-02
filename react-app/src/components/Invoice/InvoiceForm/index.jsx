@@ -1,18 +1,16 @@
-import { useDispatch } from 'react-redux'
-
-import Button from '@material-ui/core/Button';
+import { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
-import PaymentIcon from '@material-ui/icons/Payment';
-import Payments from 'components/InvoiceForm/Payments'
-import AddPayment from 'components/InvoiceForm/AddPayment'
 
 import { useStyles } from './style'
 import { invoiceFormFields } from 'store/mockups/settings.json'
 
 const InvoiceForm = () => {
     const classes = useStyles();
-    const dispatch = useDispatch()
-    const toggleOpen = () => dispatch({ type: 'payment/toogleOpen' })
+    const [values, setValues] = useState({})
+
+    const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value });
+    };
 
     return (
         <div>
@@ -20,10 +18,11 @@ const InvoiceForm = () => {
                 {Object.keys(invoiceFormFields).map((key, id) => 
                     <TextField
                         key={id}
-                        size='normal'
+                        size='medium'
                         margin="normal"
                         id="standard-full-width"
                         style={{ margin: 8 }}
+                        onChange={handleChange}
                         InputLabelProps={{ shrink: true }}
                         label={invoiceFormFields[key].label}
                         placeholder={invoiceFormFields[key].placeholder || ''}
@@ -32,15 +31,6 @@ const InvoiceForm = () => {
                     />
                 )}
             </form>
-            <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                endIcon={<PaymentIcon />}
-                onClick={toggleOpen}
-            >Agregar pago</Button>
-        <AddPayment />
-        <Payments />
         </div>
     )
 }

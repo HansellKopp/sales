@@ -8,7 +8,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Offers from 'components/Offers'
 import Products from 'components/Products'
 import ShoppingCart from 'components/ShoppingCart';
-import InvoiceForm from 'components/InvoiceForm';
 
 import { useStyles } from './style'
 
@@ -19,12 +18,10 @@ export default function SimpleExpansionPanel() {
     showCart,
     showOffers,
     showProducts,
-    showInvoiceForm
   } = useSelector(state => state.state)
   const toogleShowCart  = () => dispatch({ type: 'state/toogleShowCart' })
   const toogleShowOffers  = () => dispatch({ type: 'state/toogleShowOffers' })
   const toogleShowProducts  = () => dispatch({ type: 'state/toogleShowProducts' })
-  const toogleShowInvoiceForm  = () => dispatch({ type: 'state/toogleShowInvoiceForm' })
 
   return (
     <div className={classes.root}>
@@ -62,18 +59,6 @@ export default function SimpleExpansionPanel() {
         </AccordionSummary>
         <AccordionDetails>
             <ShoppingCart />
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={showInvoiceForm} onChange={toogleShowInvoiceForm}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="order-content"
-          id="order-header"
-        >
-          <Typography className={classes.heading}>Datos del Cliente</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-            <InvoiceForm />
         </AccordionDetails>
       </Accordion>
     </div>

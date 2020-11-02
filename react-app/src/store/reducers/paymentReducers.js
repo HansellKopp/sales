@@ -13,7 +13,6 @@ export const reducers = {
   
     removePayment: ( state, action ) => {
         const key = action.payload
-        console.log(key)
         const payments = state.payments
         const newPayments = 
             payments.slice(0, key).concat(payments.slice(key + 1, payments.length))
@@ -23,7 +22,6 @@ export const reducers = {
 
     toogleOpen: (state) => {
         const newState = {...state, open: !state.open}
-        console.log(newState)
         return {...newState}
       },
     

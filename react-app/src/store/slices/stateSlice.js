@@ -32,7 +32,6 @@ export default createSlice({
           return ({...data, ...initialState})
         },
         [getData.rejected]: (state, action) => {
-          console.log(state, action)
           return state
         }
     },

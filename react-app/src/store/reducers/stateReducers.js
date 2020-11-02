@@ -26,10 +26,6 @@ export const reducers = {
   toogleShowInvoiceForm: (state) => {
     const cart = {...state}
     cart.showInvoiceForm = !cart.showInvoiceForm
-    if(cart.showCart) {
-      cart.showOffers = false
-      cart.showProducts = false
-    }
     return cart
   },
 
@@ -62,6 +58,12 @@ export const reducers = {
   toogleShowSnackBar: (state) => {
     const cart = {...state}
     cart.showSnackbar = !cart.showSnackbar
+    return cart
+  },
+
+  toogleOpenInvoiceForm: (state) => {
+    const cart = {...state}
+    cart.openInvoiceForm = !cart.openInvoiceForm
     return cart
   },
 

@@ -15,10 +15,14 @@ export const useStyles = makeStyles((theme) => ({
     },
     '& .icon-column': {
       width: 60,
+      cursor: 'pointer',
       '& div': {
         display: 'block',
         textAlign: 'center'
       }
     }
   },
+  button: {
+    margin: '10px 10px 10px 0'
+  }
 }))
