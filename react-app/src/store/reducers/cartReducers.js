@@ -43,6 +43,13 @@ export const reducers = {
         return {...state, products: newProducts.filter(s=> s.quantity>0)}
     },
 
+    removeProductItem: ( state, action ) => {
+        const newProducts = state.products.filter(item => (
+            item['cart_id'] !== action.payload.cart_id
+        ))
+        return {...state, products: newProducts}
+    },
+
     clear: (state, action) => (initialState)
 
 }

@@ -11,6 +11,15 @@ export const useStyles = makeStyles((theme) => {
         fontSize: 20,
         fontWeight: 600,
         textAlign: 'right'
+      },
+      '& .column-link': {
+        textAlign: 'left'
+      },
+      '& .column-right': {
+        textAlign: 'right',
+        '& h3': {
+          textAlign: 'end'
+        }
       }
     },
     fonts: {
@@ -26,8 +35,29 @@ export const useStyles = makeStyles((theme) => {
       borderCollapse: 'collapse',
       fontFamily: 'Arial, Helvetica, sans-serif',
       border: '1px solid #1C6EA4',
-      backgroundColor: '#EEEEEE',
-      
+      // backgroundColor: '#EEEEEE',
+      '& thead': {
+        border: '1px solid #1C6EA4',
+        backgroundColor: '#EEEEEE'
+      },
+      '& .footer': {
+        border: '1px solid #1C6EA4',
+        backgroundColor: '#EEEEEE'
+      },
+      '& td': {
+        textAlign:'right',
+        paddingRight: theme.spacing(1),
+      },
+      '& th': {
+        textAlign:'right',
+        paddingRight: theme.spacing(1),
+      },
+      '& td.left': {
+          textAlign:'left'
+      },
+      '& th.left': {
+        textAlign:'left'
+      },
       '& tfoot': {
         '& td': {
           //color: 'white',

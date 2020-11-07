@@ -10,7 +10,7 @@ import { useStyles} from 'components/ShoppingCart/style'
 const ShopppingCartItem = ({ product }) => {
     const classes = useStyles();
 	const dispatch = useDispatch()
-    const remove  = () => dispatch({ type: 'cart/removeProduct', payload: product })
+    const remove  = () => dispatch({ type: 'cart/removeProductItem', payload: product })
 
     return (
         <ListItem button className={classes.root}>

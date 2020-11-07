@@ -27,7 +27,7 @@ const OfferItem = ({ offer }) => {
                 <div>{formatNumber(offer.price)} $</div>
             </div>
             <div className="icon-column" onClick={(e) => handleClick(offer)}>
-                <ListItemIcon onClick={(e) => handleClick(offer)}><AddIcon /></ListItemIcon>
+                <ListItemIcon><AddIcon /></ListItemIcon>
             </div>
 
             </>

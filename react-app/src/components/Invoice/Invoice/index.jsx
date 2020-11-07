@@ -1,11 +1,13 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
+import {formatNumber, totalize } from 'utils/utils'
 import { useStyles } from './style'
 
 const invoiceData = {
   number: '00001',
   data: '31/12/2020',
+  exchange_rate: 4500,
   client: {
     tax_id: 'J310037221',
     firstname: 'HK sistemas, c.a.',
@@ -21,7 +23,8 @@ const InvoiceHeader = () => {
   const classes = useStyles();
   const {parameters} = useSelector(state => state.state)
   const products = useSelector(state => state.cart.products)
-  
+  const exchange = invoiceData['exchange_rate']
+  const totalInvoice = totalize(products, 'price') * exchange
   return (
     <div>
     <div className={classes.header}>
@@ -30,11 +33,10 @@ const InvoiceHeader = () => {
         <h3>{parameters.tax_id}</h3>
         <div>{parameters.address}</div>
       </div>
-      <div>
+      <div className='column-right'>
         <h3>Nota de entrega: <span className='bold'>{invoiceData.number}</span></h3>
         <h3>Fecha de emision: {invoiceData.data}</h3>
       </div>
-      <hr></hr>
   </div>
   <div className={classes.header}>
   <div>
@@ -48,30 +50,34 @@ const InvoiceHeader = () => {
   <table className={classes.table}>
     <thead>
     <tr>
-      <th>Descripcion</th>
+      <th className='left'>Descripcion</th>
       <th>Cantidad</th>
       <th>Unidad</th>
       <th>Precio Unitario</th>
       <th>Neto</th>
     </tr>
     </thead>
-    <tfoot>
+    <tfoot className='footer'>
       <tr>
-        <td>Totales</td>
+        <td className='left'>Totales</td>
         <td></td>
         <td></td>
         <td></td>
-        <td></td>
+        <td>{formatNumber(totalInvoice)}</td>
       </tr>
     </tfoot>
     <tbody>
       {products.map((product, key) => 
         <tr key={key}>
-            <td>{product.description}</td>
+            <td className='left'>{product.description}</td>
             <td>{product.quantity}</td>
             <td>{'Kg.'}</td>
-            <td>{product.price}</td>
-            <td>{product.quantity * product.price}</td>
+            <td>{
+              formatNumber(product.price * exchange)
+            }</td>
+            <td>{
+              formatNumber(product.price * exchange)
+            }</td>
         </tr>
       )}
     </tbody>

@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import Offers from 'components/Offers'
 import Products from 'components/Products'
+// import Invoice from 'components/Invoice/Invoice';
 import ShoppingCart from 'components/ShoppingCart';
 
 import { useStyles } from './style'
