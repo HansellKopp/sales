@@ -1,3 +1,6 @@
+import os
+import json
+from pathlib import Path
 from . import db
 from .document import Document
 from sqlalchemy import desc, asc, or_
@@ -45,7 +48,7 @@ class Person(db.Model):
         sort = asc(Person.id)
         person_query = person_query.order_by(sort)
         person_query = person_query.limit(5)
-        return person_query.items
+        return person_query.all()
 
     def save(self):
         try:
@@ -66,6 +69,35 @@ class Person(db.Model):
     def __str__(self):
         return "<Person(tax_id=%s firstname=%s lastname=%s)>" % (self.tax_id, self.firstname, self.lastname)
 
+def insert_Persons(*args, **kwargs):
+    script_dir = os.path.dirname(__file__)
+    path = Path(script_dir)
+    rel_path = "mockups/persons.json"
+    abs_file_path = os.path.join(path.parent, rel_path)
+    with open(abs_file_path, 'r') as data_file:
+        data=data_file.read()
+        records = json.loads(data)
+        for record in records:
+            db.session.add(Person(
+                tax_id=record['tax_id'],
+                firstname=record['firstname'],
+                lastname=record['lastname'],
+                address=record['address'],
+                city=record['city'],
+                state=record['state'],
+                phone=record['phone'],
+                email=record['email'],
+                active=record['active'],
+                price=record['price'],
+            ))
+            try:
+                db.session.commit()
+            except BaseException as e:
+                print(e)
+                db.session.rollback()
+
+
+listen(Person.__table__, 'after_create', insert_Persons)
 
 Person.documents = relationship(
     "Document", order_by=Document.id, back_populates="person")

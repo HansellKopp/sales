@@ -26,12 +26,15 @@ def set_person(function):
 @PERSONS_BLUEPRINT.route('/persons', methods=['GET'])
 def get_persons():
     page = int(request.args.get('page', 1))
-    order = request.args.get('order', 'desc')
-    print(request.args)
+    order = request.args.get('order', 'asc')
     q = request.args.get('q', '')
-
-    persons = Person.get_by_page(order, page, 10, q)
-
+    search=request.args.get('search', '')
+    persons = []
+    if search=='1':
+        persons = Person.search(q)
+    else:
+       persons = Person.get_by_page(order, page, 10, q)
+    
     return response(persons_schema.dump(persons))
 
 

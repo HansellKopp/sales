@@ -1,4 +1,4 @@
-import { v1 as uuidv1 } from 'uuid'
+import uuid from 'uuid-random'
 
 export const initialState = {
         products: [],
@@ -10,7 +10,7 @@ export const reducers = {
     addProduct: ( state, action ) => {
         const newProducts=[...state.products, {
             ...action.payload, 
-            cart_id: uuidv1()
+            cart_id: uuid()
         }]
         return {...state, products: newProducts}
     },
@@ -20,7 +20,7 @@ export const reducers = {
             ...action.payload, 
             isOffer: true,
             id: action.payload.product_id,
-            cart_id: uuidv1()
+            cart_id: uuid()
         }]
         return {...state, products: newProducts}
     },
