@@ -6,10 +6,7 @@ export const initialState = {
     openDrawer: false,
     showSnackbar: false,
     showInvoiceForm: false,
-    alert: {
-        message: '',
-        severity: 'success'
-    }
+    messages: []
   }
   
 export const reducers = {
@@ -65,6 +62,18 @@ export const reducers = {
     const cart = {...state}
     cart.openInvoiceForm = !cart.openInvoiceForm
     return cart
+  },
+
+  addMessage: (state, action) => {
+    const newMessages = [...state.messages]
+    newMessages.push(action.payload)
+    return {state, messages: [...newMessages]}
+  },
+
+  removeMessage: (state, action) => {
+    const newMessages = [...state.messages]
+      .filter(s=> s.id!==action.payload.id )    
+    return {state, messages: [...newMessages]}
   },
 
   showAlert: ( state, action ) => {

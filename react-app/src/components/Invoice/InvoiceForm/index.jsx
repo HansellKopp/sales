@@ -44,13 +44,12 @@ const InvoiceForm = () => {
                         value={values[key]}
                         style={{ margin: 8 }}
                         onChange={handleChange}
-                        id="standard-full-width"
                         InputLabelProps={{ shrink: true }}
                         label={invoiceFormFields[key].label}
                         helperText={invoiceFormFields[key].helperText || ''}
                         fullWidth={invoiceFormFields[key].fullWidth || false}
                         placeholder={invoiceFormFields[key].placeholder || ''}
-                    />                
+                    /> 
                 )}
             </form>
         </div>

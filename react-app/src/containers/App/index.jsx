@@ -22,7 +22,7 @@ import MainListItems from 'components/GroupMenu/ListItems';
 
 import { cartItems } from 'utils/utils'
 import useStyles from './styles'
-import SnackBarItem from 'components/SnackBarItem';
+import Messages from 'components/Messages';
 
 export default function Dashboard() {
   const classes = useStyles();
@@ -38,7 +38,7 @@ export default function Dashboard() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <SnackBarItem />
+      <Messages />
       <AppBar position="absolute" className={classNames(classes.appBar, openDrawer && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
