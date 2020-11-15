@@ -9,16 +9,25 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Invoice from 'components/Invoice/Invoice'
 import InvoiceForm from 'components/Invoice/InvoiceForm'
+import { validate } from 'utils/utils'
+import { invoiceFormFields } from 'store/mockups/settings.json'
 
 const OpenInvoiceForm = () => {
     const dispatch = useDispatch()
+    const data = useSelector(state => state.document.data)
     const componentRef = useRef();
     const handlePrint = useReactToPrint({
       content: () => componentRef.current,
     });
     const { showInvoiceForm } = useSelector(state => state.state)
 
-    const printInvoice = () => { handlePrint() }
+    const printInvoice = () => { 
+        const errors = validate(invoiceFormFields, {...data.person})
+        if(errors) {
+            dispatch({ type: 'document/showErrors', payload: true })
+        }
+        handlePrint() 
+    }
 
     const toggleOpen  = () => dispatch({ type: 'state/toogleShowInvoiceForm' })
 
