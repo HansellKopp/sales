@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useReactToPrint } from 'react-to-print';
 
@@ -6,27 +6,38 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
 import Invoice from 'components/Invoice/Invoice'
 import InvoiceForm from 'components/Invoice/InvoiceForm'
 import { validate } from 'utils/utils'
 import { invoiceFormFields } from 'store/mockups/settings.json'
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 
 const OpenInvoiceForm = () => {
+    const [hasErrors, setHasErrors] = useState(false)
     const dispatch = useDispatch()
     const data = useSelector(state => state.document.data)
     const componentRef = useRef();
-    const handlePrint = useReactToPrint({
+
+    const doPrint = useReactToPrint({
       content: () => componentRef.current,
     });
+
     const { showInvoiceForm } = useSelector(state => state.state)
 
     const printInvoice = () => { 
         const errors = validate(invoiceFormFields, {...data.person})
-        if(errors) {
+        if(Object.keys(errors).length > 0) {
+            setHasErrors(true)
             dispatch({ type: 'document/showErrors', payload: true })
+        } else {
+            setHasErrors(false)
+            doPrint() 
         }
-        handlePrint() 
     }
 
     const toggleOpen  = () => dispatch({ type: 'state/toogleShowInvoiceForm' })
@@ -42,6 +53,9 @@ const OpenInvoiceForm = () => {
             <Button onClick={toggleOpen} color="secondary">Cancelar</Button>
             <Button onClick={printInvoice} color="primary">Imprimir</Button>
         </DialogActions>
+        <Snackbar open={hasErrors} autoHideDuration={6000} >
+                <Alert severity="error" onClose={() => setHasErrors(false)}>El formulario presenta errores o no esta completo</Alert>
+            </Snackbar>
     </Dialog>
     )
 }
