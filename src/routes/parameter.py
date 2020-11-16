@@ -56,7 +56,8 @@ def create_parameter():
         exchange_rate=json['exchange_rate'],
         tax_id=json['tax_id'],
         name=json['name'],
-        address=json['address']
+        address=json['address'],
+        last_invoice=json['last_invoice']
     )
     print(parameter.save())
     if parameter.save():
@@ -73,6 +74,7 @@ def update_parameter(parameter):
     parameter.tax_id = json.get('tax_id', parameter.tax_id)
     parameter.name = json.get('name', parameter.name)
     parameter.address = json.get('address', parameter.address)
+    parameter.last_invoice = json.get('last_invoice', parameter.last_invoice)
 
     if parameter.save():
         return response(parameter_schema.dump(parameter))

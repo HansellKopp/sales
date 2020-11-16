@@ -3,6 +3,8 @@ from marshmallow import fields
 from marshmallow.validate import Length, Range
 
 from .person import PersonSchema
+from .product import ProductSchema
+from .payment import PaymentSchema
 
 class DocumentSchema(Schema):
     class Meta:
@@ -12,16 +14,9 @@ class DocumentSchema(Schema):
 
 
 class ParamsDocumentSchema(Schema):
-    number = fields.Str(required=True, validate=Length(max=50))
-    date = fields.Date(required=True)
-    document_type = fields.Str(required=True, validate=Length(max=50))
-    sub_total = fields.Float(required=True, validate=Range(min_inclusive=0))
-    discount = fields.Float(required=True, validate=Range(min_inclusive=0))
-    tax = fields.Float(required=True, validate=Range(min_inclusive=0))
-    total = fields.Float(required=True, validate=Range(min_inclusive=0))
-    exchange_rate = fields.Float(
-        required=True, validate=Range(min_inclusive=0))
     person = fields.Nested(PersonSchema)
+    products = fields.Nested(ProductSchema)
+    payments = fields.Nested(PaymentSchema)
 
 document_schema = DocumentSchema()
 documents_schema = DocumentSchema(many=True)

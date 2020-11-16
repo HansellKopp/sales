@@ -1,5 +1,3 @@
-import validateDocument from 'utils/validators'
-
 export const initialState = {
     loading: 'idle', 
     response: {}, 
@@ -39,11 +37,6 @@ export const reducers = {
       return {...state, showErrors: {...action.payload}}
     },
 
-    save: ( state, action ) => {
-      const { original, validated, errors } = validateDocument(action.payload)
-    return { original, validated, errors }
-  },
-
-  clear: (state, action) => (initialState)
+    clear: (state, action) => (initialState)
 
 }

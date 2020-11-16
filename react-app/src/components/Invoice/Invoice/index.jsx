@@ -7,9 +7,11 @@ import { useStyles } from './style'
 const InvoiceHeader = () => {
   const classes = useStyles();
   const { parameters } = useSelector(state => state.state)
-  const { products } = useSelector(state => state.cart.products)
+  const { products } = useSelector(state => state.cart)
   const { person, header } = useSelector(state => state.document.data)
-  const { number, date, exchange_rate } = header
+  const number = '00001'
+  const date = '16/11/2020'
+  const exchange_rate = 458000
   const totalInvoice = totalize(products, 'price') * exchange_rate
   return (
     <div>

@@ -1,7 +1,11 @@
 from flask import request, Blueprint
 from .response import response, not_found, bad_request
 
+from models.person import Person
 from models.document import Document
+from models.parameter import Parameter
+from models.document import DocumentPayment
+from models.document import DocumentProduct
 
 from schemas.document import document_schema
 from schemas.document import documents_schema
@@ -42,9 +46,10 @@ def get_document(document):
 @DOCUMENTS_BLUEPRINT.route('/documents', methods=['POST'])
 def create_document():
     json = request.get_json(force=True)
-    error = params_document_schema.validate(json)
-    if error:
-        return bad_request()
+    return response(json)
+    # error = params_document_schema.validate(json)
+    # if error:
+    #     return bad_request()
 
     document = Document.new(number=json['number'],
                             date=json['date'],

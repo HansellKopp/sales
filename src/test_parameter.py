@@ -21,7 +21,8 @@ class TestAPI(unittest.TestCase):
             "exchange_rate": 4500.00,
             "tax_id": "J310037221",
             "name": "Distribución Aromacon",
-            "address": "CC Cristal Plaza, piso 1 of 9 - Barcelona"
+            "address": "CC Cristal Plaza, piso 1 of 9 - Barcelona",
+            "last_invoice": 0
         }
         self.data_to_update = {'name': 'HK Soluciones, c.a.'}
 

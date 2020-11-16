@@ -12,7 +12,6 @@ from sqlalchemy.event import listen
 
 
 class Parameter(db.Model):
-    __tablename__ = 'parameters'
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
@@ -20,10 +19,11 @@ class Parameter(db.Model):
     exchange_rate = db.Column(db.Float, nullable=False, default=0)
     name = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
+    last_invoice = db.Column(db.Integer, nullable=False, default=0)
 
     @classmethod
-    def new(cls, tax_id, exchange_rate, name, address):
-        return Parameter(tax_id=tax_id,exchange_rate=exchange_rate,name=name,address=address)
+    def new(cls, tax_id, exchange_rate, name, address, last_invoice):
+        return Parameter(tax_id=tax_id,exchange_rate=exchange_rate,name=name,address=address,last_invoice=last_invoice)
 
     @classmethod
     def get_by_page(cls, order, page, per_page=10, q=""):
@@ -69,6 +69,7 @@ def insert_parameters(*args, **kwargs):
                 tax_id=record['tax_id'],
                 name=record['name'],
                 address=record['address'],
+                last_invoice=record['last_invoice'],
             ))
             try:
                 db.session.commit()

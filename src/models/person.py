@@ -9,7 +9,6 @@ from sqlalchemy.orm import relationship
 
 
 class Person(db.Model):
-    __tablename__ = 'persons'
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
@@ -23,6 +22,7 @@ class Person(db.Model):
     tax_id = db.Column(db.String, nullable=False)
     active = db.Column(db.Boolean, nullable=False, default=True)
     price = db.Column(db.Integer, nullable=False, default=1)
+    document = db.relationship('Document', backref='person', lazy=True)
 
     @classmethod
     def new(cls, tax_id, firstname, lastname, address, city, state, phone, email, price):

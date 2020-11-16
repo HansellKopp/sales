@@ -4,9 +4,7 @@ from sqlalchemy.event import listen
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 
-
 class Document(db.Model):
-    __tablename__ = 'documents'
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
@@ -19,9 +17,11 @@ class Document(db.Model):
     tax = db.Column(db.Float, nullable=False, default=0)
     total = db.Column(db.String, nullable=False, default="")
     exchange_rate = db.Column(db.String, nullable=False, default="")
+    person_id = db.Column(db.Integer, db.ForeignKey('person.id'),
+        nullable=False)
+    products = db.relationship('DocumentProduct', backref='document', lazy=True)
+    payments = db.relationship('DocumentPayment', backref='document', lazy=True)
 
-    person_id = db.Column(db.Integer, ForeignKey('persons.id'))
-    person = relationship("Person", back_populates="documents")
 
     @classmethod
     def new(cls, person_id, number=number, date=date, document_type=document_type,
@@ -63,3 +63,22 @@ class Document(db.Model):
 
     def __str__(self):
         return '<Document (number=%r, date=%r, document_type=document_type) >' % self.number, self.date, document_type
+
+class DocumentProduct(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    cost = db.Column(db.Float, nullable=False, default=0)
+    sku = db.Column(db.String, nullable=False)
+    description = db.Column(db.String, nullable=False)
+    price = db.Column(db.Float, nullable=False, default=0)
+    quantity = db.Column(db.Float, nullable=False, default=0)
+    document_id = db.Column(db.Integer, db.ForeignKey('document.id'),
+        nullable=False)
+
+class DocumentPayment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ammount = db.Column(db.Float, nullable=False, default=0)
+    ammountBs = db.Column(db.Float, nullable=False, default=0)
+    paymentType = db.Column(db.String, nullable=False)
+    details = db.Column(db.String, nullable=False)
+    document_id = db.Column(db.Integer, db.ForeignKey('document.id'),
+        nullable=False)

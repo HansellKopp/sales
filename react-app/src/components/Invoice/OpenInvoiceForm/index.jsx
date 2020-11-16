@@ -13,11 +13,15 @@ import Invoice from 'components/Invoice/Invoice'
 import InvoiceForm from 'components/Invoice/InvoiceForm'
 import { validate } from 'utils/utils'
 import { invoiceFormFields } from 'store/mockups/settings.json'
+import { saveDocument } from 'store/slices/documentSlice'
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
   }
 
 const OpenInvoiceForm = () => {
+    const { products } = useSelector(state => state.cart)
+    const { payments } = useSelector(state => state.payment)
+    const { person } = useSelector(state => state.document.data)
     const [hasErrors, setHasErrors] = useState(false)
     const dispatch = useDispatch()
     const data = useSelector(state => state.document.data)
@@ -37,6 +41,11 @@ const OpenInvoiceForm = () => {
             dispatch({ type: 'document/showErrors', payload: true })
         } else {
             setHasErrors(false)
+            dispatch(saveDocument({
+                person,
+                products,
+                payments
+            }))
             dispatch({ type: 'document/setHeader', payload: { number: '0001', date: '31-12-2020', exchange_rate: 450000 } })
             doPrint() 
         }
