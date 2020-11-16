@@ -18,9 +18,9 @@ class TestAPI(unittest.TestCase):
         self.path_first_person = self.path + '/1'
         self.path_fake_person = self.path + '/100'
         self.data = {
-            "tax_id": "J310037221",
-            "firstname": "HK Soluciones, C.A.",
-            "lastname": "",
+            "tax_id": "10332590",
+            "firstname": "Hansell",
+            "lastname": "Kopp",
             "address": "Av. Intercomunal C.C. Cristal Plaza piso 1 Oficina 9",
             "city": "Barcelona",
             "state": "Anzoategui",
@@ -85,7 +85,7 @@ class TestAPI(unittest.TestCase):
 
         person_id = self.get_person_id(response)
 
-        self.assertEqual(person_id, 1)
+        self.assertEqual(person_id, 2)
 
     def test_update_person(self):
         response = self.client.post(path=self.path, data=json.dumps(self.data),

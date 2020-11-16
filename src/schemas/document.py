@@ -2,6 +2,7 @@ from marshmallow import Schema
 from marshmallow import fields
 from marshmallow.validate import Length, Range
 
+from .person import PersonSchema
 
 class DocumentSchema(Schema):
     class Meta:
@@ -20,8 +21,7 @@ class ParamsDocumentSchema(Schema):
     total = fields.Float(required=True, validate=Range(min_inclusive=0))
     exchange_rate = fields.Float(
         required=True, validate=Range(min_inclusive=0))
-    person_id = fields.Integer(required=False)
-
+    person = fields.Nested(PersonSchema)
 
 document_schema = DocumentSchema()
 documents_schema = DocumentSchema(many=True)

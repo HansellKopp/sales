@@ -21,6 +21,7 @@ const OpenInvoiceForm = () => {
     const [hasErrors, setHasErrors] = useState(false)
     const dispatch = useDispatch()
     const data = useSelector(state => state.document.data)
+    
     const componentRef = useRef();
 
     const doPrint = useReactToPrint({
@@ -36,6 +37,7 @@ const OpenInvoiceForm = () => {
             dispatch({ type: 'document/showErrors', payload: true })
         } else {
             setHasErrors(false)
+            dispatch({ type: 'document/setHeader', payload: { number: '0001', date: '31-12-2020', exchange_rate: 450000 } })
             doPrint() 
         }
     }
@@ -55,7 +57,7 @@ const OpenInvoiceForm = () => {
         </DialogActions>
         <Snackbar open={hasErrors} autoHideDuration={6000} >
                 <Alert severity="error" onClose={() => setHasErrors(false)}>El formulario presenta errores o no esta completo</Alert>
-            </Snackbar>
+        </Snackbar>
     </Dialog>
     )
 }
