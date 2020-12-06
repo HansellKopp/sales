@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import classnames from 'classnames'
 
-import MainListItems from './ListItems';
+import ListItems from './ListItems';
 import List from '@material-ui/core/List';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
@@ -30,7 +30,7 @@ const LeftDrawer = () => {
             </IconButton>
             </div>
             <Divider />
-            <List><MainListItems /></List>
+            <List><ListItems /></List>
         </Drawer>
     )
 }

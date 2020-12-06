@@ -6,6 +6,7 @@ const Products = () => {
     const products = useSelector(state => state.state.products)
     const selected = useSelector(state => state.state.selectedGroup)
     const filtered = products.filter(product=> product.departament === selected)
+    console.log(products)
     return (
         <div className="w-full">
             <GroupMenu />

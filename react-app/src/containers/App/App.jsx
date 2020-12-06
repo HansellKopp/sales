@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { useSelector } from 'react-redux'
 import { Switch, BrowserRouter, Route } from "react-router-dom"
 
@@ -13,7 +12,7 @@ import Login from 'components/Login/Login'
 import LeftDrawer from './LeftDrawer/LeftDrawer'
 
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute'
-import Products from 'components/Products/ProductsTable/ProductsTable'
+import ProductsEditTable from 'components/Products/ProductsEditTable/ProductsEditTable'
 
 import useStyles from './styles'
 import Messages from 'components/Messages';
@@ -40,12 +39,11 @@ export default function Dashboard() {
                 />
                 <Route 
                   exact path={"/login/"}                    
-                  render={() => ((user && user.isLogged) ? <Home />: <Login />) }
+                  render={() => ((user && user.active) ? <Home />: <Login />) }
                 />
                 <PrivateRoute
                   exact path={"/products/"}
-                  render={() => <Products /> }
-                />
+                ><ProductsEditTable /></PrivateRoute>
               </Switch>
         </Container>
       </main>
