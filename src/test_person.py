@@ -23,16 +23,12 @@ class TestAPI(unittest.TestCase):
             "lastname": "Kopp",
             "address": "Av. Intercomunal C.C. Cristal Plaza piso 1 Oficina 9",
             "city": "Barcelona",
-            "state": "Anzoategui",
             "phone": "0281-2866220",
             "email": "hksistemas@gmail.com",
-            "active": True,
-            "price": 1
         }
         self.data_to_update = {
             'firstname': 'HK Sistemas, C.A.',
-            'city': 'Caracas',
-            'price': 4
+            'city': 'Caracas'
         }
 
     def tearDown(self):

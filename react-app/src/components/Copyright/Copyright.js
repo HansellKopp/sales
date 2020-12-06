@@ -1,5 +1,5 @@
 import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
+import Typography from 'components/Home/node_modules/@material-ui/core/Typography';
 
 const Copyright = () => 
       <Typography variant="body2" color="textSecondary" align="center">
@@ -11,4 +11,4 @@ const Copyright = () =>
         {'.'}
       </Typography>
   
-  export default Copyright
+export default Copyright

@@ -16,8 +16,8 @@ import Box from '@material-ui/core/Box';
 import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 
-import Copyright from 'components/Copyright'
-import ExpandGroup from 'components/ExpandGroup'
+import Copyright from 'components/Copyright/Copyright'
+import ExpandGroup from 'components/Home'
 import MainListItems from 'components/GroupMenu/ListItems';
 
 import { cartItems } from 'utils/utils'

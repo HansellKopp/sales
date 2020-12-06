@@ -56,11 +56,9 @@ def create_person():
                         lastname=json['lastname'],
                         address=json['address'],
                         city=json['city'],
-                        state=json['state'],
                         phone=json['phone'],
                         email=json['email'],
                         tax_id=json['tax_id'],
-                        price=json['price']
                         )
 
     if person.save():
@@ -77,11 +75,9 @@ def update_person(person):
     person.lastname = json.get('lastname', person.lastname)
     person.address = json.get('address', person.address)
     person.city = json.get('city', person.city)
-    person.state = json.get('state', person.state)
     person.phone = json.get('phone', person.phone)
     person.email = json.get('email', person.email)
     person.tax_id = json.get('tax_id', person.tax_id)
-    person.price = json.get('price', person.price)
 
     if person.save():
         return response(person_schema.dump(person))

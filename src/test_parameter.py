@@ -2,6 +2,7 @@ import json
 import unittest
 
 from models import db
+from models.parameter import Parameter
 from app import create_app
 
 from config import config
@@ -37,6 +38,7 @@ class TestAPI(unittest.TestCase):
     def get_parameter_id(self, response):
         data = json.loads(response.data.decode('utf-8'))
         return data['data']['id']
+
 
     def test_get_first_parameter(self):
         response = self.client.post(path=self.path, data=json.dumps(self.data),

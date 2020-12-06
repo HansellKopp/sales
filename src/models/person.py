@@ -6,6 +6,7 @@ from .document import Document
 from sqlalchemy import desc, asc, or_
 from sqlalchemy.event import listen
 from sqlalchemy.orm import relationship
+from schemas.person import person_schema
 
 
 class Person(db.Model):
@@ -16,18 +17,15 @@ class Person(db.Model):
     lastname = db.Column(db.String, nullable=True)
     address = db.Column(db.String, nullable=False)
     city = db.Column(db.String, nullable=True)
-    state = db.Column(db.String, nullable=True)
     phone = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=True)
     tax_id = db.Column(db.String, nullable=False)
-    active = db.Column(db.Boolean, nullable=False, default=True)
-    price = db.Column(db.Integer, nullable=False, default=1)
     document = db.relationship('Document', backref='person', lazy=True)
 
     @classmethod
-    def new(cls, tax_id, firstname, lastname, address, city, state, phone, email, price):
+    def new(cls, tax_id, firstname, lastname, address, city, phone, email):
         return Person(tax_id=tax_id, firstname=firstname, lastname=lastname, address=address,
-                      city=city, state=state, phone=phone, email=email, price=1)
+                      city=city, phone=phone, email=email)
 
     @classmethod
     def get_by_page(cls, order, page, per_page=10, q=""):
@@ -40,6 +38,10 @@ class Person(db.Model):
         return person_query.items
 
     @classmethod
+    def get_by_tax_id(cls, tax_id=""):
+        return Person.query.filter_by(tax_id=tax_id).first()
+
+    @classmethod
     def search(cls, q=""):
         person_query = Person.query
         if(q):
@@ -49,6 +51,33 @@ class Person(db.Model):
         person_query = person_query.order_by(sort)
         person_query = person_query.limit(5)
         return person_query.all()
+
+    ## create or update person
+    @classmethod
+    def new_or_update(cls, new_person):
+        error = person_schema.validate(new_person)
+        if error:
+            return error
+        person=Person.get_by_tax_id(new_person['tax_id'])
+        if (person == None):
+            person = cls.new(
+                firstname=new_person.get('firstname'),
+                tax_id=new_person.get('tax_id'),
+                address=new_person.get('address'),
+                city=new_person.get('city'),
+                email=new_person.get('email', ''),
+                phone= new_person.get('phone', ''),
+                lastname=new_person.get('lastname', '')
+            )
+        else:            
+            person.firstname=new_person.get('firstname', person.firstname)
+            person.tax_id=new_person.get('tax_id', person.tax_id)
+            person.address=new_person.get('address',person.address)
+            person.city=new_person('city',person['city'])
+            person.email=new_person.get('email',person['email'])
+            person.phone= new_person.get('phone',person['phone'])
+            person.lastname=new_person.get('lastname',person['lastname'])
+        return person
 
     def save(self):
         try:
@@ -84,11 +113,8 @@ def insert_Persons(*args, **kwargs):
                 lastname=record['lastname'],
                 address=record['address'],
                 city=record['city'],
-                state=record['state'],
                 phone=record['phone'],
                 email=record['email'],
-                active=record['active'],
-                price=record['price'],
             ))
             try:
                 db.session.commit()

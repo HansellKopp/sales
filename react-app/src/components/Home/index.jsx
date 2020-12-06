@@ -12,7 +12,7 @@ import ShoppingCart from 'components/ShoppingCart';
 
 import { useStyles } from './style'
 
-export default function SimpleExpansionPanel() {
+export default function Home() {
   const classes = useStyles();
   const dispatch = useDispatch()
   const {
@@ -23,7 +23,7 @@ export default function SimpleExpansionPanel() {
   const toogleShowCart  = () => dispatch({ type: 'state/toogleShowCart' })
   const toogleShowOffers  = () => dispatch({ type: 'state/toogleShowOffers' })
   const toogleShowProducts  = () => dispatch({ type: 'state/toogleShowProducts' })
-
+  console.log('home')
   return (
     <div className={classes.root}>
       <Accordion expanded={showOffers} onChange={toogleShowOffers}>

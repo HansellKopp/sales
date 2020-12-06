@@ -5,10 +5,7 @@
         "lastname": "",
         "address": "Av. Intercomunal C.C. Cristal Plaza piso 1 Oficina 9",
         "city": "Barcelona",
-        "state": "Anzoategui",
         "phone": "0281-2866220",
-        "email": "hksistemas@gmail.com",
-        "active": true,
-        "price": 1
+        "email": "hksistemas@gmail.com"
     }
 ]

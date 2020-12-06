@@ -25,3 +25,10 @@ def response(data):
         'data': data
       }  
     ), 200
+
+def unauthorized(errors):
+  return jsonify({
+    'success': False,
+    'errors': errors,
+    'code': 401
+  }), 401

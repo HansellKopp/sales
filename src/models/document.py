@@ -45,6 +45,30 @@ class Document(db.Model):
             Document.number)
         return Document.query.order_by(sort).paginate(page, per_page).items
 
+    @classmethod
+    def new_invoice(cls, data):
+        ## update or create person
+        new_person = json['person']
+        person=Person.get_by_tax_id(new_person['tax_id'])
+        if (person == None):
+            error = person_schema.validate(new_person)
+            if error:
+                return error #bad_request()
+            person = Person.new(
+                firstname=new_person['firstname'],
+                tax_id=new_person['tax_id'],
+                address=new_person['address'],
+                city=new_person['city'],
+                email=new_person.get('email', ''),
+                phone= new_person.get('phone', ''),
+                lastname=new_person.get('lastname', '')
+                )
+            if not person.save():
+                return response({
+                    "message": "Error unable to save person"
+                })
+            ## return response(person_schema.dump(person))
+
     def save(self):
         try:
             db.session.add(self)

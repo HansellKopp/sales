@@ -35,6 +35,10 @@ class Parameter(db.Model):
         parameter_query = parameter_query.order_by(sort).paginate(page, per_page)
         return parameter_query.items
 
+    @classmethod
+    def get_first(cls):
+        return Parameter.query.first()
+
     def save(self):
         try:
             db.session.add(self)

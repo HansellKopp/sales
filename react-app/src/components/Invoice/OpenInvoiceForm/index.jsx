@@ -16,7 +16,7 @@ import { invoiceFormFields } from 'store/mockups/settings.json'
 import { saveDocument } from 'store/slices/documentSlice'
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
+}
 
 const OpenInvoiceForm = () => {
     const { products } = useSelector(state => state.cart)

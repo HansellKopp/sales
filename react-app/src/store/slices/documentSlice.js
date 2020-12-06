@@ -5,9 +5,11 @@ import { reducers, initialState } from 'store/reducers/documentReducers'
 
 export const saveDocument = createAsyncThunk(
    'document/saveDocument',
-      async (data) => {
+      async (data, thunkAPI) => {
+      const { dispatch } = thunkAPI      
       const response = await api.post('/documents', data)
-      console.log(data, response)
+      console.log(response)
+      dispatch({ type: 'cart/clear' })
       return { ...data.document }
     }
 )

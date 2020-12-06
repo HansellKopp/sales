@@ -7,6 +7,8 @@ from models.parameter import Parameter
 from models.document import DocumentPayment
 from models.document import DocumentProduct
 
+from schemas.parameter import parameter_schema
+from schemas.person import person_schema
 from schemas.document import document_schema
 from schemas.document import documents_schema
 from schemas.document import params_document_schema
@@ -46,7 +48,45 @@ def get_document(document):
 @DOCUMENTS_BLUEPRINT.route('/documents', methods=['POST'])
 def create_document():
     json = request.get_json(force=True)
-    return response(json)
+
+    ## update or create person
+    new_person = json['person']
+    ## person=Person.get_by_tax_id(new_person['tax_id'])
+    person=Person.new_or_update(new_person)
+    person.save()
+    return response(person_schema.dump(person))
+
+
+    new_invoice = Document.new_invoice(json)
+
+    ## get new invoice number
+    parameter = Parameter.get_first()
+    parameter.last_invoice = parameter.last_invoice + 1
+    parameter.save()
+
+    if (person == None):
+        error = person_schema.validate(new_person)
+        if error:
+            return error #bad_request()
+        person = Person.new(
+            firstname=new_person['firstname'],
+            tax_id=new_person['tax_id'],
+            address=new_person['address'],
+            city=new_person['city'],
+            email=new_person.get('email', ''),
+            phone= new_person.get('phone', ''),
+            lastname=new_person.get('lastname', '')
+            )
+        if not person.save():
+            return response({
+                "message": "Error unable to save person"
+            })
+            ## return response(person_schema.dump(person))
+
+    return response(person_schema.dump(person))
+
+    ##return response(parameter_schema.dump(parameter))
+    
     # error = params_document_schema.validate(json)
     # if error:
     #     return bad_request()
