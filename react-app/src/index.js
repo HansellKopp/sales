@@ -6,6 +6,7 @@ import App from 'containers/App/App';
 import store from 'store/store'
 import { Provider } from 'react-redux';
 import { getData } from 'store/slices/stateSlice'
+import { getProducts } from 'store/slices/productSlice'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import { esES } from '@material-ui/core/locale';
 
@@ -17,6 +18,7 @@ const theme = createMuiTheme({
 
 if(document.getElementById('root')) {
   store.dispatch(getData())
+  store.dispatch(getProducts())
   ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
