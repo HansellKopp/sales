@@ -95,6 +95,7 @@ def update_product(product):
 @PRODUCTS_BLUEPRINT.route('/products/<id>', methods=['DELETE'])
 @set_product
 def delete_product(product):
+    print(product)
     if product.delete():
         return response(product_schema.dump(product))
 

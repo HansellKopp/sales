@@ -103,7 +103,7 @@ def insert_Persons(*args, **kwargs):
     path = Path(script_dir)
     rel_path = "mockups/persons.json"
     abs_file_path = os.path.join(path.parent, rel_path)
-    with open(abs_file_path, 'r') as data_file:
+    with open(abs_file_path, 'r', encoding='utf-8') as data_file:
         data=data_file.read()
         records = json.loads(data)
         for record in records:
