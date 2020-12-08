@@ -6,9 +6,10 @@ import { Toolbar, Typography, Tooltip, IconButton } from '@material-ui/core'
 import { useToolbarStyles } from './style'
 
 const EnhancedTableToolbar = (props) => {
-    const classes = useToolbarStyles();
-    const { numSelected } = props;
-  
+  const classes = useToolbarStyles()
+  const { selected, deleteItem } = props
+  const numSelected = selected.length
+
     return (
       <Toolbar
         className={classnames(classes.root, {
@@ -28,8 +29,8 @@ const EnhancedTableToolbar = (props) => {
         {numSelected > 0 ? (
             <>
           <Tooltip title="Eliminar">
-            <IconButton aria-label="delete">
-              <Delete />
+            <IconButton aria-label="delete" onClick={deleteItem}>
+              <Delete  />
             </IconButton>
           </Tooltip>
           <Tooltip title="Editar">
@@ -50,7 +51,7 @@ const EnhancedTableToolbar = (props) => {
   };
   
   EnhancedTableToolbar.propTypes = {
-    numSelected: PropTypes.number.isRequired,
+    selected: PropTypes.arrayOf(PropTypes.any).isRequired,
   };
   
   

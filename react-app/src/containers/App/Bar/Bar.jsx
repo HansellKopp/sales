@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { Typography } from '@material-ui/core'
@@ -13,11 +14,15 @@ import { cartItems } from 'utils/utils'
 import useStyles from './styles'
 
 const Bar = () => {
+    const history = useHistory()
     const classes = useStyles();
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart.products)
     const { parameters, openDrawer } = useSelector(state => state.state)
-    const toogleShowCart  = () => dispatch({ type: 'state/toogleShowCart' })
+    const toogleShowCart  = () => {
+        history.push("/")
+        dispatch({ type: 'state/toogleShowCart' })
+    } 
     const toogleOpenDrawer  = () => dispatch({ type: 'state/toogleOpenDrawer' })
     return (
         <AppBar position="absolute" className={classNames(classes.appBar, openDrawer && classes.appBarShift)}>

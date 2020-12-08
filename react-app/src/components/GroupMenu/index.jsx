@@ -12,8 +12,8 @@ const GroupMenu = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)  
-  const options = useSelector(state => state.state.departaments)
-  const selectedGroup = useSelector(state => state.state.selectedGroup) 
+  const options = useSelector(state => state.products.departaments)
+  let selectedGroup = useSelector(state => state.state.selectedGroup) 
 
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget)
@@ -28,6 +28,9 @@ const GroupMenu = () => {
     setAnchorEl(null)
   }
 
+  if(!selectedGroup && options[0]) {
+    selectedGroup = options[0]
+  }
   return (
     <div className={classes.root}>
       <List component="nav" aria-label="product-group">
@@ -38,7 +41,7 @@ const GroupMenu = () => {
           aria-label="Filtrar por "
           onClick={handleClickListItem}
         >
-          <ListItemText primary="Grupo" secondary={selectedGroup || options[0]} />
+          <ListItemText primary="Grupo" secondary={selectedGroup} />
         </ListItem>
       </List>
       <Menu

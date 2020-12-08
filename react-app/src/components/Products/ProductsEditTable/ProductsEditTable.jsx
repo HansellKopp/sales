@@ -1,8 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@material-ui/core'
 import { Paper, Checkbox, FormControlLabel, Switch } from '@material-ui/core'
-
+import { deleteProducts } from 'store/slices/productSlice'
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
 
@@ -25,7 +25,8 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const rows = useSelector(state => state.state.products)
+  const rows = useSelector(state => state.products.products)
+  const dispatch = useDispatch()
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -75,6 +76,13 @@ export default function EnhancedTable() {
     setDense(event.target.checked);
   };
 
+  const deleteProduct = () => {
+    const ids = selected.map(item=> rows.find(s=> s.description===item).id)
+    setPage(0)
+    setSelected([])
+    dispatch(deleteProducts(ids))
+  }
+
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
@@ -82,7 +90,9 @@ export default function EnhancedTable() {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar 
+          selected={selected} deleteItem={deleteProduct}
+        />
         <TableContainer>
           <Table
             className={classes.table}
