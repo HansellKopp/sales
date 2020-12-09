@@ -1,12 +1,22 @@
 import PropTypes from 'prop-types';
-import { TableCell, TableRow, TableHead, TableSortLabel, Checkbox } from '@material-ui/core'
+import {
+  TableCell,TableRow, TableHead, TableSortLabel, Checkbox
+} from '@material-ui/core'
 
 const EnhancedTableHead = (props) => {
-    const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, headCells } = props;
+    const { 
+      order,
+      classes,
+      orderBy,
+      rowCount,
+      headCells,
+      numSelected,
+      onRequestSort,
+      onSelectAllClick
+    } = props;
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
-  
     return (
       <TableHead>
         <TableRow>
@@ -18,7 +28,7 @@ const EnhancedTableHead = (props) => {
               inputProps={{ 'aria-label': 'select all' }}
             />
           </TableCell>
-          {headCells.map((headCell) => (
+          {headCells.filter(s=> s.id).map((headCell) => (
             <TableCell
               key={headCell.id}
               align={headCell.numeric ? 'right' : 'left'}
@@ -39,6 +49,7 @@ const EnhancedTableHead = (props) => {
               </TableSortLabel>
             </TableCell>
           ))}
+          <TableCell />
         </TableRow>
       </TableHead>
     );

@@ -22,12 +22,18 @@ const useStyles = makeStyles((theme) => ({
       top: 20,
       width: 1,
     },
+    actions: {
+      width: 65,
+      margin: 0,
+      border: 'none',
+      display: 'flex'
+    }
 }))
 
 const useToolbarStyles = makeStyles((theme) => ({
     root: {
       paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(1),
+      paddingRight: theme.spacing(1), 
     },
     highlight:
       theme.palette.type === 'light'
@@ -41,7 +47,7 @@ const useToolbarStyles = makeStyles((theme) => ({
           },
     title: {
       flex: '1 1 100%',
-    },
+    }
 }))
 
 export {

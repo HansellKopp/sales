@@ -1,16 +1,23 @@
+import React from 'react'
 import classnames from 'classnames'
-import PropTypes from 'prop-types';
-import { Edit, Delete, FilterList } from '@material-ui/icons'
+import PropTypes from 'prop-types'
+
+import { Delete, FilterList } from '@material-ui/icons'
 import { Toolbar, Typography, Tooltip, IconButton } from '@material-ui/core'
 
 import { useToolbarStyles } from './style'
+import ConfirmActionDialog from 'components/ConfirmActionDialog/ConfirmActionDialog'
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles()
+  const [open, setOpen] = React.useState(false)
   const { selected, deleteItem } = props
   const numSelected = selected.length
 
-    return (
+  const toogleConfirmOpen = () => setOpen(!open);
+
+  return (
+      <>
       <Toolbar
         className={classnames(classes.root, {
           [classes.highlight]: numSelected > 0,
@@ -26,20 +33,13 @@ const EnhancedTableToolbar = (props) => {
           </Typography>
         )}
   
-        {numSelected > 0 ? (
-            <>
+        {numSelected > 0 ? (<>
           <Tooltip title="Eliminar">
-            <IconButton aria-label="delete" onClick={deleteItem}>
+            <IconButton aria-label="delete" onClick={toogleConfirmOpen}>
               <Delete  />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Editar">
-            <IconButton aria-label="delete">
-              <Edit />
-            </IconButton>
-          </Tooltip>
-          </>
-        ) : (
+          </>) : (
           <Tooltip title="Filter list">
             <IconButton aria-label="filter list">
               <FilterList />
@@ -47,6 +47,14 @@ const EnhancedTableToolbar = (props) => {
           </Tooltip>
         )}
       </Toolbar>
+      <ConfirmActionDialog
+        open={open}
+        toogleOpen={toogleConfirmOpen}
+        title="Por favor verifique"
+        content={`Esta eliminando ${numSelected} producto(s), desea continuar ?`}
+        onConfirm={deleteItem}
+      />
+      </>
     );
   };
   

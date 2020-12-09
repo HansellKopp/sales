@@ -1,21 +1,18 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import {  useDispatch, useSelector } from 'react-redux'
+
+import { Edit, Delete } from '@material-ui/icons'
+import { Paper, Checkbox, FormControlLabel, Switch, Tooltip, IconButton } from '@material-ui/core'
 import { Table, TableBody, TableCell, TableContainer, TablePagination, TableRow } from '@material-ui/core'
-import { Paper, Checkbox, FormControlLabel, Switch } from '@material-ui/core'
-import { deleteProducts } from 'store/slices/productSlice'
+
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
+import ProductModal from 'components/Products/ProductModal/ProductModal'
 
 import { getComparator, stableSort } from 'utils/utils'
+import { productTableHead } from 'store/mockups/settings.json'
+import { deleteProducts } from 'store/slices/productSlice'
 import { useStyles } from './style'
-
-const headCells = [
-  { id: 'description', numeric: false, disablePadding: true, label: 'Descripcion' },
-  { id: 'departament', numeric: false, disablePadding: true, label: 'Grupo' },
-  { id: 'stock', numeric: true, disablePadding: false, label: 'Existencia' },
-  { id: 'tax', numeric: true, disablePadding: false, label: 'iva' },
-  { id: 'price', numeric: true, disablePadding: false, label: 'Precio' },
-];
 
 export default function EnhancedTable() {
   const classes = useStyles();
@@ -25,7 +22,7 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const rows = useSelector(state => state.products.products)
+  const rows = useSelector(state => state.product.products)
   const dispatch = useDispatch()
 
   const handleRequestSort = (event, property) => {
@@ -36,7 +33,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.description);
       setSelected(newSelecteds);
       return;
     }
@@ -59,7 +56,6 @@ export default function EnhancedTable() {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
   };
 
@@ -78,10 +74,35 @@ export default function EnhancedTable() {
 
   const deleteProduct = () => {
     const ids = selected.map(item=> rows.find(s=> s.description===item).id)
+    console.log(ids)
     setPage(0)
     setSelected([])
     dispatch(deleteProducts(ids))
   }
+
+  const editProduct = () => {
+    if(!selected[0]) return
+    const item = selected[0]
+    const product = rows.find(s=> s.description===item)
+    dispatch({ type: 'product/setProduct', payload: product })
+    dispatch({ type: 'state/toogleOpenProductForm' })
+    setSelected([])
+  }
+
+  const actions = () => 
+    <>
+      <Tooltip title="Eliminar">
+        <IconButton aria-label="delete" onClick={deleteProduct}>
+          <Delete  />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Editar">
+        <IconButton aria-label="delete" onClick={editProduct}>
+          <Edit />
+        </IconButton>
+      </Tooltip>
+    </>
+
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -91,7 +112,7 @@ export default function EnhancedTable() {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar 
-          selected={selected} deleteItem={deleteProduct}
+          selected={selected} deleteItem={deleteProduct} editItem={editProduct}
         />
         <TableContainer>
           <Table
@@ -102,13 +123,14 @@ export default function EnhancedTable() {
           >
             <EnhancedTableHead
               classes={classes}
-              numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              headCells={headCells}
+              headCells={productTableHead}
+              numSelected={selected.length}
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
+              actions
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
@@ -139,6 +161,7 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.stock}</TableCell>
                       <TableCell align="right">{row.tax * 100}%</TableCell>
                       <TableCell align="right">{row.price}</TableCell>
+                      <TableCell className={classes.actions}>{isItemSelected ? actions() : <div />}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -164,6 +187,7 @@ export default function EnhancedTable() {
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Tabla condensada"
       />
+      <ProductModal />
     </div>
   );
 }

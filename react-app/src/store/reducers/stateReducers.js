@@ -6,62 +6,69 @@ export const initialState = {
     openDrawer: false,
     showSnackbar: false,
     showInvoiceForm: false,
+    showProductForm: false,
     messages: []
   }
   
 export const reducers = {
     toogleShowCart: (state) => {
-    const cart = {...state}
-    cart.showCart = !cart.showCart
-    if(cart.showCart) {
-      cart.showOffers = false
-      cart.showProducts = false
+    const newState = {...state}
+    newState.showCart = !newState.showCart
+    if(newState.showCart) {
+      newState.showOffers = false
+      newState.showProducts = false
     }
-    return cart
+    return newState
   },
 
   toogleShowInvoiceForm: (state) => {
-    const cart = {...state}
-    cart.showInvoiceForm = !cart.showInvoiceForm
-    return cart
+    const newState = {...state}
+    newState.showInvoiceForm = !newState.showInvoiceForm
+    return newState
   },
 
   toogleShowOffers: (state) => {
-    const cart = {...state}
-    cart.showOffers = !cart.showOffers
-    if(cart.showOffers) {
-      cart.showCart = false
-      cart.showProducts = false
+    const newState = {...state}
+    newState.showOffers = !newState.showOffers
+    if(newState.showOffers) {
+      newState.showCart = false
+      newState.showProducts = false
     }
-    return cart
+    return newState
   },
 
   toogleShowProducts: (state) => {
-    const cart = {...state}
-    cart.showProducts = !cart.showProducts
-    if(cart.showProducts) {
-      cart.showCart = false
-      cart.showOffers = false
+    const newState = {...state}
+    newState.showProducts = !newState.showProducts
+    if(newState.showProducts) {
+      newState.showCart = false
+      newState.showOffers = false
     }
-    return cart
+    return newState
   },
 
   toogleOpenDrawer: (state) => {
-    const cart = {...state}
-    cart.openDrawer = !cart.openDrawer
-    return cart
+    const newState = {...state}
+    newState.openDrawer = !newState.openDrawer
+    return newState
   },
 
   toogleShowSnackBar: (state) => {
-    const cart = {...state}
-    cart.showSnackbar = !cart.showSnackbar
-    return cart
+    const newState = {...state}
+    newState.showSnackbar = !newState.showSnackbar
+    return newState
   },
 
   toogleOpenInvoiceForm: (state) => {
-    const cart = {...state}
-    cart.openInvoiceForm = !cart.openInvoiceForm
-    return cart
+    const newState = {...state}
+    newState.openInvoiceForm = !newState.openInvoiceForm
+    return newState
+  },
+
+  toogleOpenProductForm: (state) => {
+    const newState = {...state}
+    newState.showProductForm = !newState.showProductForm
+    return newState
   },
 
   addMessage: (state, action) => {
@@ -85,8 +92,8 @@ export const reducers = {
   },
 
   selectGroup: ( state, action ) => {
-    const cart = {...state}
-    cart.selectedGroup = action.payload
-    return cart
+    const newState = {...state}
+    newState.selectedGroup = action.payload
+    return newState
   },
 }

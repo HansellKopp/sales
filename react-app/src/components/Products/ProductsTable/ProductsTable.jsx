@@ -3,7 +3,7 @@ import GroupMenu from 'components/GroupMenu'
 import ProductList from 'components/Products/ProductList'
 
 const Products = () => {
-    const products = useSelector(state => state.products.products)
+    const products = useSelector(state => state.product.products)
     const selected = useSelector(state => state.state.selectedGroup)
     const filtered = products.filter(product=> product.departament === selected)
     console.log(products)

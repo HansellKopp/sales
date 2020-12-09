@@ -2,10 +2,10 @@ import { getDefaultMiddleware, createSlice, createAsyncThunk } from "@reduxjs/to
 import { uniq } from 'lodash'
 import { api } from 'api'
 
-import { reducers } from 'store/reducers/productReducers'
+import { reducers, initialState } from 'store/reducers/productReducers'
 
 export const getProducts = createAsyncThunk(
-    'products/getProducts',
+    'product/getProducts',
     async (thunkAPI) => {
       const products = await api.get('/products')
       const departaments = uniq(products.data.data.map(s=> s.departament)).sort()
@@ -16,8 +16,18 @@ export const getProducts = createAsyncThunk(
     }
 )
 
+export const saveProduct = createAsyncThunk(
+  'product/saveProduct',
+  async (data, thunkAPI) => {
+    const response = await api.put(`/products/${data.id}`, data)
+    const dispatch = thunkAPI.dispatch
+    dispatch(getProducts())
+    return {...response.data.data}
+  }
+)
+
 export const deleteProducts = createAsyncThunk(
-  'products/deleteProducts',
+  'product/deleteProducts',
   async (data, thunkAPI) => {    
     data.forEach(async (element) => {
        const result = await api.delete(`products/${element}`)
@@ -31,12 +41,12 @@ export const deleteProducts = createAsyncThunk(
 )
 
 export default createSlice({
-    name: 'products',
-    initialState: { loading: 'loading' },
+    name: 'product',
+    initialState: { ...initialState },
     reducers,
     extraReducers: {
         [getProducts.fulfilled]: (state, action) => {
-          return {...action.payload}
+          return {...state, ...action.payload}
         },
         [getProducts.rejected]: (state, action) => {
           return state
@@ -46,7 +56,16 @@ export default createSlice({
         },
         [deleteProducts.rejected]: (state, action) => {
           return state
+        },
+        [saveProduct.fulfilled]: (state, action) => {
+          console.log(action.payload)
+          return state
+        },
+        [saveProduct.rejected]: (state, action) => {
+          console.log(action.payload)
+          return state
         }
+
     },
     middleware: [...getDefaultMiddleware()],
   })

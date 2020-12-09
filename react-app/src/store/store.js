@@ -13,7 +13,7 @@ const store = configureStore({
     cart: cartSlice.reducer,
     document: documentSlice.reducer,
     payment: paymentSlice.reducer,
-    products: productSlice.reducer,
+    product: productSlice.reducer,
   }
 })
   

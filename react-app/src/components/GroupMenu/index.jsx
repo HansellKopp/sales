@@ -12,7 +12,7 @@ const GroupMenu = () => {
   const classes = useStyles()
   const dispatch = useDispatch()
   const [anchorEl, setAnchorEl] = useState(null)  
-  const options = useSelector(state => state.products.departaments)
+  const options = useSelector(state => state.product.departaments)
   let selectedGroup = useSelector(state => state.state.selectedGroup) 
 
   const handleClickListItem = (event) => {
