@@ -166,10 +166,12 @@ export default function EnhancedTable() {
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         {row.description}
                       </TableCell>
-                      <TableCell>{row.departament}</TableCell>
-                      <TableCell align="right">{row.stock}</TableCell>
-                      <TableCell align="right">{row.tax * 100}%</TableCell>
-                      <TableCell align="right">{row.price}</TableCell>
+                      <TableCell padding="none">{row.departament}</TableCell>
+                      <TableCell padding="checkbox" align="right">{row.stock}</TableCell>
+                      <TableCell padding="checkbox" align="right">{row.tax * 100}%</TableCell>
+                      <TableCell padding="" align="right">{row.price}</TableCell>
+                      <TableCell padding="" align="right">{row.price_2}</TableCell>
+                      <TableCell padding="" align="right">{row.price_3}</TableCell>
                       <TableCell className={classes.actions}>{isItemSelected ? actions() : <div />}</TableCell>
                     </TableRow>
                   );
