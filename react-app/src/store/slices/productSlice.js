@@ -19,7 +19,12 @@ export const getProducts = createAsyncThunk(
 export const saveProduct = createAsyncThunk(
   'product/saveProduct',
   async (data, thunkAPI) => {
-    const response = await api.put(`/products/${data.id}`, data)
+    let response = null
+    if(!data.id) {
+      response = await api.post(`/products`, data)
+    } else {
+      response = await api.put(`/products/${data.id}`, data)
+    }
     const dispatch = thunkAPI.dispatch
     dispatch(getProducts())
     return {...response.data.data}
