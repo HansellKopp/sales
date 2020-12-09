@@ -46,19 +46,19 @@ def get_product(product):
 @PRODUCTS_BLUEPRINT.route('/products', methods=['POST'])
 def create_product():
     json = request.get_json(force=True)
+    
     error = params_product_schema.validate(json)
 
     if error:
+        print(error)
         return bad_request()
 
     product = Product.new(
-        sku=json['sku'],
+        sku=json.get('sku', None),
         description=json['description'],
         tax=json['tax'],
-        cost=json['cost'],
+        cost=json.get('cost', 0),
         price=json['price'],
-        price_2=json['price_2'],
-        price_3=json['price_3'],
         stock=json['stock'],
         minimum=json['minimum'],
         departament=json['departament'],
@@ -79,13 +79,10 @@ def update_product(product):
     product.tax = json.get('tax', product.tax)
     product.cost = json.get('cost', product.cost)
     product.price = json.get('price', product.price)
-    product.price_2 = json.get('price_2', product.price_2)
-    product.price_3 = json.get('price_3', product.price_3)
     product.stock = json.get('stock', product.stock)
     product.minimum = json.get('minimum', product.minimum)
     product.departament = json.get('departament', product.departament)
     product.stock = json.get('stock', product.stock)
-
     if product.save():
         return response(product_schema.dump(product))
 

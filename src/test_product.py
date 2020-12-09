@@ -23,8 +23,6 @@ class TestAPI(unittest.TestCase):
             "tax": 12.0,
             "cost": 100,
             "price": 232.79,
-            "price_2": 332.79,
-            "price_3": 432.79,
             "stock": 0,
             "minimum": 0,
             "departament": "PRODUCTOS"
