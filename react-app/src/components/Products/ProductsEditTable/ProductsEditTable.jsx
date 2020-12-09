@@ -33,7 +33,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.description);
+      const newSelecteds = rows.map((n) => n.sku);
       setSelected(newSelecteds);
       return;
     }
@@ -73,7 +73,7 @@ export default function EnhancedTable() {
   };
 
   const deleteProduct = () => {
-    const ids = selected.map(item=> rows.find(s=> s.description===item).id)
+    const ids = selected.map(item=> rows.find(s=> s.sku===item).id)
     console.log(ids)
     setPage(0)
     setSelected([])
@@ -83,8 +83,14 @@ export default function EnhancedTable() {
   const editProduct = () => {
     if(!selected[0]) return
     const item = selected[0]
-    const product = rows.find(s=> s.description===item)
+    const product = rows.find(s=> s.sku===item)
     dispatch({ type: 'product/setProduct', payload: product })
+    dispatch({ type: 'state/toogleOpenProductForm' })
+    setSelected([])
+  }
+
+  const addProduct = () => {
+    dispatch({ type: 'product/setProduct', payload: {} })
     dispatch({ type: 'state/toogleOpenProductForm' })
     setSelected([])
   }
@@ -112,7 +118,10 @@ export default function EnhancedTable() {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar 
-          selected={selected} deleteItem={deleteProduct} editItem={editProduct}
+          selected={selected} 
+          addItem={addProduct}
+          deleteItem={deleteProduct}
+          editItem={editProduct}
         />
         <TableContainer>
           <Table
@@ -136,16 +145,16 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.description);
+                  const isItemSelected = isSelected(row.sku);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.description)}
+                      onClick={(event) => handleClick(event, row.sku)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.description}
+                      key={row.sku}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
