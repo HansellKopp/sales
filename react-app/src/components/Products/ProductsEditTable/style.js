@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
       width: 1,
     },
     actions: {
-      width: 65,
       margin: 0,
       border: 'none',
       display: 'flex'

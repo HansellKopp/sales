@@ -129,6 +129,7 @@ export default function EnhancedTable() {
             aria-labelledby="tableTitle"
             size={dense ? 'small' : 'medium'}
             aria-label="enhanced table"
+            stickyHeader={true}
           >
             <EnhancedTableHead
               classes={classes}
@@ -163,15 +164,15 @@ export default function EnhancedTable() {
                           inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
+                      <TableCell component="th" id={labelId} scope="row" padding="checkbox">
                         {row.description}
                       </TableCell>
                       <TableCell padding="none">{row.departament}</TableCell>
-                      <TableCell padding="checkbox" align="right">{row.stock}</TableCell>
-                      <TableCell padding="checkbox" align="right">{row.tax * 100}%</TableCell>
-                      <TableCell padding="" align="right">{row.price}</TableCell>
-                      <TableCell padding="" align="right">{row.price_2}</TableCell>
-                      <TableCell padding="" align="right">{row.price_3}</TableCell>
+                      <TableCell size="small" align="right">{row.stock}</TableCell>
+                      <TableCell size="small" align="right">{row.tax * 100}%</TableCell>
+                      <TableCell size="small" align="right">{row.price}</TableCell>
+                      <TableCell size="small" align="right">{row.price_2}</TableCell>
+                      <TableCell size="small" align="right">{row.price_3}</TableCell>
                       <TableCell className={classes.actions}>{isItemSelected ? actions() : <div />}</TableCell>
                     </TableRow>
                   );

@@ -2,7 +2,7 @@ import React from 'react'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 
-import { Delete, FilterList, AddCircle } from '@material-ui/icons'
+import { Delete, FilterList, AddCircle, Edit } from '@material-ui/icons'
 import { Toolbar, Typography, Tooltip, IconButton } from '@material-ui/core'
 
 import { useToolbarStyles } from './style'
@@ -11,7 +11,7 @@ import ConfirmActionDialog from 'components/ConfirmActionDialog/ConfirmActionDia
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles()
   const [open, setOpen] = React.useState(false)
-  const { selected, deleteItem, addItem } = props
+  const { selected, deleteItem, addItem, editItem } = props
   const numSelected = selected.length
 
   const toogleConfirmOpen = () => setOpen(!open);
@@ -33,6 +33,13 @@ const EnhancedTableToolbar = (props) => {
           </Typography>
         )}
   
+        {numSelected === 1 && 
+          <Tooltip title="Modificar">
+            <IconButton aria-label="modificar" onClick={editItem}>
+              <Edit  />
+            </IconButton>
+          </Tooltip>      
+        }
         {numSelected > 0 ? (<>
           <Tooltip title="Eliminar">
             <IconButton aria-label="delete" onClick={toogleConfirmOpen}>
