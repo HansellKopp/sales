@@ -1,10 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { validate } from 'utils/utils'
-import { TextField, Button } from '@material-ui/core';
-import SaveIcon from '@material-ui/icons/Save';
+import { TextField } from '@material-ui/core';
 import { productFormFields } from 'store/mockups/settings.json'
 
-import { saveProduct } from 'store/slices/productSlice'
 import { useStyles } from './style'
 
 const InvoiceForm = () => {
@@ -22,14 +20,6 @@ const InvoiceForm = () => {
         dispatch({ type: 'product/setProduct', payload:  newData })
         dispatch({ type: 'product/setErrors', payload:  newErrors })
     };
-
-    const save = () => {
-        if(Object.keys(errors).length > 0) {
-            return
-        }
-        dispatch(saveProduct(product))
-        dispatch({ type: 'state/toogleOpenProductForm' })
-    }
 
     if(!product) return null
     return (
@@ -59,14 +49,6 @@ const InvoiceForm = () => {
                     )
                 }
                 )}
-                <Button
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    className={classes.button}
-                    startIcon={<SaveIcon />}
-                    onClick={save}
-                >Guardar</Button>
             </form>            
         </div>
     )
