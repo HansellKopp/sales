@@ -14,6 +14,17 @@ export const saveDocument = createAsyncThunk(
     }
 )
 
+export const saveInvoice = createAsyncThunk(
+  'document/saveInvoice',
+     async (data, thunkAPI) => {
+     const { dispatch } = thunkAPI      
+     const response = await api.post('/invoices', data)
+     console.log(response)
+     dispatch({ type: 'cart/clear' })
+     return { ...data.document }
+   }
+)
+
 export default createSlice({
     name: 'document',
     initialState: initialState,
@@ -26,7 +37,16 @@ export default createSlice({
         },
         [saveDocument.rejected]: (state, action) => {
           return {...initialState}
-        }
+
+        },
+        [saveInvoice.fulfilled]: (state, action) => {
+          // const data = {...action.payload}
+          // return ({...data})
+          return {...state}
+         },
+         [saveInvoice.rejected]: (state, action) => {
+           return {...initialState}
+         } 
     },
     middleware: [...getDefaultMiddleware()],
   })

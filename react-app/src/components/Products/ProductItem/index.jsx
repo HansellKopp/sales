@@ -12,7 +12,7 @@ const ProductItem = ({ product }) => {
     const classes = useStyles();
 	const dispatch = useDispatch()
     const handleClick = (product, price, quantity) => {
-        const data = {...product, currentPrice: price, quantity }
+        const data = {...product, price, quantity }
         dispatch({ type: 'cart/addProduct', payload: data })
     }
     return (

@@ -1,4 +1,5 @@
 from . import db
+from datetime import datetime
 from sqlalchemy import desc, asc
 from sqlalchemy.event import listen
 from sqlalchemy import ForeignKey
@@ -11,7 +12,7 @@ class Document(db.Model):
     number = db.Column(db.String, nullable=False)
     date = db.Column(db.DateTime(), nullable=False,
                      default=db.func.current_timestamp())
-    document_type = db.Column(db.Float, nullable=False, default=0)
+    document_type = db.Column(db.String, nullable=False, default="")
     sub_total = db.Column(db.Float, nullable=False, default=0)
     discount = db.Column(db.String, nullable=False, default=True)
     tax = db.Column(db.Float, nullable=False, default=0)
@@ -44,30 +45,6 @@ class Document(db.Model):
         sort = desc(Document.number) if order == 'desc' else asc(
             Document.number)
         return Document.query.order_by(sort).paginate(page, per_page).items
-
-    @classmethod
-    def new_invoice(cls, data):
-        ## update or create person
-        new_person = json['person']
-        person=Person.get_by_tax_id(new_person['tax_id'])
-        if (person == None):
-            error = person_schema.validate(new_person)
-            if error:
-                return error #bad_request()
-            person = Person.new(
-                firstname=new_person['firstname'],
-                tax_id=new_person['tax_id'],
-                address=new_person['address'],
-                city=new_person['city'],
-                email=new_person.get('email', ''),
-                phone= new_person.get('phone', ''),
-                lastname=new_person.get('lastname', '')
-                )
-            if not person.save():
-                return response({
-                    "message": "Error unable to save person"
-                })
-            ## return response(person_schema.dump(person))
 
     def save(self):
         try:

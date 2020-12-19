@@ -6,7 +6,7 @@ from .document import Document
 from sqlalchemy import desc, asc, or_
 from sqlalchemy.event import listen
 from sqlalchemy.orm import relationship
-from schemas.person import person_schema
+from schemas.person import params_person_schema
 
 
 class Person(db.Model):
@@ -55,7 +55,7 @@ class Person(db.Model):
     ## create or update person
     @classmethod
     def new_or_update(cls, new_person):
-        error = person_schema.validate(new_person)
+        error = params_person_schema.validate(new_person)
         if error:
             return error
         person=Person.get_by_tax_id(new_person['tax_id'])
@@ -71,12 +71,12 @@ class Person(db.Model):
             )
         else:            
             person.firstname=new_person.get('firstname', person.firstname)
-            person.tax_id=new_person.get('tax_id', person.tax_id)
+            # person.tax_id=new_person.get('tax_id', person.tax_id)
             person.address=new_person.get('address',person.address)
-            person.city=new_person('city',person['city'])
-            person.email=new_person.get('email',person['email'])
-            person.phone= new_person.get('phone',person['phone'])
-            person.lastname=new_person.get('lastname',person['lastname'])
+            person.city=new_person.get('city',person.city)
+            person.email=new_person.get('email',person.email)
+            person.phone= new_person.get('phone',person.phone)
+            person.lastname=new_person.get('lastname',person.lastname)
         return person
 
     def save(self):

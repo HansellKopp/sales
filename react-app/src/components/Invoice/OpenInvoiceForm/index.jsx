@@ -13,7 +13,7 @@ import Invoice from 'components/Invoice/Invoice'
 import InvoiceForm from 'components/Invoice/InvoiceForm'
 import { validate } from 'utils/utils'
 import { invoiceFormFields } from 'store/mockups/settings.json'
-import { saveDocument } from 'store/slices/documentSlice'
+import { saveInvoice } from 'store/slices/documentSlice'
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -41,7 +41,7 @@ const OpenInvoiceForm = () => {
             dispatch({ type: 'document/showErrors', payload: true })
         } else {
             setHasErrors(false)
-            dispatch(saveDocument({
+            dispatch(saveInvoice({
                 person,
                 products,
                 payments

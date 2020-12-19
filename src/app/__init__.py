@@ -8,6 +8,7 @@ from routes.product import PRODUCTS_BLUEPRINT
 from routes.offer import OFFERS_BLUEPRINT
 from routes.person import PERSONS_BLUEPRINT
 from routes.document import DOCUMENTS_BLUEPRINT
+from routes.invoice import INVOICES_BLUEPRINT
 from routes.parameter import PARAMETERS_BLUEPRINT
 from routes.auth import AUTH_BLUEPRINT
 
@@ -21,6 +22,7 @@ def create_app(enviroment):
     app.register_blueprint(PRODUCTS_BLUEPRINT)
     app.register_blueprint(PERSONS_BLUEPRINT)
     app.register_blueprint(DOCUMENTS_BLUEPRINT)
+    app.register_blueprint(INVOICES_BLUEPRINT)
     app.register_blueprint(PARAMETERS_BLUEPRINT)
     app.register_blueprint(AUTH_BLUEPRINT)
 
