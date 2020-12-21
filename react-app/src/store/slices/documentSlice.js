@@ -19,8 +19,8 @@ export const saveInvoice = createAsyncThunk(
      async (data, thunkAPI) => {
      const { dispatch } = thunkAPI      
      const response = await api.post('/invoices', data)
-     console.log(response)
      dispatch({ type: 'cart/clear' })
+     dispatch({ type: 'document/setInvoice', payload: response.data.data })
      return { ...data.document }
    }
 )

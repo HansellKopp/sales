@@ -10,6 +10,16 @@ export const totalize = (items, col) =>
 export const formatNumber = (value) => 
     new Intl.NumberFormat('es-Es',{ minimumFractionDigits: 2 }).format(value)
 
+export const formatDate = (value) => 
+    new Intl.DateTimeFormat('en-Es').format(value)
+
+export const formatInvoiceNumber = value => {
+    const size = 8
+    let num = value.toString();
+    while (num.length < size) num = "0" + num;
+    return num;
+}
+
 export const cartItems = (items) => items ? items.length: 0
 
 export const cartKg = (items) => totalize(items,'quantity')

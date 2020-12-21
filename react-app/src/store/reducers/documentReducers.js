@@ -6,8 +6,9 @@ export const initialState = {
     data: {
       person: {},
       header: {},
-      products: []
+      products: [],
     },
+    invoice: {},
   }
   
 export const reducers = {
@@ -35,6 +36,13 @@ export const reducers = {
 
     setShowErrors: ( state, action ) => {
       return {...state, showErrors: {...action.payload}}
+    },
+
+    setInvoice: ( state, action ) => {
+      const newData={...state}
+      newData.invoice = action.payload
+      console.log(action.payload)
+      return {...newData }
     },
 
     clear: (state, action) => (initialState)

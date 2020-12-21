@@ -1,17 +1,15 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import {formatNumber, totalize } from 'utils/utils'
+import {formatNumber, formatInvoiceNumber, formatDate, totalize } from 'utils/utils'
 import { useStyles } from './style'
 
 const InvoiceHeader = () => {
   const classes = useStyles();
   const { parameters } = useSelector(state => state.state)
-  const { products } = useSelector(state => state.cart)
-  const { person } = useSelector(state => state.document.data)
-  const number = '00001'
-  const date = '16/11/2020'
-  const totalInvoice = totalize(products, 'price') * parameters.exchange
+  const { invoice } = useSelector(state => state.document)
+  const totalInvoice = totalize(invoice.details, 'price') * parameters.exchange
+  if(totalInvoice===0)  return null 
   return (
     <div>
     <div className={classes.header}>
@@ -21,16 +19,16 @@ const InvoiceHeader = () => {
         <div>{parameters.address}</div>
       </div>
       <div className='column-right'>
-        <h3>Nota de entrega: <span className='bold'>{number}</span></h3>
-        <h3>Fecha de emision: {date}</h3>
+        <h3>Nota de entrega: <span className='bold'>{formatInvoiceNumber(invoice.number)}</span></h3>
+        <h3>Fecha de emision: {formatDate(new Date(invoice.date))}</h3>
       </div>
   </div>
   <div className={classes.header}>
   <div>
-    <h3>RIF :{person.tax_id}</h3>
-    <h3>Nombre / Razon social: {person.firstname} {person.lastname}</h3>
-    <h3>Direccion: {person.address} {person.city}</h3>
-    <h3><span>Telefono: {person.phone}</span> <span>Email: {person.email}</span></h3>
+    <h3>RIF :{invoice.person.tax_id}</h3>
+    <h3>Nombre / Razon social: {invoice.person.firstname} {invoice.person.lastname}</h3>
+    <h3>Direccion: {invoice.person.address} {invoice.person.city}</h3>
+    <h3><span>Telefono: {invoice.person.phone}</span> <span>Email: {invoice.person.email}</span></h3>
   </div>
   </div>
   <hr></hr>
@@ -54,7 +52,7 @@ const InvoiceHeader = () => {
       </tr>
     </tfoot>
     <tbody>
-      {products.map((product, key) => 
+      {invoice.details.map((product, key) => 
         <tr key={key}>
             <td className='left'>{product.description}</td>
             <td>{product.quantity}</td>

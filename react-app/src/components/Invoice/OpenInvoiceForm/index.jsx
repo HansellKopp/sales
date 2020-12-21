@@ -19,14 +19,13 @@ function Alert(props) {
 }
 
 const OpenInvoiceForm = () => {
+    const componentRef = useRef();
+    const dispatch = useDispatch()
     const { products } = useSelector(state => state.cart)
     const { payments } = useSelector(state => state.payment)
     const { person } = useSelector(state => state.document.data)
     const [hasErrors, setHasErrors] = useState(false)
-    const dispatch = useDispatch()
     const data = useSelector(state => state.document.data)
-    
-    const componentRef = useRef();
 
     const doPrint = useReactToPrint({
       content: () => componentRef.current,
@@ -46,7 +45,6 @@ const OpenInvoiceForm = () => {
                 products,
                 payments
             }))
-            dispatch({ type: 'document/setHeader', payload: { number: '0001', date: '31-12-2020', exchange: 450000 } })
             doPrint() 
         }
     }
