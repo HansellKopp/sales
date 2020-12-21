@@ -8,7 +8,9 @@ export const initialState = {
       header: {},
       products: [],
     },
-    invoice: {},
+    invoice: {
+      readyToPrint: false
+    },
   }
   
 export const reducers = {
@@ -41,7 +43,13 @@ export const reducers = {
     setInvoice: ( state, action ) => {
       const newData={...state}
       newData.invoice = action.payload
-      console.log(action.payload)
+      newData.invoice.readyToPrint = true 
+      return {...newData }
+    },
+
+    clearInvoice: ( state, action ) => {
+      const newData={...state}
+      newData.invoice = { readyToPrint: false}
       return {...newData }
     },
 

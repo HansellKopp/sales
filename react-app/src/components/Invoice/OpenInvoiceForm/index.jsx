@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useReactToPrint } from 'react-to-print';
 
@@ -14,6 +14,7 @@ import InvoiceForm from 'components/Invoice/InvoiceForm'
 import { validate } from 'utils/utils'
 import { invoiceFormFields } from 'store/mockups/settings.json'
 import { saveInvoice } from 'store/slices/documentSlice'
+
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -24,14 +25,24 @@ const OpenInvoiceForm = () => {
     const { products } = useSelector(state => state.cart)
     const { payments } = useSelector(state => state.payment)
     const { person } = useSelector(state => state.document.data)
+    const { readyToPrint } = useSelector(state => state.document.invoice)
     const [hasErrors, setHasErrors] = useState(false)
     const data = useSelector(state => state.document.data)
+    const { showInvoiceForm } = useSelector(state => state.state)
 
     const doPrint = useReactToPrint({
-      content: () => componentRef.current,
+        content: () => componentRef.current,
     });
 
-    const { showInvoiceForm } = useSelector(state => state.state)
+    useEffect(() => {
+        if(readyToPrint) {
+            doPrint()
+            toggleOpen()
+            dispatch({ type: 'document/clearInvoice' })
+        }
+    // eslint-disable-next-line 
+    }, [readyToPrint])
+
 
     const printInvoice = () => { 
         const errors = validate(invoiceFormFields, {...data.person})
@@ -45,7 +56,6 @@ const OpenInvoiceForm = () => {
                 products,
                 payments
             }))
-            doPrint() 
         }
     }
 
