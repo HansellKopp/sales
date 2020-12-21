@@ -7,11 +7,18 @@ from .product import ProductSchema
 from .payment import PaymentSchema
 
 class DocumentSchema(Schema):
-    class Meta:
-        fields = ('id', 'number', 'date',
-                  'document_type', 'sub_total', 'discount', 'tax', 'total',
-                  'exchange_rate', 'person_id')
-
+    id = fields.Integer()
+    number = fields.Integer()
+    date = fields.DateTime()
+    document_type = fields.Str()
+    sub_total = fields.Float()
+    discount = fields.Float()
+    tax = fields.Float()
+    total = fields.Float()
+    exchange = fields.Float()
+    person = fields.Nested(PersonSchema)
+    payments = fields.Nested(PaymentSchema, many=True)
+    details = fields.Nested(ProductSchema, many=True)
 
 class ParamsDocumentSchema(Schema):
     person = fields.Nested(PersonSchema)

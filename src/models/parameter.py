@@ -16,14 +16,14 @@ class Parameter(db.Model):
     created_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
     tax_id = db.Column(db.String, nullable=False)
-    exchange_rate = db.Column(db.Float, nullable=False, default=0)
+    exchange = db.Column(db.Float, nullable=False, default=0)
     name = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
     last_invoice = db.Column(db.Integer, nullable=False, default=0)
 
     @classmethod
-    def new(cls, tax_id, exchange_rate, name, address, last_invoice):
-        return Parameter(tax_id=tax_id,exchange_rate=exchange_rate,name=name,address=address,last_invoice=last_invoice)
+    def new(cls, tax_id, exchange, name, address, last_invoice):
+        return Parameter(tax_id=tax_id,exchange=exchange,name=name,address=address,last_invoice=last_invoice)
 
     @classmethod
     def get_by_page(cls, order, page, per_page=10, q=""):
@@ -69,7 +69,7 @@ def insert_parameters(*args, **kwargs):
         records = json.loads(data)
         for record in records:
             db.session.add(Parameter(
-                exchange_rate=record['exchange_rate'],
+                exchange=record['exchange'],
                 tax_id=record['tax_id'],
                 name=record['name'],
                 address=record['address'],

@@ -34,7 +34,7 @@ const Payments = () => {
         <TableBody>
             {payments.map((payment,key ) => (
                 <TableRow key={key}>
-                <TableCell align="left">{payment.paymentType}</TableCell>
+                <TableCell align="left">{payment.payment_type}</TableCell>
                 <TableCell align="right">{formatNumber(payment.amount)}</TableCell>
                 <TableCell align="right">{formatNumber(payment.amountBs)}</TableCell>
                 <TableCell align="left">{payment.details}</TableCell>

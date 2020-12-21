@@ -27,7 +27,7 @@ class TestAPI(unittest.TestCase):
             "discount": 10.0,
             "tax": 16.0,
             "total": 220,  # 200 - 10 = 190 x 1.16 = 220.4
-            "exchange_rate": 438319.92
+            "exchange": 438319.92
         }
         self.person_data = {
             "tax_id": "J310037221",
@@ -44,7 +44,7 @@ class TestAPI(unittest.TestCase):
         self.data_to_update = {
             "sub_total": 180.0,
             "discount": 00.0,
-            "exchange_rate": 800
+            "exchange": 800
         }
 
     def tearDown(self):

@@ -6,14 +6,14 @@ from marshmallow.validate import Length, Range
 
 class PaymentSchema(Schema):
     class Meta:
-        fields = ('id', 'amount','amount',
-                  'paymentType', 'details')
+        fields = ('id', 'amount','exchange',
+                  'payment_type', 'details')
 
 
 class ParamsPaymentSchema(Schema):
     amount = fields.Float(required=True, validate=Range(min_inclusive=0))
-    amountBs = fields.Float(required=True, validate=Range(min_inclusive=0))
-    paymentType = fields.Str(required=True, validate=Length(max=50))
+    exchange = fields.Float(required=True, validate=Range(min_inclusive=0))
+    payment_type = fields.Str(required=True, validate=Length(max=50))
     details = fields.Str(required=True, validate=Length(max=150))
 
 

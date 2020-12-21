@@ -19,7 +19,7 @@ class TestAPI(unittest.TestCase):
         self.path_first_parameter = self.path + '/1'
         self.path_fake_parameter = self.path + '/100'
         self.data = {
-            "exchange_rate": 4500.00,
+            "exchange": 4500.00,
             "tax_id": "J310037221",
             "name": "Distribución Aromacon",
             "address": "CC Cristal Plaza, piso 1 of 9 - Barcelona",

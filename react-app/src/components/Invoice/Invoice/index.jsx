@@ -11,8 +11,7 @@ const InvoiceHeader = () => {
   const { person } = useSelector(state => state.document.data)
   const number = '00001'
   const date = '16/11/2020'
-  const exchange_rate = 458000
-  const totalInvoice = totalize(products, 'price') * exchange_rate
+  const totalInvoice = totalize(products, 'price') * parameters.exchange
   return (
     <div>
     <div className={classes.header}>
@@ -61,10 +60,10 @@ const InvoiceHeader = () => {
             <td>{product.quantity}</td>
             <td>{'Kg.'}</td>
             <td>{
-              formatNumber(product.price * exchange_rate)
+              formatNumber(product.price * parameters.exchange)
             }</td>
             <td>{
-              formatNumber(product.price * exchange_rate)
+              formatNumber(product.price * parameters.exchange)
             }</td>
         </tr>
       )}

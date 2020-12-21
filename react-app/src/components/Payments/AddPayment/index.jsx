@@ -16,7 +16,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import { useStyles } from './style'
 
-import { paymentTypes, defaultPayment, exchangeRate } from 'store/mockups/settings.json'
+import { paymentTypes, defaultPayment } from 'store/mockups/settings.json'
 
 const AddPayment = () => {
     const classes = useStyles();
@@ -24,6 +24,7 @@ const AddPayment = () => {
     const [values, setValues] = useState(defaultPayment)
 
     const open = useSelector(state => state.payment.open)
+    const { exchange } = useSelector(state => state.state.parameters)
 
     const toggleOpen = () => 
         dispatch({ type: 'payment/toogleOpen' })
@@ -31,14 +32,14 @@ const AddPayment = () => {
     const addPayment = (data) => {
         let amount = 0
         let amountBs = 0
-        if(paymentTypes[values.paymentType].currency === '$') {
+        if(paymentTypes[values.payment_type].currency === '$') {
             amount = values.amount
-            amountBs = values.amount * exchangeRate
+            amountBs = values.amount * exchange
         } else {
             amountBs = values.amount
-            amount = values.amount / exchangeRate
+            amount = values.amount / exchange
         }
-        dispatch({ type: 'payment/addPayment', payload:  {...values, amount, amountBs}})
+        dispatch({ type: 'payment/addPayment', payload:  {...values, amount, exchange: exchange, amountBs}})
         toggleOpen()
     }
 
@@ -59,8 +60,8 @@ const AddPayment = () => {
             </DialogContentText>
             <FormControl className={classes.formControl}>
                 <Select
-                    value={values.paymentType || ''}
-                    onChange={handleChange('paymentType')}
+                    value={values.payment_type || ''}
+                    onChange={handleChange('payment_type')}
                     className={classes.selectEmpty}
                     inputProps={{ 'aria-label': 'Without label' }}
                 >
@@ -75,7 +76,7 @@ const AddPayment = () => {
                     id="standard-adornment-amount"
                     value={values.amount || ''}
                     onChange={handleChange('amount')}
-                    startAdornment={<InputAdornment position="start">{paymentTypes[values.paymentType].currency}</InputAdornment>}
+                    startAdornment={<InputAdornment position="start">{paymentTypes[values.payment_type].currency}</InputAdornment>}
                 />
             </FormControl>
             <TextField
@@ -84,8 +85,8 @@ const AddPayment = () => {
                     margin="dense"
                     value={values.details || ''}
                     onChange={handleChange('details')}
-                    label={paymentTypes[values.paymentType].detailsLabel}
-                    type={paymentTypes[values.paymentType].detailsType}
+                    label={paymentTypes[values.payment_type].detailsLabel}
+                    type={paymentTypes[values.payment_type].detailsType}
                     fullWidth
             />
         </DialogContent>

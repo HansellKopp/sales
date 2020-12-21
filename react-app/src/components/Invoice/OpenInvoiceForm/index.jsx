@@ -46,7 +46,7 @@ const OpenInvoiceForm = () => {
                 products,
                 payments
             }))
-            dispatch({ type: 'document/setHeader', payload: { number: '0001', date: '31-12-2020', exchange_rate: 450000 } })
+            dispatch({ type: 'document/setHeader', payload: { number: '0001', date: '31-12-2020', exchange: 450000 } })
             doPrint() 
         }
     }

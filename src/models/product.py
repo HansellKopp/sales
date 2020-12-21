@@ -7,7 +7,6 @@ from sqlalchemy import desc, asc
 from sqlalchemy.event import listen
 from . import db
 class Product(db.Model):
-    __tablename__ = 'products'
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
@@ -24,7 +23,7 @@ class Product(db.Model):
     updated_at = db.Column(db.DateTime(), nullable=False, 
                           default=db.func.current_timestamp())
     deleted_at = db.Column(db.DateTime(), nullable=True)
-    
+
     @classmethod
     def new(cls, sku, description, tax, cost, price, price_2, price_3, stock, minimum,
             departament):

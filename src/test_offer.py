@@ -22,7 +22,9 @@ class TestAPI(unittest.TestCase):
             "product_id": 1,
             "cost" : 0,
             "price" : 50,
+            "tax": 0.16,
             "quantity": 4,
+            "departament": "Grupo A",
             "starts_at": "2020-01-01",
             "ends_at": "2021-01-01",
             "description":"Cherry Royal"
@@ -34,8 +36,6 @@ class TestAPI(unittest.TestCase):
             "cost": 0,
             "tax": 0.16,
             "price" : 18, 
-            "price_2": 10,
-            "price_3": 5,
             "stock":0,
             "minimum":0,
         }

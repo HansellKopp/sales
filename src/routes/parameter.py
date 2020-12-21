@@ -53,7 +53,7 @@ def create_parameter():
         return bad_request()
 
     parameter = Parameter.new(
-        exchange_rate=json['exchange_rate'],
+        exchange=json['exchange'],
         tax_id=json['tax_id'],
         name=json['name'],
         address=json['address'],
@@ -70,7 +70,7 @@ def create_parameter():
 @set_parameter
 def update_parameter(parameter):
     json = request.get_json(force=True)
-    parameter.exchange_rate = json.get('exchange_rate', parameter.exchange_rate)
+    parameter.exchange = json.get('exchange', parameter.exchange)
     parameter.tax_id = json.get('tax_id', parameter.tax_id)
     parameter.name = json.get('name', parameter.name)
     parameter.address = json.get('address', parameter.address)

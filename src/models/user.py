@@ -6,7 +6,6 @@ from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired)
 class User(db.Model):
-    __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     created_at = db.Column(db.DateTime(), nullable=False,   default=db.func.current_timestamp())
     email = db.Column(db.String, nullable = False )

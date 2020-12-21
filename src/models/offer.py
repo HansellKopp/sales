@@ -11,23 +11,24 @@ from sqlalchemy.event import listen
 from . import db
 
 class Offer(db.Model):
-    __tablename__ = 'offers'
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
+    departament = db.Column(db.String, nullable=False, default=True)
     description = db.Column(db.String, nullable=False)
     cost = db.Column(db.Float, nullable=False, default=0)
+    tax = db.Column(db.Float, nullable=False, default=0)    
     price = db.Column(db.Float, nullable=False, default=0)
     quantity = db.Column(db.Float, nullable=False, default=0)
     starts_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
     ends_at = db.Column(db.DateTime(), nullable=False,
                            default=db.func.current_timestamp())
-    product_id = db.Column(db.Integer, ForeignKey('products.id'))
+    product_id = db.Column(db.Integer, ForeignKey('product.id'))
 
     @classmethod
-    def new(cls, description, cost, price, quantity, starts_at, ends_at, product_id):
-        return Offer(description=description,cost=cost,price=price,quantity=quantity,starts_at=starts_at,ends_at=ends_at,product_id=product_id)
+    def new(cls, departament, description, cost, tax, price, quantity, starts_at, ends_at, product_id):
+        return Offer(departament=departament, description=description,cost=cost,price=price,quantity=quantity,starts_at=starts_at,ends_at=ends_at,product_id=product_id)
 
     @classmethod
     def get_by_page(cls, order, page, per_page=10, q=""):
@@ -70,7 +71,9 @@ def insert_offers(*args, **kwargs):
         records = json.loads(data)
         for record in records:
             db.session.add(Offer(
+                departament=record['departament'],
                 product_id=record['product_id'],
+                tax=record['tax'],
                 cost=record['cost'],
                 price=record['price'],
                 quantity=record['quantity'],

@@ -55,8 +55,10 @@ def create_offer():
         return bad_request()
 
     offer = Offer.new(
+        departament=json['departament'],
         description=json['description'],
         cost=json['cost'],
+        tax=json['tax'],
         price=json['price'],
         quantity=json['quantity'],
         starts_at=json['starts_at'],
@@ -74,7 +76,9 @@ def create_offer():
 @set_offer
 def update_offer(offer):
     json = request.get_json(force=True)
+    offer.departament = json.get('departament', offer.departament)
     offer.description = json.get('description', offer.description)
+    offer.tax = json.get('tax', offer.tax)
     offer.cost = json.get('cost', offer.cost)
     offer.price = json.get('price', offer.price)
     offer.quantity = json.get('quantity', offer.quantity)
