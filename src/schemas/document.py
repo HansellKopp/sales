@@ -4,6 +4,7 @@ from marshmallow.validate import Length, Range
 
 from .person import PersonSchema
 from .product import ProductSchema
+from .document_detail import DocumentDetailSchema
 from .payment import PaymentSchema
 
 class DocumentSchema(Schema):
@@ -18,11 +19,11 @@ class DocumentSchema(Schema):
     exchange = fields.Float()
     person = fields.Nested(PersonSchema)
     payments = fields.Nested(PaymentSchema, many=True)
-    details = fields.Nested(ProductSchema, many=True)
+    details = fields.Nested(DocumentDetailSchema, many=True)
 
 class ParamsDocumentSchema(Schema):
     person = fields.Nested(PersonSchema)
-    products = fields.Nested(ProductSchema)
+    details = fields.Nested(ProductSchema)
     payments = fields.Nested(PaymentSchema)
 
 document_schema = DocumentSchema()

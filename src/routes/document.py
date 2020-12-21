@@ -77,7 +77,6 @@ def create_document():
     document = Document.new(
             person_id=person_id,number=parameter.last_invoice, date=datetime.now(), document_type='FACTURA',
             sub_total=sub_total, discount=discount, tax=total_tax, total=total, exchange=exchange)
-    print(document)  
     if document.save():
         return response(document_schema.dump(document))
 

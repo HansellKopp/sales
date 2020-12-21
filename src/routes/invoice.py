@@ -60,7 +60,7 @@ def create_document():
         print(error)
         return bad_request()
 
-    products = json['products']
+    details = json['products']
     
     person=Person.new_or_update(new_person)
     db.session.add(person)
@@ -76,7 +76,7 @@ def create_document():
     sub_total = 0
     person_id=person.id
     exchange=parameter.exchange
-    for product in products:
+    for product in details:        
         base = product.get('price') # * product.quantity
         tax = base * product.get('tax')
         sub_total = sub_total + (base - tax)
@@ -88,11 +88,7 @@ def create_document():
     document = Document.new(person_id=person_id,number=parameter.last_invoice, date=datetime.now(), document_type='FACTURA',
             sub_total=sub_total, discount=discount, tax=total_tax, total=total, exchange=exchange)
 
-    print(document.sub_total)
-    print(document.tax)
-    print(document.total)
-
-    for product in products:
+    for product in details:
         document_detail=DocumentDetail.new(cost=product.get('cost'), price=product.get('price'), quantity=product.get('quantity'),
             sku=product.get('sku'), tax=product.get('tax'), departament=product.get('departament'), description=product.get('description'),
             product_id=product.get('id'),
