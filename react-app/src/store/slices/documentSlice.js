@@ -27,6 +27,26 @@ export const saveInvoice = createAsyncThunk(
    }
 )
 
+export const getInvoice = createAsyncThunk(
+  'document/getInvoice',
+     async (id, thunkAPI) => {
+     const { dispatch } = thunkAPI      
+     const response = await api.get(`/invoices/${id}`)
+     dispatch({ type: 'document/setInvoice', payload: response.data.data })
+     return null
+   }
+)
+
+export const getInvoicesDates = createAsyncThunk(
+  'document/getInvoicesDates',
+     async (data, thunkAPI) => {
+     const { dispatch } = thunkAPI      
+     const response = await api.get(`/invoices?from=${data.from}&to=${data.to}`)
+     dispatch({ type: 'document/setInvoices', payload: response.data.data })
+     return null
+   }
+)
+
 export default createSlice({
     name: 'document',
     initialState: initialState,
@@ -39,14 +59,17 @@ export default createSlice({
         },
         [saveDocument.rejected]: (state, action) => {
           return {...initialState}
-
         },
         [saveInvoice.fulfilled]: (state, action) => {
-          // const data = {...action.payload}
-          // return ({...data})
           return {...state}
          },
          [saveInvoice.rejected]: (state, action) => {
+           return {...initialState}
+         },
+         [getInvoice.fulfilled]: (state, action) => {
+          return {...state}
+         },
+         [getInvoice.rejected]: (state, action) => {
            return {...initialState}
          } 
     },

@@ -47,6 +47,12 @@ export const reducers = {
       return {...newData }
     },
 
+    setInvoices: ( state, action ) => {
+      const newData={...state}
+      newData.invoices = action.payload
+      return {...newData }
+    },
+
     clearInvoice: ( state, action ) => {
       const newData={...state}
       newData.invoice = { readyToPrint: false}

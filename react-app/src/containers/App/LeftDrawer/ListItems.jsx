@@ -2,7 +2,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 
 import { ListItem, ListItemIcon,ListItemText }  from '@material-ui/core'
-import { ShoppingCart, DeleteForever, AccountCircle, Store } from '@material-ui/icons';
+import { 
+  ShoppingCart,
+  DeleteForever,
+  AccountCircle, 
+  Store,
+  Receipt
+} from '@material-ui/icons';
 
 const ListItems = () => {
   const history = useHistory()
@@ -34,6 +40,8 @@ const ListItems = () => {
   
   const products = () => navigate("/products/")
 
+  const invoices = () => navigate("/invoices/")
+
   if(!user.active) {
     return (
     <div>
@@ -61,6 +69,10 @@ const ListItems = () => {
       <ListItem button>
         <ListItemIcon><Store /></ListItemIcon>
         <ListItemText primary="Actualizar productos" onClick={products} />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon><Receipt /></ListItemIcon>
+        <ListItemText primary="Visualizar Facturas" onClick={invoices} />
       </ListItem>
       <ListItem button>
         <ListItemIcon><AccountCircle /></ListItemIcon>

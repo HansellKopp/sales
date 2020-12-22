@@ -43,6 +43,16 @@ def get_documents():
 
     return response(documents_schema.dump(invoices))
 
+@INVOICES_BLUEPRINT.route('/invoices/dates', methods=['GET'])
+def get_documents_date():
+    page = int(request.args.get('page', 1))
+    order = request.args.get('order', 'asc')
+    date_to = request.args.get('to', datetime.today())
+    date_from = request.args.get('from', datetime.today())
+
+    invoices = Document.get_by_dates(order=order, page=page, date_from=date_from, date_to=date_to)
+
+    return response(documents_schema.dump(invoices))
 
 @INVOICES_BLUEPRINT.route('/invoices/<id>', methods=['GET'])
 @set_document
@@ -85,7 +95,7 @@ def create_document():
 
     total= sub_total + total_tax
 
-    document = Document.new(person_id=person_id,number=parameter.last_invoice, date=datetime.now(), document_type='FACTURA',
+    document = Document.new(person_id=person_id,number=parameter.last_invoice, date=datetime.today(), document_type='FACTURA',
             sub_total=sub_total, discount=discount, tax=total_tax, total=total, exchange=exchange)
 
     for product in details:
@@ -103,12 +113,6 @@ def create_document():
             details=payments.get('details'), document_id=document.id
         )
         document.payments.append(payment)
-
-    #try:
-    #    print(document_schema.dump(document))
-    #except ValidationError as err:
-    #    print(err.messages)
-
 
     db.session.add(document)
     
