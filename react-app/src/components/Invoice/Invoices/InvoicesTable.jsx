@@ -7,10 +7,9 @@ import { useReactToPrint } from 'react-to-print';
 import EnhancedTableHead from './EnhancedTableHead'
 import EnhancedTableToolbar from './EnhancedTableToolbar'
 import Invoice from 'components/Invoice/Invoice'
-// import ProductModal from 'components/Products/ProductModal/ProductModal'
 
-import { getInvoicesDates } from 'store/slices/documentSlice'
-import { getComparator, stableSort, formatNumber } from 'utils/utils'
+import { getInvoicesDates, getInvoice } from 'store/slices/documentSlice'
+import { getComparator, stableSort, formatNumber, formatDate, today } from 'utils/utils'
 import { invoiceTableHead } from 'store/mockups/settings.json'
 import { useStyles } from './style'
 
@@ -25,11 +24,13 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const rows = useSelector(state => state.document.invoices)
   const { readyToPrint } = useSelector(state => state.document.invoice)
+  const [range, setRange] = React.useState({from: today(), to: today()});
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getInvoicesDates({from: '2020-12-22', to: '2020-12-22'}))
-  },[])
+    dispatch(getInvoicesDates({ from: range.from, to: range.to }))
+    // eslint-disable-next-line 
+  },[range])
 
   useEffect(() => {
     if(readyToPrint) {
@@ -42,20 +43,19 @@ export default function EnhancedTable() {
   
   const toggleOpen  = () => dispatch({ type: 'state/toogleShowInvoiceForm' })
 
-
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
 
-  const handleClick = (event, name) => {
-    const selectedIndex = selected.indexOf(name);
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
     if (selectedIndex === -1) {
-      setSelected([])
+      setSelected([id])
     }
     else {
-      setSelected([selectedIndex])
+      setSelected([])
     }  
   }
 
@@ -63,41 +63,43 @@ export default function EnhancedTable() {
     content: () => componentRef.current,
   });
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  const handleChangePage = (event, newPage) =>  setPage(newPage);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
+  const handleChangeDense = (event) => setDense(event.target.checked)
 
-  const printInvoice = () => {
+  const printItem = () => {
     if(!selected[0]) return
     const item = selected[0]
     const invoice = rows.find(s=> s.number===item)
-    dispatch({ type: 'document/getInvoice', payload: invoice.id })
+    dispatch(getInvoice(invoice.id))
     setSelected([])
   }
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
+  const selectRange = (e) => setRange (e)
+
   if(!rows) return null
 
+  const totalInvoices = rows.reduce((acc, row)=> (acc+row.total), 0)
+  const totalInvoicesBs = rows.reduce((acc, row)=> (acc+(row.total*row.exchange)), 0)
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  console.log(invoiceTableHead)
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar 
           selected={selected} 
-          printItem={printInvoice}
+          printItem={printItem}
+          range={range}
+          selectRange={selectRange}
         />
-        <TableContainer>
+        <TableContainer classes={classes.container}>
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
@@ -119,19 +121,20 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.sku);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
                   const totalbs = row.exchange * row.total
                   const taxId = !row.person ? '' : `${row.person['tax_id']}`
                   const fullname = !row.person ? '' : `${row.person.firstname} ${row.person.lastname}`
+                  const date = Date.parse(row.date)
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.sku)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.sku}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -143,9 +146,9 @@ export default function EnhancedTable() {
                       <TableCell component="th" id={labelId} scope="row" padding="checkbox" align="center" >
                         {row.number}
                       </TableCell>
-                      <TableCell padding="none">{row.date}</TableCell>
-                      <TableCell size="medium" align="">{taxId}</TableCell>
-                      <TableCell size="medium" align="">{fullname}</TableCell>
+                      <TableCell padding="none">{formatDate(date)}</TableCell>
+                      <TableCell size="medium">{taxId}</TableCell>
+                      <TableCell size="medium">{fullname}</TableCell>
                       <TableCell size="small" align="right">{formatNumber(row.total)}</TableCell>
                       <TableCell size="small" align="right">{formatNumber(totalbs)}</TableCell>
                     </TableRow>
@@ -156,6 +159,11 @@ export default function EnhancedTable() {
                   <TableCell colSpan={6} />
                 </TableRow>
               )}
+              <TableRow>
+                <TableCell colSpan={5} align="right">Totales</TableCell>
+                <TableCell align="right">{formatNumber(totalInvoices)}</TableCell>
+                <TableCell align="right">{formatNumber(totalInvoicesBs)}</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -168,6 +176,7 @@ export default function EnhancedTable() {
           rowsPerPageOptions={[5, 10, 25]}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
+
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}

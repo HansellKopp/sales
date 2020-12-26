@@ -48,7 +48,7 @@ class Document(db.Model):
     @classmethod
     def get_by_dates(cls, order, page, date_from, date_to, per_page=10):
         sort = desc(Document.number) if order == 'desc' else asc(Document.number)
-        query = Document.query.filter(Document.date >= date_from).filter(Document.date <= date_from)
+        query = Document.query.filter(Document.date >= date_from).filter(Document.date <= date_to)
         return query.order_by(sort).paginate(page, per_page).items
 
     def save(self):

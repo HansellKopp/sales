@@ -1,4 +1,5 @@
 from flask import request, Blueprint
+from datetime import datetime, timedelta
 from sqlalchemy import exc
 from datetime import datetime
 from marshmallow import ValidationError
@@ -49,7 +50,8 @@ def get_documents_date():
     order = request.args.get('order', 'asc')
     date_to = request.args.get('to', datetime.today())
     date_from = request.args.get('from', datetime.today())
-
+    date_from=datetime.fromisoformat(date_from)
+    date_to=datetime.fromisoformat(date_to)+timedelta(days=1)
     invoices = Document.get_by_dates(order=order, page=page, date_from=date_from, date_to=date_to)
 
     return response(documents_schema.dump(invoices))

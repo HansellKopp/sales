@@ -41,7 +41,7 @@ export const getInvoicesDates = createAsyncThunk(
   'document/getInvoicesDates',
      async (data, thunkAPI) => {
      const { dispatch } = thunkAPI      
-     const response = await api.get(`/invoices?from=${data.from}&to=${data.to}`)
+     const response = await api.get(`/invoices/dates?from=${data.from}&to=${data.to}`)
      dispatch({ type: 'document/setInvoices', payload: response.data.data })
      return null
    }

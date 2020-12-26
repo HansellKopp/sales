@@ -14,7 +14,7 @@ const EnhancedTableToolbar = (props) => {
   const { selected, deleteItem, addItem, editItem } = props
   const numSelected = selected.length
 
-  const toogleConfirmOpen = () => setOpen(!open);
+  const toogleConfirmOpen = () => setOpen(!open)
 
   return (
       <>

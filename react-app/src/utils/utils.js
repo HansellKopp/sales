@@ -10,14 +10,20 @@ export const totalize = (items, col) =>
 export const formatNumber = (value) => 
     new Intl.NumberFormat('es-Es',{ minimumFractionDigits: 2 }).format(value)
 
-export const formatDate = (value) => 
-    new Intl.DateTimeFormat('en-Es').format(value)
+export const formatDate = (value, options) => 
+    new Intl.DateTimeFormat('en-Es', options ).format(value)
 
-export const formatInvoiceNumber = value => {
-    const size = 8
+export const formatInvoiceNumber = value => leftZero(value, 6) 
+
+export const leftZero = (value, size = 2) => {
     let num = value.toString();
     while (num.length < size) num = "0" + num;
     return num;
+}
+
+export const today = (value) => {
+    const now = new Date()
+    return `${now.getFullYear()}-${leftZero(now.getMonth()+1)}-${leftZero(now.getDate())}`
 }
 
 export const cartItems = (items) => items ? items.length: 0
@@ -28,7 +34,6 @@ export const cartTotal = (items) => totalize(items,'price')
 
 export const validateDocument = (fields, data) => {
     let errors = null
-    console.log(validators)
     errors = validate(fields.document, data)
     if(errors === null) {
         errors = validate(fields.person, data)

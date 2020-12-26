@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
       margin: 0,
       border: 'none',
       display: 'flex'
+    },
+    container: {
+      maxHeight: 440,
     }
 }))
 
