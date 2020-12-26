@@ -154,16 +154,16 @@ export default function EnhancedTable() {
                     </TableRow>
                   );
                 })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
               <TableRow>
                 <TableCell colSpan={5} align="right">Totales</TableCell>
                 <TableCell align="right">{formatNumber(totalInvoices)}</TableCell>
                 <TableCell align="right">{formatNumber(totalInvoicesBs)}</TableCell>
               </TableRow>
+              {emptyRows > 0 && (
+                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
