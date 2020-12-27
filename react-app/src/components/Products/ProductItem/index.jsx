@@ -5,7 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useDispatch } from 'react-redux'
 
-import { formatNumber } from 'utils'
+import { formatNumber } from 'utils/utils'
 import { useStyles} from '../style'
 
 const ProductItem = ({ product }) => {

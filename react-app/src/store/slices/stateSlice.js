@@ -17,6 +17,17 @@ export const getData = createAsyncThunk(
     }
 )
 
+export const updateParameters = createAsyncThunk(
+  'state/updateParameters',
+     async (data, thunkAPI) => {
+     const id = data.id
+     delete data.id
+     const response = await api.put(`/parameters/${id}`, data)
+     const result = response.data.data
+     return {...result}
+   }
+)
+
 export default createSlice({
     name: 'state',
     initialState: { loading: 'loading' },
@@ -27,6 +38,14 @@ export default createSlice({
           return ({...data, ...initialState})
         },
         [getData.rejected]: (state, action) => {
+          return state
+        },
+        [updateParameters.fulfilled]: (state, action) => {
+          const newState = {...state}
+          newState.parameters = {...action.payload}
+         return {...newState}
+        },
+        [updateParameters.rejected]: (state, action) => {
           return state
         }
     },

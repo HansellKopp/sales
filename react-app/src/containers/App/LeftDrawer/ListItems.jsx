@@ -7,7 +7,8 @@ import {
   DeleteForever,
   AccountCircle, 
   Store,
-  Receipt
+  Receipt,
+  Settings
 } from '@material-ui/icons';
 
 const ListItems = () => {
@@ -44,6 +45,8 @@ const ListItems = () => {
 
   const summary = () => navigate("/summary/")
 
+  const parameters = () => navigate("/parameters/")
+
   if(!user.active) {
     return (
     <div>
@@ -79,6 +82,10 @@ const ListItems = () => {
       <ListItem button>
         <ListItemIcon><Receipt /></ListItemIcon>
         <ListItemText primary="Resumen diario" onClick={summary} />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon><Settings /></ListItemIcon>
+        <ListItemText primary="Configuraciones" onClick={parameters} />
       </ListItem>
       <ListItem button>
         <ListItemIcon><AccountCircle /></ListItemIcon>

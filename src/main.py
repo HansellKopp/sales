@@ -1,3 +1,4 @@
+from waitress import serve
 from config import config
 from flasgger import Swagger
 
@@ -25,4 +26,5 @@ app.config["SWAGGER"] = {
 Swagger(app)
 
 if __name__ == '__main__':
-    app.run()
+   #serve(app, listen='*:8080')
+   app.run()
