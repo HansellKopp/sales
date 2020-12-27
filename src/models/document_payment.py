@@ -1,11 +1,11 @@
 from . import db
+from datetime import datetime, timedelta
 from models.document import Document
 from sqlalchemy import desc, asc
 from sqlalchemy.event import listen
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
-
-
+from .document_detail import DocumentDetail
 class DocumentPayment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     created_at = db.Column(db.DateTime(), nullable=False,

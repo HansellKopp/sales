@@ -11,6 +11,7 @@ from routes.document import DOCUMENTS_BLUEPRINT
 from routes.invoice import INVOICES_BLUEPRINT
 from routes.parameter import PARAMETERS_BLUEPRINT
 from routes.auth import AUTH_BLUEPRINT
+from routes.reports import REPORTS_BLUEPRINT
 
 app = Flask(__name__)
 
@@ -25,6 +26,7 @@ def create_app(enviroment):
     app.register_blueprint(INVOICES_BLUEPRINT)
     app.register_blueprint(PARAMETERS_BLUEPRINT)
     app.register_blueprint(AUTH_BLUEPRINT)
+    app.register_blueprint(REPORTS_BLUEPRINT)
 
     with app.app_context():
         db.init_app(app)

@@ -42,6 +42,8 @@ const ListItems = () => {
 
   const invoices = () => navigate("/invoices/")
 
+  const summary = () => navigate("/summary/")
+
   if(!user.active) {
     return (
     <div>
@@ -73,6 +75,10 @@ const ListItems = () => {
       <ListItem button>
         <ListItemIcon><Receipt /></ListItemIcon>
         <ListItemText primary="Visualizar Facturas" onClick={invoices} />
+      </ListItem>
+      <ListItem button>
+        <ListItemIcon><Receipt /></ListItemIcon>
+        <ListItemText primary="Resumen diario" onClick={summary} />
       </ListItem>
       <ListItem button>
         <ListItemIcon><AccountCircle /></ListItemIcon>

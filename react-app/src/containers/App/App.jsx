@@ -12,6 +12,7 @@ import Login from 'components/Login/Login'
 import LeftDrawer from './LeftDrawer/LeftDrawer'
 
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute'
+import ReportSummary from 'components/ReportSummary/ReportSummary'
 import InvoicesTable from 'components/Invoice/Invoices/InvoicesTable'
 import ProductsEditTable from 'components/Products/ProductsEditTable/ProductsEditTable'
 
@@ -48,6 +49,10 @@ export default function Dashboard() {
                 <PrivateRoute
                   exact path={"/invoices/"}
                 ><InvoicesTable /></PrivateRoute>
+                <PrivateRoute
+                  exact path={"/summary/"}
+                ><ReportSummary /></PrivateRoute>
+
               </Switch>
         </Container>
       </main>
