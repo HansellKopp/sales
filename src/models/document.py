@@ -46,10 +46,13 @@ class Document(db.Model):
         return Document.query.order_by(sort).paginate(page, per_page).items
 
     @classmethod
-    def get_by_dates(cls, order, page, date_from, date_to, per_page=10):
-        sort = desc(Document.number) if order == 'desc' else asc(Document.number)
-        query = Document.query.filter(Document.date >= date_from).filter(Document.date <= date_to)
-        return query.order_by(sort).paginate(page, per_page).items
+    def get_by_dates(cls, document_type, date_from, date_to):
+        sort = asc(Document.number)
+        query = Document.query\
+            .filter(Document.date >= date_from)\
+            .filter(Document.date <= date_to)\
+            .filter(Document.document_type == document_type)
+        return query.order_by(sort).all()
 
     def save(self):
         try:

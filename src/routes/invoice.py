@@ -7,6 +7,7 @@ from .response import response, not_found, bad_request
 
 from models import db
 from models.person import Person
+from models.product import Product
 from models.document import Document
 from models.document_detail import DocumentDetail
 from models.document_payment import DocumentPayment
@@ -46,13 +47,12 @@ def get_documents():
 
 @INVOICES_BLUEPRINT.route('/invoices/dates', methods=['GET'])
 def get_documents_date():
-    page = int(request.args.get('page', 1))
-    order = request.args.get('order', 'asc')
     date_to = request.args.get('to', datetime.today())
     date_from = request.args.get('from', datetime.today())
     date_from=datetime.fromisoformat(date_from)
     date_to=datetime.fromisoformat(date_to)+timedelta(days=1)
-    invoices = Document.get_by_dates(order=order, page=page, date_from=date_from, date_to=date_to)
+    invoices = Document.get_by_dates(document_type='FACTURA',\
+         date_from=date_from, date_to=date_to)
 
     return response(documents_schema.dump(invoices))
 
@@ -100,13 +100,17 @@ def create_document():
     document = Document.new(person_id=person_id,number=parameter.last_invoice, date=datetime.today(), document_type='FACTURA',
             sub_total=sub_total, discount=discount, tax=total_tax, total=total, exchange=exchange)
 
-    for product in details:
-        document_detail=DocumentDetail.new(cost=product.get('cost'), price=product.get('price'), quantity=product.get('quantity'),
-            sku=product.get('sku'), tax=product.get('tax'), departament=product.get('departament'), description=product.get('description'),
-            product_id=product.get('id'),
+    for detail in details:
+        document_detail=DocumentDetail.new(cost=detail.get('cost'), price=detail.get('price'), quantity=detail.get('quantity'),
+            sku=detail.get('sku'), tax=detail.get('tax'), departament=detail.get('departament'), description=detail.get('description'),
+            product_id=detail.get('id'),
             document_id=document.id
         )
         document.details.append(document_detail)
+        product = Product.query.filter_by(id=detail.get('id')).first()
+        if not product is None:
+            product.stock=(product.stock if product.stock else 0 ) - detail.get('quantity', 0)
+            db.session.add(product)
 
     payments = json['payments']
     for payments in payments:

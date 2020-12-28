@@ -24,6 +24,7 @@ def get_documents():
     data = db.session.query(DocumentPayment.payment_type, db.func.sum(DocumentPayment.amount), db.func.sum(DocumentPayment.amount) * Document.exchange )\
         .join(Document, Document.id == DocumentPayment.document_id)\
         .filter(Document.date >= date_from).filter(Document.date <= date_to)\
+        .filter(Document.document_type=='FACTURA')\
         .group_by(DocumentPayment.payment_type).all()
 
     payments=[]
@@ -37,6 +38,7 @@ def get_documents():
     data = db.session.query(DocumentDetail.description, db.func.sum(DocumentDetail.quantity))\
         .join(Document, Document.id == DocumentDetail.document_id)\
         .filter(Document.date >= date_from).filter(Document.date <= date_to)\
+        .filter(Document.document_type=='FACTURA')\
         .group_by(DocumentDetail.product_id).all()
 
     products=[]
@@ -51,6 +53,7 @@ def get_documents():
             Document.total * Document.exchange)\
         .join(Person, Person.id == Document.person_id)\
         .filter(Document.date >= date_from).filter(Document.date <= date_to)\
+        .filter(Document.document_type=='FACTURA')\
         .order_by(Document.number).all()
 
     invoices=[]
