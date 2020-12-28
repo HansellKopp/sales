@@ -99,7 +99,7 @@ export default function EnhancedTable() {
           range={range}
           selectRange={selectRange}
         />
-        <TableContainer classes={classes.container}>
+        <TableContainer className={classes.container}>
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
@@ -108,7 +108,7 @@ export default function EnhancedTable() {
             stickyHeader={true}
           >
             <EnhancedTableHead
-              classes={classes}
+              className={classes}
               order={order}
               orderBy={orderBy}
               headCells={invoiceTableHead}

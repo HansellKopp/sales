@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
       maxHeight: '100vh',
+      padding: '40px 20px'
     }
 }))
 

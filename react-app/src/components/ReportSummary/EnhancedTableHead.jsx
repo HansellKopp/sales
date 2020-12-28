@@ -22,7 +22,6 @@ const EnhancedTableHead = ({ headCells, title }) => {
               colSpan={headCell.colSpan}
             >{headCell.label}</TableCell>
           ))}
-          <TableCell />
         </TableRow>
       </TableHead>
     );

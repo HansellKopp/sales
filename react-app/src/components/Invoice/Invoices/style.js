@@ -28,7 +28,8 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex'
     },
     container: {
-      maxHeight: 440,
+      maxHeight: '100vh',
+      padding: '40px 20px'
     }
 }))
 
