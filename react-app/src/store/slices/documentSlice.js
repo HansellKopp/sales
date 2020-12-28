@@ -1,6 +1,7 @@
 import { getDefaultMiddleware, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from 'api'
 
+import { getProducts } from './productSlice'
 import { reducers, initialState } from 'store/reducers/documentReducers'
 
 export const saveDocument = createAsyncThunk(
@@ -23,6 +24,7 @@ export const saveInvoice = createAsyncThunk(
      dispatch({ type: 'payment/clear' })
      dispatch({ type: 'document/clear' })
      dispatch({ type: 'document/setInvoice', payload: response.data.data })
+     dispatch(getProducts())
      return { ...data.document }
    }
 )
