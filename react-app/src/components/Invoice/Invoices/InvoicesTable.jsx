@@ -75,9 +75,11 @@ export default function EnhancedTable() {
   const printItem = () => {
     if(!selected[0]) return
     const item = selected[0]
-    const invoice = rows.find(s=> s.number===item)
-    dispatch(getInvoice(invoice.id))
-    setSelected([])
+    const invoice = rows.find(s=> s.id===item)
+    if(invoice) {
+      dispatch(getInvoice(invoice.id))
+      setSelected([])
+    }
   }
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
