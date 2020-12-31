@@ -3,8 +3,6 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import useStyles from './style'
@@ -25,7 +23,6 @@ export default function SelectRange(props) {
   }
   const classes = useStyles();
   return (
-    <div>
       <Dialog
         open={open}
         keepMounted
@@ -34,8 +31,7 @@ export default function SelectRange(props) {
         aria-describedby="alert-dialog-slide-description"
       >
         <DialogTitle id="alert-dialog-slide-title">{title}</DialogTitle>
-        <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
+        <div className={classes.content}>
             <TextField
               id="date_from"
               label="Desde"
@@ -58,8 +54,7 @@ export default function SelectRange(props) {
                 shrink: true,
               }}
             />
-            </DialogContentText>
-        </DialogContent>
+        </div>
         <DialogActions>
           <Button onClick={toogleOpen} color="primary">
             Cancelar
@@ -69,6 +64,5 @@ export default function SelectRange(props) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
   );
 }
