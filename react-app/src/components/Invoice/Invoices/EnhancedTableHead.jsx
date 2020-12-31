@@ -2,15 +2,16 @@ import PropTypes from 'prop-types';
 import {
   TableCell,TableRow, TableHead, TableSortLabel
 } from '@material-ui/core'
+import { useStyles } from './style'
 
 const EnhancedTableHead = (props) => {
     const { 
       order,
-      classes,
       orderBy,
       headCells,
       onRequestSort,
     } = props;
+    const classes = useStyles();
     const createSortHandler = (property) => (event) => {
       onRequestSort(event, property);
     };
@@ -47,7 +48,6 @@ const EnhancedTableHead = (props) => {
   }
   
   EnhancedTableHead.propTypes = {
-    classes: PropTypes.object.isRequired,
     numSelected: PropTypes.number.isRequired,
     onRequestSort: PropTypes.func.isRequired,
     order: PropTypes.oneOf(['asc', 'desc']).isRequired,

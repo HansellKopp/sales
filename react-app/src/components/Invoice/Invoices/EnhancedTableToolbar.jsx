@@ -30,8 +30,13 @@ const EnhancedTableToolbar = (props) => {
         ) : (
           <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
             Facturas
-            <span> desde: {formatDate(new Date(range.from),dateformatoptions)}</span>
-            <span> hasta: {formatDate(new Date(range.to),dateformatoptions)}</span>
+            {range.from === range.to ?
+            <span> del dia: {formatDate(new Date(range.from),dateformatoptions)}</span>
+            :<>
+              <span> desde: {formatDate(new Date(range.from),dateformatoptions)}</span>
+              <span> hasta: {formatDate(new Date(range.to),dateformatoptions)}</span>
+            </>
+            }
           </Typography>
         )}
   
