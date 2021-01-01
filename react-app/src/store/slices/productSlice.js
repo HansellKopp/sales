@@ -19,13 +19,13 @@ export const getProducts = createAsyncThunk(
 export const saveProduct = createAsyncThunk(
   'product/saveProduct',
   async (data, thunkAPI) => {
+    const { dispatch } = thunkAPI
     let response = null
     if(!data.id) {
       response = await api.post(`/products`, data)
     } else {
       response = await api.put(`/products/${data.id}`, data)
-    }
-    const dispatch = thunkAPI.dispatch
+    }    
     dispatch(getProducts())
     return {...response.data.data}
   }
@@ -34,13 +34,13 @@ export const saveProduct = createAsyncThunk(
 export const deleteProducts = createAsyncThunk(
   'product/deleteProducts',
   async (data, thunkAPI) => {    
+    const dispatch = thunkAPI.dispatch
     data.forEach(async (element) => {
        const result = await api.delete(`products/${element}`)
        if(!result.status===200) {
          console.log(result)
        }
-    });
-    const dispatch = thunkAPI.dispatch
+    });    
     dispatch(getProducts())
   }
 )

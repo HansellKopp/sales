@@ -23,29 +23,54 @@ export const saveInvoice = createAsyncThunk(
      dispatch({ type: 'cart/clear' })
      dispatch({ type: 'payment/clear' })
      dispatch({ type: 'document/clear' })
-     dispatch({ type: 'document/setInvoice', payload: response.data.data })
      dispatch(getProducts())
-     return { ...data.document }
+     return response.data.data
    }
 )
 
 export const getInvoice = createAsyncThunk(
   'document/getInvoice',
-     async (id, thunkAPI) => {
-     const { dispatch } = thunkAPI      
+     async (id) => {
      const response = await api.get(`/invoices/${id}`)
-     dispatch({ type: 'document/setInvoice', payload: response.data.data })
-     return null
+     return response.data.data
    }
 )
 
 export const getInvoicesDates = createAsyncThunk(
   'document/getInvoicesDates',
      async (data, thunkAPI) => {
-     const { dispatch } = thunkAPI      
      const response = await api.get(`/invoices/dates?from=${data.from}&to=${data.to}`)
-     dispatch({ type: 'document/setInvoices', payload: response.data.data })
+     return response.data.data
+   }
+)
+
+export const getPurchase = createAsyncThunk(
+  'document/getPurchase',
+     async (id, thunkAPI) => {
+     const { dispatch } = thunkAPI      
+     const response = await api.get(`/purchases/${id}`)
+     dispatch({ type: 'document/setPurchases', payload: response.data.data })
      return null
+   }
+)
+
+export const getPurchasesDates = createAsyncThunk(
+  'document/getPurchasesDate',
+     async (data, thunkAPI) => {
+     const { dispatch } = thunkAPI      
+     const response = await api.get(`/purchases/dates?from=${data.from}&to=${data.to}`)
+     dispatch({ type: 'document/setPurchase', payload: response.data.data })
+     return null
+   }
+)
+
+export const savePurchase = createAsyncThunk(
+  'document/savePurchase',
+     async (data, thunkAPI) => {
+     const { dispatch } = thunkAPI      
+     const response = await api.post('/purchase', data)
+     dispatch(getProducts())
+     return { ...response.data }
    }
 )
 
@@ -63,17 +88,39 @@ export default createSlice({
           return {...initialState}
         },
         [saveInvoice.fulfilled]: (state, action) => {
-          return {...state}
+          const newState = {...state}
+          newState.invoice={...action.payload, readyToPrint: true}
+          return {...newState}
          },
          [saveInvoice.rejected]: (state, action) => {
            return {...initialState}
          },
          [getInvoice.fulfilled]: (state, action) => {
-          return {...state}
+           const newState = {...state}
+           newState.invoice={...action.payload, readyToPrint: true}
+          return {...newState}
          },
          [getInvoice.rejected]: (state, action) => {
+            const newState = {...state}
+            newState.invoice={...action.payload, readyToPrint: false}
+          return {...state}
+         },
+         [getInvoicesDates.fulfilled]: (state, action) => {
+          const newState = {...state}
+          newState.invoices = [...action.payload]
+         return {...newState}
+        },
+        [getInvoicesDates.rejected]: (state, action) => {
+           const newState = {...state}
+           newState.invoices=[]
+         return {...state}
+        },
+        [savePurchase.fulfilled]: (state, action) => {
+          return {...state}
+         },
+         [savePurchase.rejected]: (state, action) => {
            return {...initialState}
-         } 
+         },
     },
     middleware: [...getDefaultMiddleware()],
   })
