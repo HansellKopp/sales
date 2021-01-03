@@ -11,7 +11,15 @@ export const initialState = {
     invoice: {
       readyToPrint: false
     },
-    invoices: []
+    invoices: [],
+    purchase: {
+      exchange: 0,
+      errors: {},
+      provider: {},
+      products: [],
+      readyToPrint: false
+    },
+    purchases: []
   }
   
 export const reducers = {
@@ -44,12 +52,25 @@ export const reducers = {
     setInvoice: ( state, action ) => {
       const newData={...state}
       newData.invoice = { ...action.payload }
+      console.log({newData, action})
       return {...newData }
     },
 
     clearInvoice: ( state, action ) => {
       const newData={...state}
       newData.invoice = { readyToPrint: false}
+      return {...newData }
+    },
+
+    setPurchase: ( state, action ) => {
+      const newData={...state}
+      newData.purchase = {...action.payload}
+      return {...newData}
+    },
+
+    clearPurchase: ( state, action ) => {
+      const newData={...state}
+      newData.purchase = { ...initialState.purchase}
       return {...newData }
     },
 

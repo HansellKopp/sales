@@ -8,7 +8,9 @@ import {
   AccountCircle, 
   Store,
   Receipt,
-  Settings
+  Settings,
+  LocalShipping,
+  Today
 } from '@material-ui/icons';
 
 const ListItems = () => {
@@ -39,6 +41,8 @@ const ListItems = () => {
 
   }
   
+  const purchases = () => navigate("/purchases/")
+
   const products = () => navigate("/products/")
 
   const invoices = () => navigate("/invoices/")
@@ -72,6 +76,10 @@ const ListItems = () => {
         <ListItemText primary="Limpiar pedido" onClick={clear} />
       </ListItem>
       <ListItem button>
+        <ListItemIcon><LocalShipping /></ListItemIcon>
+        <ListItemText primary="Compras" onClick={purchases} />
+      </ListItem>
+      <ListItem button>
         <ListItemIcon><Store /></ListItemIcon>
         <ListItemText primary="Actualizar productos" onClick={products} />
       </ListItem>
@@ -80,7 +88,7 @@ const ListItems = () => {
         <ListItemText primary="Visualizar Facturas" onClick={invoices} />
       </ListItem>
       <ListItem button>
-        <ListItemIcon><Receipt /></ListItemIcon>
+        <ListItemIcon><Today /></ListItemIcon>
         <ListItemText primary="Resumen diario" onClick={summary} />
       </ListItem>
       <ListItem button>

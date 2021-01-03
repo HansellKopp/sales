@@ -7,7 +7,7 @@ from marshmallow.validate import Length, Range
 class ParameterSchema(Schema):
     class Meta:
         fields = ('id', 'exchange','tax_id',
-                  'name', 'address','last_invoice')
+                  'name', 'address','last_invoice','last_purchase')
 
 
 class ParamsParameterSchema(Schema):
@@ -16,6 +16,7 @@ class ParamsParameterSchema(Schema):
     name = fields.Str(required=True, validate=Length(max=150))
     address = fields.Str(required=True, validate=Length(max=150))
     last_invoice = fields.Integer(required=True, validate=Range(min_inclusive=0))
+    last_purchase = fields.Integer(required=True, validate=Range(min_inclusive=0))
 
 
 parameter_schema = ParameterSchema()

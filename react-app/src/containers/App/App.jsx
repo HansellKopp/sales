@@ -15,6 +15,8 @@ import Settings from 'components/Settings/Settings'
 import PrivateRoute from 'components/PrivateRoute/PrivateRoute'
 import ReportSummary from 'components/ReportSummary/ReportSummary'
 import InvoicesTable from 'components/Invoice/Invoices/InvoicesTable'
+import PurchaseForm from 'components/Purchase/PurchaseForm/PurchaseForm'
+import PurchasesTable from 'components/Purchases/PurchasesTable'
 import ProductsEditTable from 'components/Products/ProductsEditTable/ProductsEditTable'
 
 import useStyles from './styles'
@@ -56,6 +58,15 @@ export default function Dashboard() {
                 <PrivateRoute
                   exact path={"/parameters/"}
                 ><Settings /></PrivateRoute>
+                <PrivateRoute
+                  exact path={"/purchases/"}
+                ><PurchasesTable /></PrivateRoute>
+                <PrivateRoute
+                  exact path={"/purchases/new/"}
+                ><PurchaseForm /></PrivateRoute>
+                <PrivateRoute
+                  exact path={"/purchases/edit/:id"}
+                ><PurchaseForm /></PrivateRoute>
               </Switch>
         </Container>
       </main>

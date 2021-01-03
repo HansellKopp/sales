@@ -4,17 +4,6 @@ import { api } from 'api'
 import { getProducts } from './productSlice'
 import { reducers, initialState } from 'store/reducers/documentReducers'
 
-export const saveDocument = createAsyncThunk(
-   'document/saveDocument',
-      async (data, thunkAPI) => {
-      const { dispatch } = thunkAPI      
-      const response = await api.post('/documents', data)
-      console.log(response)
-      dispatch({ type: 'cart/clear' })
-      return { ...data.document }
-    }
-)
-
 export const saveInvoice = createAsyncThunk(
   'document/saveInvoice',
      async (data, thunkAPI) => {
@@ -55,12 +44,10 @@ export const getPurchase = createAsyncThunk(
 )
 
 export const getPurchasesDates = createAsyncThunk(
-  'document/getPurchasesDate',
+  'document/getPurchasesDates',
      async (data, thunkAPI) => {
-     const { dispatch } = thunkAPI      
      const response = await api.get(`/purchases/dates?from=${data.from}&to=${data.to}`)
-     dispatch({ type: 'document/setPurchase', payload: response.data.data })
-     return null
+     return response.data.data
    }
 )
 
@@ -68,7 +55,7 @@ export const savePurchase = createAsyncThunk(
   'document/savePurchase',
      async (data, thunkAPI) => {
      const { dispatch } = thunkAPI      
-     const response = await api.post('/purchase', data)
+     const response = await api.post('/purchases', data)
      dispatch(getProducts())
      return { ...response.data }
    }
@@ -79,14 +66,6 @@ export default createSlice({
     initialState: initialState,
     reducers,
     extraReducers: {
-        [saveDocument.fulfilled]: (state, action) => {
-         // const data = {...action.payload}
-         // return ({...data})
-         return {...state}
-        },
-        [saveDocument.rejected]: (state, action) => {
-          return {...initialState}
-        },
         [saveInvoice.fulfilled]: (state, action) => {
           const newState = {...state}
           newState.invoice={...action.payload, readyToPrint: true}
@@ -108,19 +87,32 @@ export default createSlice({
          [getInvoicesDates.fulfilled]: (state, action) => {
           const newState = {...state}
           newState.invoices = [...action.payload]
-         return {...newState}
+          return {...newState}
         },
         [getInvoicesDates.rejected]: (state, action) => {
            const newState = {...state}
            newState.invoices=[]
-         return {...state}
+         return {...newState}
         },
         [savePurchase.fulfilled]: (state, action) => {
-          return {...state}
-         },
+          const newState = {...state}
+          newState.purchase=initialState.purchase
+          newState.purchases=initialState.purchases
+          return {...newState}
+        },
          [savePurchase.rejected]: (state, action) => {
            return {...initialState}
          },
+         [getPurchasesDates.fulfilled]: (state, action) => {
+          const newState = {...state}
+          newState.purchases = [...action.payload]
+          return {...newState}
+        },
+        [getPurchasesDates.rejected]: (state, action) => {
+           const newState = {...state}
+           newState.purchases=[]
+         return {...newState}
+        }
     },
     middleware: [...getDefaultMiddleware()],
   })
