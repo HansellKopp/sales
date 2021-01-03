@@ -11,7 +11,7 @@ function sleep(delay = 0) {
     });
   }
 
-const Search = ({label, field, url, onChange}) => {
+const Search = ({label, field, url, onChange, fieldLabel= 'firstname'}) => {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -52,7 +52,7 @@ const Search = ({label, field, url, onChange}) => {
       onOpen={toggleOpen}
       onClose={toggleOpen}
       style={{ width: '100%' }}
-      getOptionLabel={(option) => option.firstname}
+      getOptionLabel={(option) => option[fieldLabel]}
       onChange={(event, newValue) => onChange(newValue) }
       getOptionSelected={(option, value) => option[field] === value[field]}
       renderInput={(params) => (

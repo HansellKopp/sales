@@ -4,7 +4,7 @@ import { Print, FilterList } from '@material-ui/icons'
 import { Toolbar, Typography, Tooltip, IconButton } from '@material-ui/core'
 import SelectDate from 'components/SelectDate/SelectDate'
 
-import { useToolbarStyles } from './style'
+import useToolbarStyles from 'styles/useToolbarStyles'
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles()

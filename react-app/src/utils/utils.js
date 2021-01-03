@@ -7,6 +7,13 @@ export const totalize = (items, col) =>
     }, 0)) 
     : 0
 
+export const totalizeCols = (items, cols) => 
+    items ? 
+    (items.reduce((acc, item) => {
+        return acc + (parseFloat(item[cols[0]]) * parseFloat(item[cols[1]]))
+    }, 0)) 
+    : 0
+
 export const formatNumber = (value) => 
     new Intl.NumberFormat('es-Es',{ minimumFractionDigits: 2 }).format(value)
 
@@ -90,4 +97,8 @@ export const stableSort = (array, comparator) => {
       return a[1] - b[1];
     });
     return stabilizedThis.map((el) => el[0]);
+}
+
+export const isFunction = (functionToCheck) => {
+  return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
 }
