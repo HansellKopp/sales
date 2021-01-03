@@ -20,10 +20,11 @@ class Parameter(db.Model):
     name = db.Column(db.String, nullable=False)
     address = db.Column(db.String, nullable=False)
     last_invoice = db.Column(db.Integer, nullable=False, default=0)
+    last_purchase = db.Column(db.Integer, nullable=False, default=0)
 
     @classmethod
-    def new(cls, tax_id, exchange, name, address, last_invoice):
-        return Parameter(tax_id=tax_id,exchange=exchange,name=name,address=address,last_invoice=last_invoice)
+    def new(cls, tax_id, exchange, name, address, last_invoice,last_purchase):
+        return Parameter(tax_id=tax_id,exchange=exchange,name=name,address=address,last_invoice=last_invoice,last_purchase=last_purchase)
 
     @classmethod
     def get_by_page(cls, order, page, per_page=10, q=""):
@@ -74,6 +75,7 @@ def insert_parameters(*args, **kwargs):
                 name=record['name'],
                 address=record['address'],
                 last_invoice=record['last_invoice'],
+                last_purchase=record['last_purchase'],
             ))
             try:
                 db.session.commit()
