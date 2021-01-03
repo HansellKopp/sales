@@ -6,7 +6,7 @@ import { Toolbar, Typography, Tooltip, IconButton } from '@material-ui/core'
 import SelectRange from 'components/SelectRange/SelectRange'
 
 import { formatDate } from 'utils/utils'
-import { useToolbarStyles } from './style'
+import useToolbarStyles from 'styles/useToolbarStyles'
 
 const EnhancedTableToolbar = (props) => {
   const classes = useToolbarStyles()

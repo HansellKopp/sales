@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { Delete, FilterList, AddCircle, Edit } from '@material-ui/icons'
 import { Toolbar, Typography, Tooltip, IconButton } from '@material-ui/core'
 
-import { useToolbarStyles } from './style'
+import useToolbarStyles from 'styles/useToolbarStyles'
 import ConfirmActionDialog from 'components/ConfirmActionDialog/ConfirmActionDialog'
 
 const EnhancedTableToolbar = (props) => {
