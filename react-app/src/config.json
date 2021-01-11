@@ -1,0 +1,329 @@
+{ 
+    "paymentTypes": {
+            "Efectivo $": { "currency": "$", "detailsLabel": "Comentarios", "detailsType":"text"},
+            "Zelle": { "currency": "$", "detailsLabel": "Email", "detailsType":"email"},
+            "Panama": { "currency": "$", "detailsLabel": "Numero Transferencia", "detailsType":"text"},
+            "Pago Mobil": { "currency": "Bs.", "detailsLabel": "Detalles", "detailsType":"text"},
+            "Transferencia": { "currency": "Bs","detailsLabel": "Numero Transferencia", "detailsType":"text"}
+    },
+    "defaultPayment": {
+        "payment_type": "Efectivo $"
+     },
+     "invoiceFormFields": {
+            "tax_id": {
+                "label": "Cedula Rif.",
+                "type" : "search",
+                "validation": {
+                    "required": true
+                }
+            },
+            "firstname": {
+                "label": "Nombre",
+                "type" : "text",
+                "validation": {
+                    "required": true
+                }
+            },
+            "lastname": {
+                "label": "Apellidos",
+                "type" : "text",
+                "validation": {
+                    "required": true
+                }
+            },
+            "address": {
+                "label": "Dirección",
+                "type" : "text",
+                "validation": {
+                    "required": true
+                }
+            },
+            "city": {
+                "label": "Ciudad",
+                "type" : "text",
+                "defaultValue": "Barcelona",
+                "validation": {
+                    "required": true
+                }
+            },
+            "phone": {
+                "label": "Telefono",
+                "type" : "text"
+            },
+            "email": {
+                "label": "Email",
+                "type" : "email",
+                "validation": {
+                    "email": true
+                }
+            }        
+    },
+    "productTableHead": [
+        { "id": "description", "numeric": false, "disablePadding": false, "label": "Descripcion" },
+        { "id": "departament", "numeric": false, "disablePadding": true, "label": "Grupo" },
+        { "id": "stock", "numeric": true, "disablePadding": true, "label": "Exist." },
+        { "id": "tax", "numeric": true, "disablePadding": false, "label": "iva" },
+        { "id": "price", "numeric": true, "disablePadding": false, "label": "Precio Kg" },
+        { "id": "price_2", "numeric": true, "disablePadding": false, "label": "Precio 0.5kg" },
+        { "id": "price_3", "numeric": true, "disablePadding": false, "label": "Precio 0.25kg" },
+        { "id": "", "numeric": true, "disablePadding": true, "label": "" }
+    ],
+    "productFormFields": {
+        "departament": {
+            "label": "Grupo",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "description": {
+            "label": "Descripcion",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "minimum": {
+            "label": "Minimo",
+            "type" : "number",
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "cost": {
+            "label": "Costo",
+            "type" : "number",
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "price": {
+            "label": "Precio Kg",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "price_2": {
+            "label": "Precio 0.5kg",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "price_3": {
+            "label": "Precio 0.25 kg",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "stock": {
+            "label": "Exis.",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "tax": {
+            "label": "iva",
+            "type" : "number",
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+
+        }
+    },
+    "invoiceTableHead": [
+        { "id": "number", "numeric": false, "disablePadding": false, "label": "Numero" },
+        { "id": "date", "numeric": false, "disablePadding": true, "label": "Fecha" },
+        { "id": "tax_id", "numeric": false, "disablePadding": true, "label": "Cedula/Rif" },
+        { "id": "fullname", "numeric": false, "disablePadding": true, "label": "Nombre" },
+        { "id": "total", "numeric": true, "disablePadding": false, "label": "Total" },
+        { "id": "total_bs", "numeric": true, "disablePadding": false, "label": "Total Bs." }
+    ],
+    "summaryTableHead": {
+        "invoices": [
+            { "id": "number", "numeric": false, "disablePadding": false, "label": "Numero" },
+            { "id": "tax_id", "numeric": false, "disablePadding": true, "label": "Cedula/Rif" },
+            { "id": "fullname", "numeric": false, "disablePadding": true, "label": "Nombre" },
+            { "id": "total", "numeric": true, "disablePadding": false, "label": "Total" },
+            { "id": "total_bs", "numeric": true, "disablePadding": false, "label": "Total Bs." }    
+        ],
+        "payments": [
+            { "id": "payment", "numeric": false, "disablePadding": false, "label": "Forma Pago", "colSpan": "3"},
+            { "id": "total", "numeric": true, "disablePadding": false, "label": "Total" },
+            { "id": "total_bs", "numeric": true, "disablePadding": false, "label": "Total Bs." }    
+        ],
+        "products": [
+            { "id": "description", "numeric": false, "disablePadding": false, "label": "Producto", "colSpan": "4" },
+            { "id": "quantity", "numeric": true, "disablePadding": false, "label": "Cantidad" }
+        ]
+    },
+    "purchaseTableHead": [
+        { "id": "number", "numeric": false, "disablePadding": false, "label": "Numero" },
+        { "id": "date", "numeric": false, "disablePadding": true, "label": "Fecha" },
+        { "id": "tax_id", "numeric": false, "disablePadding": true, "label": "Cedula/Rif" },
+        { "id": "fullname", "numeric": false, "disablePadding": true, "label": "Nombre" },
+        { "id": "total", "numeric": true, "disablePadding": false, "label": "Total" },
+        { "id": "total_bs", "numeric": true, "disablePadding": false, "label": "Total Bs." }
+    ],
+    "purchaseProductsHead": [
+        { "id": "description", "numeric": false, "disablePadding": false, "label": "Descripcion" },
+        { "id": "quantity", "numeric": false, "disablePadding": false, "label": "Cantidad" },
+        { "id": "cost", "numeric": false, "disablePadding": true, "label": "Costo" },
+        { "id": "price", "numeric": false, "disablePadding": true, "label": "Precio" },
+        { "id": "total", "numeric": true, "disablePadding": false, "label": "Total" },
+        { "id": "total_bs", "numeric": true, "disablePadding": false, "label": "Total Bs." }
+    ],
+    "loginFields": {
+        "username": {
+            "label": "Usuario",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "password": {
+            "label": "contraseña",
+            "type" : "password"
+        }
+    },
+    "settingsFields": {
+        "tax_id": {
+            "label": "Rif",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "name": {
+            "label": "Empresa",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "address": {
+            "label": "Direccion",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "exchange": {
+            "label": "Tasa de Cambio",
+            "type" : "numeric",
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        }
+    },
+    "purchaseFormFields": {
+        "tax_id": {
+            "label": "Cedula Rif.",
+            "type" : "search",
+            "validation": {
+                "required": true
+            }
+        },
+        "firstname": {
+            "label": "Nombre",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "lastname": {
+            "label": "Apellidos",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "address": {
+            "label": "Dirección",
+            "type" : "text",
+            "validation": {
+                "required": true
+            }
+        },
+        "city": {
+            "label": "Ciudad",
+            "type" : "text",
+            "defaultValue": "Barcelona",
+            "validation": {
+                "required": true
+            }
+        },
+        "phone": {
+            "label": "Telefono",
+            "type" : "text"
+        },
+        "email": {
+            "label": "Email",
+            "type" : "email",
+            "validation": {
+                "email": true
+            }
+        }        
+    },
+    "purchaseProductFormFields": {
+        "cost": {
+            "label": "Costo Kg",
+            "type" : "number",
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "quantity": {
+            "label": "Cantidad Kg.",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "price": {
+            "label": "Precio Kg",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "price_2": {
+            "label": "Precio 0.5kg",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        },
+        "price_3": {
+            "label": "Precio 0.25 kg",
+            "type" : "number",
+            "defaultValue": 0,
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        }
+    }
+}
