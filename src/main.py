@@ -1,12 +1,15 @@
 from waitress import serve
 from config import config
 from flasgger import Swagger
+from flask_cors import CORS
 
 from app import create_app
 
 enviroment = config['development']
 
 app = create_app(enviroment)
+
+CORS(app)
 
 app.config["SWAGGER"] = {
 "swagger_version": "2.0",
