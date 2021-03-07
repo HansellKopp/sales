@@ -158,8 +158,8 @@
             { "id": "number", "numeric": false, "disablePadding": false, "label": "Numero" },
             { "id": "tax_id", "numeric": false, "disablePadding": true, "label": "Cedula/Rif" },
             { "id": "fullname", "numeric": false, "disablePadding": true, "label": "Nombre" },
-            { "id": "total", "numeric": true, "disablePadding": false, "label": "Total" },
-            { "id": "total_bs", "numeric": true, "disablePadding": false, "label": "Total Bs." }    
+            { "id": "exchange", "numeric": true, "disablePadding": false, "label": "Tasa" },
+            { "id": "total", "numeric": true, "disablePadding": false, "label": "Total" }
         ],
         "payments": [
             { "id": "payment", "numeric": false, "disablePadding": false, "label": "Forma Pago", "colSpan": "3"},

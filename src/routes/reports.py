@@ -50,7 +50,7 @@ def get_documents():
         
     data = db.session.query(Document.number, Person.tax_id,\
             Person.firstname, Person.lastname,  Document.total,\
-            Document.total * Document.exchange)\
+            Document.total * Document.exchange, Document.exchange)\
         .join(Person, Person.id == Document.person_id)\
         .filter(Document.date >= date_from).filter(Document.date <= date_to)\
         .filter(Document.document_type=='FACTURA')\
@@ -64,6 +64,7 @@ def get_documents():
             "fullname": item[2] + ' ' + item[3],
             "total": item[4],
             "total_bs": item[5],
+            "exchange":item[6]
         })
 
 
