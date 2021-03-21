@@ -30,6 +30,7 @@ const ListItems = () => {
 
   const clear = () => {
     dispatch({ type: 'cart/clear' })
+    dispatch({ type: 'payment/clear' })
     navigate('/')
   }
 

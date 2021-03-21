@@ -48,15 +48,15 @@ export default function Dashboard() {
                   exact path={"/login/"}                    
                   render={() => ((user && user.active) ? <Home />: <Login />) }
                 />
+                <Route
+                  exact path={"/summary/"}
+                ><ReportSummary /></Route>
                 <PrivateRoute
                   exact path={"/products/"}
                 ><ProductsEditTable /></PrivateRoute>
                 <PrivateRoute
                   exact path={"/invoices/"}
                 ><InvoicesTable /></PrivateRoute>
-                <PrivateRoute
-                  exact path={"/summary/"}
-                ><ReportSummary /></PrivateRoute>
                 <PrivateRoute
                   exact path={"/parameters/"}
                 ><Settings /></PrivateRoute>

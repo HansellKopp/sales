@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import Today from '@material-ui/icons/Today';
 import { Typography } from '@material-ui/core'
 import Badge from '@material-ui/core/Badge';
 import AppBar from '@material-ui/core/AppBar';
@@ -19,14 +20,19 @@ const Bar = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart.products)
-    const { parameters, openDrawer } = useSelector(state => state.state)
+    const { parameters, openDrawer, showExchange } = useSelector(state => state.state)
     const toogleShowCart  = () => {
         history.push("/")
         dispatch({ type: 'state/toogleShowCart' })
+        showExchange && dispatch({ type: 'state/toogleShowExchange' })
     }
     const toogleShowExchange  = () => {
         dispatch({ type: 'state/toogleShowExchange' })
     } 
+    const openResume = () => {
+        history.push("/summary/")
+        showExchange && dispatch({ type: 'state/toogleShowExchange' })
+    }
     const toogleOpenDrawer  = () => dispatch({ type: 'state/toogleOpenDrawer' })
     return (
         <AppBar position="absolute" className={classNames(classes.appBar, openDrawer && classes.appBarShift)}>
@@ -43,6 +49,9 @@ const Bar = () => {
             </Typography>
             <IconButton color="inherit" onClick={toogleShowExchange}>
                 <AttachMoneyIcon />
+            </IconButton>
+            <IconButton color="inherit" onClick={openResume}>
+                <Today />
             </IconButton>
             <IconButton color="inherit" onClick={toogleShowCart}>
                 <Badge badgeContent={cartItems(cart)} color="secondary">
