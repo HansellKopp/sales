@@ -39,6 +39,7 @@ const InvoiceForm = () => {
                 url='/persons' 
                 field='firstname'
                 label='Buscar Cliente'
+                person_type='client'
                 onChange={selectPerson}
             />
             <form className={classes.root} noValidate autoComplete="off">                

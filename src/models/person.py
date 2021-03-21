@@ -20,17 +20,20 @@ class Person(db.Model):
     phone = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=True)
     tax_id = db.Column(db.String, nullable=False)
+    person_type = db.Column(db.String, nullable=False)
     document = db.relationship('Document', backref='person', lazy=True)
 
     @classmethod
-    def new(cls, tax_id, firstname, lastname, address, city, phone, email):
+    def new(cls, tax_id, firstname, lastname, address, city, phone, email, person_type):
         return Person(tax_id=tax_id, firstname=firstname, lastname=lastname, address=address,
-                      city=city, phone=phone, email=email)
+                      city=city, phone=phone, email=email, person_type=person_type)
 
     @classmethod
-    def get_by_page(cls, order, page, per_page=10, q=""):
+    def get_by_page(cls, order, page, per_page=10, q="", person_type=""):
         sort = desc(Person.id) if order == 'desc' else asc(Person.id)
         person_query = Person.query
+        if(person_type):
+            person_query = person_query.filter(Person.person_type == person_type)
         if(q):
             person_query = person_query.filter(or_(Person.firstname.like(
                 '%'+q+'%'), Person.lastname.like('%'+q+'%'), Person.tax_id.like('%'+q+'%')))
@@ -42,8 +45,10 @@ class Person(db.Model):
         return Person.query.filter_by(tax_id=tax_id).first()
 
     @classmethod
-    def search(cls, q=""):
+    def search(cls, q="", person_type=""):
         person_query = Person.query
+        if(person_type):
+            person_query = person_query.filter(Person.person_type == person_type)
         if(q):
             person_query = person_query.filter(or_(Person.firstname.like(
                 '%'+q+'%'), Person.lastname.like('%'+q+'%'), Person.tax_id.like('%'+q+'%')))
@@ -67,7 +72,8 @@ class Person(db.Model):
                 city=new_person.get('city'),
                 email=new_person.get('email', ''),
                 phone= new_person.get('phone', ''),
-                lastname=new_person.get('lastname', '')
+                lastname=new_person.get('lastname', ''),
+                person_type=new_person.get('person_type', 'client')
             )
         else:            
             person.firstname=new_person.get('firstname', person.firstname)
@@ -77,6 +83,7 @@ class Person(db.Model):
             person.email=new_person.get('email',person.email)
             person.phone= new_person.get('phone',person.phone)
             person.lastname=new_person.get('lastname',person.lastname)
+            person.person_type=new_person.get('person_type',person.person_type)
         return person
 
     def save(self):
@@ -115,6 +122,7 @@ def insert_Persons(*args, **kwargs):
                 city=record['city'],
                 phone=record['phone'],
                 email=record['email'],
+                person_type=record['person_type'],
             ))
             try:
                 db.session.commit()

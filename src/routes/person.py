@@ -29,11 +29,12 @@ def get_persons():
     order = request.args.get('order', 'asc')
     q = request.args.get('q', '')
     search=request.args.get('search', '')
+    person_type=request.args.get('person_type', '')
     persons = []
     if search=='1':
-        persons = Person.search(q)
+        persons = Person.search(q, person_type, person_type)
     else:
-       persons = Person.get_by_page(order, page, 10, q)
+       persons = Person.get_by_page(order, page, 10, q, person_type)
     
     return response(persons_schema.dump(persons))
 
@@ -59,6 +60,7 @@ def create_person():
                         phone=json['phone'],
                         email=json['email'],
                         tax_id=json['tax_id'],
+                        person_type=json['person_type'],
                         )
 
     if person.save():
@@ -78,6 +80,7 @@ def update_person(person):
     person.phone = json.get('phone', person.phone)
     person.email = json.get('email', person.email)
     person.tax_id = json.get('tax_id', person.tax_id)
+    person.person_type = json.get('person_type', person.person_type)
 
     if person.save():
         return response(person_schema.dump(person))

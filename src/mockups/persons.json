@@ -6,6 +6,18 @@
         "address": "Av. Intercomunal C.C. Cristal Plaza piso 1 Oficina 9",
         "city": "Barcelona",
         "phone": "0281-2866220",
-        "email": "hksistemas@gmail.com"
+        "email": "hksistemas@gmail.com",
+        "person_type": "supplier"
+    },
+    {
+        "tax_id": "V10202014",
+        "firstname": "Evielsa",
+        "lastname": "Villarroel",
+        "address": "Residencias Madre Vieja",
+        "city": "Lecheria",
+        "phone": "0414-8188008",
+        "email": "evi@gmail.com",
+        "person_type": "client"
     }
+
 ]

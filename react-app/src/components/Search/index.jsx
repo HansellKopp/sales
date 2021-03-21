@@ -11,7 +11,7 @@ function sleep(delay = 0) {
     });
   }
 
-const Search = ({label, field, url, onChange, fieldLabel= 'firstname'}) => {
+const Search = ({label, field, url, onChange, fieldLabel= 'firstname', person_type=''}) => {
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const loading = open && options.length === 0;
@@ -25,7 +25,10 @@ const Search = ({label, field, url, onChange, fieldLabel= 'firstname'}) => {
 
     (async () => {
       await sleep(100); 
-      const response = await  api(url)
+      
+      const q = person_type ? `?person_type=${person_type}`: '' 
+      console.log(url + q )
+      const response = await  api(url + q )
       const persons = await response.data.data
       if (active)  setOptions(persons)
     })();
@@ -33,7 +36,7 @@ const Search = ({label, field, url, onChange, fieldLabel= 'firstname'}) => {
     return () => {
       active = false;
     };
-  }, [loading, url]);
+  }, [loading, url, person_type]);
 
   React.useEffect(() => {
     if (!open) {

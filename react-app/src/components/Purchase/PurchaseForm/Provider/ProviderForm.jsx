@@ -44,6 +44,7 @@ const ProviderForm = () => {
             url='/persons' 
             field='firstname'
             label='Buscar Proveedor'
+            person_type='supplier'
             onChange={selectProvider}
         />
         <form className={classes.root} noValidate autoComplete="off">                

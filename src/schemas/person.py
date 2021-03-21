@@ -6,7 +6,7 @@ from marshmallow.validate import Length, Range
 class PersonSchema(Schema):
     class Meta:
         fields = ('id', 'firstname', 'lastname',
-                  'address', 'city', 'phone', 'email', 'tax_id')
+                  'address', 'city', 'phone', 'email', 'tax_id', 'person_type')
 
 
 class ParamsPersonSchema(Schema):
@@ -17,6 +17,7 @@ class ParamsPersonSchema(Schema):
     phone = fields.Str(required=True, validate=Length(max=50))
     email = fields.Str(required=True, validate=Length(max=50))
     tax_id = fields.Str(required=True, validate=Length(max=50))
+    person_type = fields.Str(required=True, validate=Length(max=50))
 
 
 person_schema = PersonSchema()

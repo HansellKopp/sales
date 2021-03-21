@@ -67,6 +67,7 @@ def create_document():
     json = request.get_json(force=True)
     ## update or create person
     new_person = json['provider']
+    new_person.person_type='supplier'
     error=params_person_schema.validate(new_person)
     if error:
         print(error)
