@@ -15,7 +15,7 @@ class ParamsPersonSchema(Schema):
     address = fields.Str(required=True, validate=Length(max=150))
     city = fields.Str(required=True, validate=Length(max=50))
     phone = fields.Str(required=True, validate=Length(max=50))
-    email = fields.Str(required=True, validate=Length(max=50))
+    email = fields.Str(required=False, validate=Length(max=50))
     tax_id = fields.Str(required=True, validate=Length(max=50))
     person_type = fields.Str(required=True, validate=Length(max=50))
 
