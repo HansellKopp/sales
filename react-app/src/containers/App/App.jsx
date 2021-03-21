@@ -21,10 +21,11 @@ import ProductsEditTable from 'components/Products/ProductsEditTable/ProductsEdi
 
 import useStyles from './styles'
 import Messages from 'components/Messages';
+import SettingsExchenge from 'components/Settings/SettingsExchange';
 
 export default function Dashboard() {
   const classes = useStyles();
-  const { loading } = useSelector(state => state.state)
+  const { loading, showExchange } = useSelector(state => state.state)
   const { user } = useSelector(state => state.auth)
   if (loading!=='idle') return ( null )
   return (
@@ -37,6 +38,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+            {showExchange ? <SettingsExchenge /> :
               <Switch>
                 <Route 
                   exact path={"/"}
@@ -67,7 +69,7 @@ export default function Dashboard() {
                 <PrivateRoute
                   exact path={"/purchases/edit/:id"}
                 ><PurchaseForm /></PrivateRoute>
-              </Switch>
+              </Switch>}
         </Container>
       </main>
     </div>

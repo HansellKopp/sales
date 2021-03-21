@@ -7,17 +7,24 @@ export const initialState = {
     showSnackbar: false,
     showInvoiceForm: false,
     showProductForm: false,
+    showExchange: false,
     messages: []
   }
   
 export const reducers = {
-    toogleShowCart: (state) => {
+  toogleShowCart: (state) => {
     const newState = {...state}
     newState.showCart = !newState.showCart
     if(newState.showCart) {
       newState.showOffers = false
       newState.showProducts = false
     }
+    return newState
+  },
+
+  toogleShowExchange: (state) => {
+    const newState = {...state}
+    newState.showExchange = !newState.showExchange
     return newState
   },
 

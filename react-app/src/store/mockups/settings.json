@@ -3,7 +3,7 @@
             "Efectivo $": { "currency": "$", "detailsLabel": "Comentarios", "detailsType":"text"},
             "Zelle": { "currency": "$", "detailsLabel": "Email", "detailsType":"email"},
             "Panama": { "currency": "$", "detailsLabel": "Numero Transferencia", "detailsType":"text"},
-            "Pago Mobil": { "currency": "Bs.", "detailsLabel": "Detalles", "detailsType":"text"},
+            "Pago Movil": { "currency": "Bs.", "detailsLabel": "Detalles", "detailsType":"text"},
             "Transferencia": { "currency": "Bs","detailsLabel": "Numero Transferencia", "detailsType":"text"}
     },
     "defaultPayment": {
@@ -222,6 +222,16 @@
                 "required": true
             }
         },
+        "exchange": {
+            "label": "Tasa de Cambio",
+            "type" : "numeric",
+            "validation": {
+                "required": true,
+                "numeric": true
+            }
+        }
+    },
+    "settingsExchangeFields": {
         "exchange": {
             "label": "Tasa de Cambio",
             "type" : "numeric",

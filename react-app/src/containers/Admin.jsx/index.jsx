@@ -9,6 +9,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -54,8 +55,13 @@ export default function Dashboard() {
             { parameters.name }
           </Typography>
           <IconButton color="inherit" onClick={toogleShowCart}>
+            <Badge>
+              <AttachMoneyIcon />
+            </Badge>
+          </IconButton>
+          <IconButton color="inherit" onClick={toogleShowCart}>
             <Badge badgeContent={cartItems(cart)} color="secondary">
-              <ShoppingCartIcon />
+              <AttachMoneyIcon />
             </Badge>
           </IconButton>
         </Toolbar>

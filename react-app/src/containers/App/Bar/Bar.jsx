@@ -2,6 +2,7 @@ import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { Typography } from '@material-ui/core'
 import Badge from '@material-ui/core/Badge';
 import AppBar from '@material-ui/core/AppBar';
@@ -22,6 +23,9 @@ const Bar = () => {
     const toogleShowCart  = () => {
         history.push("/")
         dispatch({ type: 'state/toogleShowCart' })
+    }
+    const toogleShowExchange  = () => {
+        dispatch({ type: 'state/toogleShowExchange' })
     } 
     const toogleOpenDrawer  = () => dispatch({ type: 'state/toogleOpenDrawer' })
     return (
@@ -37,6 +41,9 @@ const Bar = () => {
             <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
                 { parameters.name }
             </Typography>
+            <IconButton color="inherit" onClick={toogleShowExchange}>
+                <AttachMoneyIcon />
+            </IconButton>
             <IconButton color="inherit" onClick={toogleShowCart}>
                 <Badge badgeContent={cartItems(cart)} color="secondary">
                 <ShoppingCartIcon />
