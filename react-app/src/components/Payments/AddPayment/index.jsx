@@ -15,12 +15,15 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TextField from '@material-ui/core/TextField';
 import { useStyles } from './style'
+import { totalize, cartTotal } from 'utils/utils'
 
 import { paymentTypes, defaultPayment } from 'store/mockups/settings.json'
 
 const AddPayment = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
+    const cart = useSelector(state => state.cart.products)
+    const payments = useSelector(state => state.payment.payments)
     const [values, setValues] = useState(defaultPayment)
 
     const open = useSelector(state => state.payment.open)
@@ -43,12 +46,27 @@ const AddPayment = () => {
         toggleOpen()
     }
 
+    
+    const calcBalance = (currency = 'Efectivo $') => {
+        const total = cartTotal(cart)
+        const totalAmount = totalize(payments, 'amount')
+        let balance = total - totalAmount
+        if(paymentTypes[currency].currency !== '$') {
+            balance = balance * exchange
+        }
+        return balance
+    }
     useEffect(()=>{
-        setValues(defaultPayment)
+        setValues( {...defaultPayment, amount: calcBalance()})
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [open])
 
     const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+        let newValues = { ...values, [prop]: event.target.value }
+        if(prop === 'payment_type') {
+            newValues.amount = calcBalance(event.target.value)
+        }
+        setValues({ ...newValues});
     };
 
     return (
@@ -60,6 +78,7 @@ const AddPayment = () => {
             </DialogContentText>
             <FormControl className={classes.formControl}>
                 <Select
+                  autoFocus
                     value={values.payment_type || ''}
                     onChange={handleChange('payment_type')}
                     className={classes.selectEmpty}
@@ -73,6 +92,7 @@ const AddPayment = () => {
             <FormControl fullWidth className={classes.margin}>
                 <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
                 <Input
+                                  
                     id="standard-adornment-amount"
                     value={values.amount || ''}
                     onChange={handleChange('amount')}
@@ -81,7 +101,6 @@ const AddPayment = () => {
             </FormControl>
             <TextField
                     id="name"
-                    autoFocus
                     margin="dense"
                     value={values.details || ''}
                     onChange={handleChange('details')}
