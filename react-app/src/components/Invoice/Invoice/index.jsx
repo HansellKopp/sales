@@ -29,6 +29,7 @@ const InvoiceHeader = () => {
     <h3>Nombre / Razon social: {invoice.person.firstname} {invoice.person.lastname}</h3>
     <h3>Direccion: {invoice.person.address} {invoice.person.city}</h3>
     <h3><span>Telefono: {invoice.person.phone}</span> <span>Email: {invoice.person.email}</span></h3>
+    <h3><span>Tipo de venta: {invoice.person.extern ? 'Externo': 'Tienda'}</span></h3>
   </div>
   </div>
   <hr></hr>

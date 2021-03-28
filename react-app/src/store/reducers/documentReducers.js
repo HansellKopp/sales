@@ -4,7 +4,9 @@ export const initialState = {
     errors: {},
     showErrors: false,
     data: {
-      person: {},
+      person: {
+        extern: false
+      },
       header: {},
       products: [],
     },

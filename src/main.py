@@ -10,7 +10,7 @@ enviroment = config['development']
 app = create_app(enviroment)
 
 CORS(app)
-
+# app.config["SQLALCHEMY_ECHO"] = True
 app.config["SWAGGER"] = {
 "swagger_version": "2.0",
 "title": "Sales API",

@@ -61,6 +61,7 @@ def create_person():
                         email=json['email'],
                         tax_id=json['tax_id'],
                         person_type=json['person_type'],
+                        extern=json['extern'],
                         )
 
     if person.save():
@@ -81,6 +82,7 @@ def update_person(person):
     person.email = json.get('email', person.email)
     person.tax_id = json.get('tax_id', person.tax_id)
     person.person_type = json.get('person_type', person.person_type)
+    person.extern = json.get('extern', person.extern)
 
     if person.save():
         return response(person_schema.dump(person))

@@ -1,5 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import TextField from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { validate } from 'utils/utils'
 import Search from 'components/Search';
 
@@ -12,14 +14,20 @@ const InvoiceForm = () => {
     const { person } = useSelector(state => state.document.data)
     const { errors } = useSelector(state => state.document)
 
-    const handleChange = (event) => {
-        const target = event.target
-        const newData = { ...person, [target.name]: target.value }
+    const changeValue = (name, value) => {
+        const newData = { ...person, [name]: value }
         const newErrors = validate(invoiceFormFields, {...newData})
         dispatch({ type: 'document/setPerson', payload:  newData })
         dispatch({ type: 'document/setErrors', payload:  newErrors })
+    }
+    const handleChange = (event) => {
+        const {name, value}  = event.target
+        changeValue(name, value)
     };
-
+    const handleSwitch = (event) => {
+        const {name, checked}  = event.target
+        changeValue(name, checked)
+    }
     const selectPerson = (data) => {
         const newValues = {...person}
         Object.keys(invoiceFormFields).map(key => {
@@ -45,11 +53,25 @@ const InvoiceForm = () => {
             <form className={classes.root} noValidate autoComplete="off">                
                 {Object.keys(invoiceFormFields).map(key => {
                     const error = errors[key]
+                    const field = invoiceFormFields[key]
                     const helperText = error ? 
                         error :
                         invoiceFormFields[key].helperText
-                    return (
-                        <TextField
+                    return (<>
+                        {field['type']==='boolean' ?
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                    key={key}
+                                    name={key}
+                                    color="primary"
+                                    checked={person[key]}
+                                    onChange={handleSwitch}
+                                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                                />}
+                                label="Externo"
+                            />
+                        :<TextField
                             key={key}
                             name={key}
                             size='medium'
@@ -58,13 +80,13 @@ const InvoiceForm = () => {
                             style={{ margin: 8 }}
                             onChange={handleChange}
                             InputLabelProps={{ shrink: true }}
-                            label={invoiceFormFields[key].label}
+                            label={field.label}
                             helperText={helperText || ''}
-                            fullWidth={invoiceFormFields[key].fullWidth || false}
-                            placeholder={invoiceFormFields[key].placeholder || ''}
+                            fullWidth={field.fullWidth || false}
+                            placeholder={field.placeholder || ''}
                             error={error}
-                        /> 
-                    )
+                        />}
+                        </>)
                 }
                 )}
             </form>

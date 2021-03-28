@@ -21,12 +21,13 @@ class Person(db.Model):
     email = db.Column(db.String, nullable=True)
     tax_id = db.Column(db.String, nullable=False)
     person_type = db.Column(db.String, nullable=False)
+    extern = db.Column(db.Boolean, nullable=False, default=False)
     document = db.relationship('Document', backref='person', lazy=True)
 
     @classmethod
-    def new(cls, tax_id, firstname, lastname, address, city, phone, email, person_type):
+    def new(cls, tax_id, firstname, lastname, address, city, phone, email, person_type, extern):
         return Person(tax_id=tax_id, firstname=firstname, lastname=lastname, address=address,
-                      city=city, phone=phone, email=email, person_type=person_type)
+                      city=city, phone=phone, email=email, person_type=person_type, extern=extern)
 
     @classmethod
     def get_by_page(cls, order, page, per_page=10, q="", person_type=""):
@@ -73,7 +74,8 @@ class Person(db.Model):
                 email=new_person.get('email', ''),
                 phone= new_person.get('phone', ''),
                 lastname=new_person.get('lastname', ''),
-                person_type=new_person.get('person_type', 'client')
+                person_type=new_person.get('person_type', 'client'),
+                extern=new_person.get('extern', False)
             )
         else:            
             person.firstname=new_person.get('firstname', person.firstname)
@@ -84,6 +86,7 @@ class Person(db.Model):
             person.phone= new_person.get('phone',person.phone)
             person.lastname=new_person.get('lastname',person.lastname)
             person.person_type=new_person.get('person_type',person.person_type)
+            person.extern=new_person.get('extern',person.extern)
         return person
 
     def save(self):
@@ -123,6 +126,7 @@ def insert_Persons(*args, **kwargs):
                 phone=record['phone'],
                 email=record['email'],
                 person_type=record['person_type'],
+                extern=record['extern'],
             ))
             try:
                 db.session.commit()

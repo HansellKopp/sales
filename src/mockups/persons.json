@@ -7,7 +7,8 @@
         "city": "Barcelona",
         "phone": "0281-2866220",
         "email": "hksistemas@gmail.com",
-        "person_type": "supplier"
+        "person_type": "supplier",
+        "extern": false
     },
     {
         "tax_id": "V10202014",
@@ -17,7 +18,8 @@
         "city": "Lecheria",
         "phone": "0414-8188008",
         "email": "evi@gmail.com",
-        "person_type": "client"
+        "person_type": "client",
+        "extern": true
     }
 
 ]
